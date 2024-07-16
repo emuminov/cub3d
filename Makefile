@@ -2,25 +2,30 @@ NAME = cub3d
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
+XFLAGS = -lXext -lX11
 
 OBJS_DIR = .obj/
 SRC_DIR = src/
-# LIBFT_DIR = $(SRC_DIR)libft/
+LIBFT_DIR = $(SRC_DIR)libft/
+MLBX_DIR = $(SRC_DIR)minilibx-linux/
 CUB_DIR = $(SRC_DIR)minishell/
 
 SRCS = main.c
 
-# HEADERS = ./src/libft/include/libft.h ./src/libft/include/ft_printf.h \
-# 		./src/libft/include/get_next_line.h include/cub3d.h \
+HEADERS = ./src/libft/libft.h ./src/libft/ft_printf/ft_printf.h \
+		./src/libft/get_next_line/get_next_line.h include/cub3d.h \
 
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
 .SILENT :
 
-all : obj $(NAME)
+all : obj libft minilibx $(NAME)
 
 obj :
 	@mkdir -p $(OBJS_DIR)
+
+minilibx :
+	@make --no-print-directory -C $(MLBX_DIR)
 
 libft :
 	@make --no-print-directory -C $(LIBFT_DIR)
@@ -30,7 +35,7 @@ $(NAME) : $(OBJS)
 	#@norminette $(SRC_DIR) $(HEADERS)
 	@echo -n "$(Red)Compilation de cub3d ..${NC}" && sleep 0.2
 	@echo -n "$(Red)\rCompilation de cub3d ...${NC}"
-	$(CC) $^ $(CFLAGS) -o  $(NAME) && sleep 0.3
+	$(CC) $^  $(XFLAGS) $(CFLAGS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -o $(NAME) && sleep 0.1
 	@echo "$(Green)\r------Compilation de cub3d finie !-------${NC}"
 
 sus:
@@ -53,18 +58,18 @@ sus:
 	@echo "$(White)         ░▀▀█░█░█░▀▀█$(NC)"
 	@echo "$(White)         ░▀▀▀░▀▀▀░▀▀▀$(NC)"
 
-$(OBJS_DIR)%.o : $(SRC_DIR)%.c Makefile #$(HEADERS)
+$(OBJS_DIR)%.o : $(SRC_DIR)%.c Makefile $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	# @cd $(LIBFT_DIR) && $(MAKE) --no-print-directory clean
-	# cd $(D_PRINTF_DIR) && $(MAKE) --no-print-directory clean
+	@cd $(MLBX_DIR) && $(MAKE) --no-print-directory clean
+	@cd $(LIBFT_DIR) && $(MAKE) --no-print-directory clean
 	@rm -rf $(OBJS_DIR)
 
 fclean :
-	# cd $(LIBFT_DIR) && $(MAKE) --no-print-directory fclean
-	# cd $(D_PRINTF_DIR) && $(MAKE) --no-print-directory fclean
-	rm -rf $(OBJS_DIR) $(NAME)
+	@cd $(MLBX_DIR) && $(MAKE) --no-print-directory clean
+	@cd $(LIBFT_DIR) && $(MAKE) --no-print-directory fclean
+	@rm -rf $(OBJS_DIR) $(NAME)
 
 re : fclean
 	$(MAKE) all
