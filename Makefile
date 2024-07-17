@@ -10,7 +10,7 @@ LIBFT_DIR = $(SRC_DIR)libft/
 MLBX_DIR = $(SRC_DIR)minilibx-linux/
 CUB_DIR = $(SRC_DIR)minishell/
 
-SRCS = main.c
+SRCS = main.c utils.c init.c
 
 HEADERS = ./src/libft/libft.h ./src/libft/ft_printf/ft_printf.h \
 		./src/libft/get_next_line/get_next_line.h include/cub3d.h \

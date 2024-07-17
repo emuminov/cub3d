@@ -1,2 +1,8 @@
-NO oui
-NO non
+F 1,2,3
+F 1,2,3
+
+C 1,2,30
+EA oui
+WE non
+NO fe
+SO zf

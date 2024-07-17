@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:35:57 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/16 18:29:21 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/17 20:05:49 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,8 @@ int	main(int argc, char **argv)
 {
 	static t_game	game;
 
-	
 	game = game_init(argc, argv);
 	(void)game;
-}
-
-t_config	config_init(void)
-{
-	t_config	config;
-	
-	config.north_path = NULL;
-	config.east_path = NULL;
-	config.west_path = NULL;
-	config.south_path = NULL;
-	config.floor_color = NULL;
-	config.ceiling_color = NULL;
-	return (config);
-}
-
-t_game	game_init(int argc, char **argv)
-{
-	int		fd;
-	t_game	game;
-
-	fd = error_manager(argc, argv[1]);
-	game.config = config_init();
-	parse_map(fd, &game.config);
-	return (game);
 }
 
 int	error_manager(int argc, char *argv)
@@ -83,29 +58,198 @@ void	parse_map(int fd, t_config *config)
 	}
 	while (parse_line(gnl, config) == 1)
 		gnl = get_next_line(fd);
-	printf("%s\n", config->north_path);
 	free(gnl);
-	free(config->north_path);
+	printf("north value : %s, east value : %s, south value : %s, west value : %s\n", config->north_path, config->east_path, config->south_path, config->west_path);
+	printf("%d, %d, %d\n", config->floor_color[0], config->floor_color[1], config->floor_color[2]);
+	printf("%d, %d, %d\n", config->ceiling_color[0], config->ceiling_color[1], config->ceiling_color[2]);
+	free_config(config);
 	close(fd);
+}
+
+void	north_key_manager(char *gnl, t_config *config)
+{
+	int	len;
+
+	if (ft_strncmp(gnl, "NO ", 3) == 0 && config->north_path != NULL)
+	{
+		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
+		get_next_line(-1);
+		free(gnl);
+		free_config(config);
+		exit (1);
+	}
+	if (ft_strncmp(gnl, "NO ", 3) == 0 && gnl[3] != '\0')
+	{
+		config->north_path = ft_strdup(&gnl[3]);
+		len = ft_strlen(config->north_path);
+		config->north_path[len - 1] = '\0';
+	}
+}
+
+	// len = ft_strlen(gnl);
+	// if (error_key(ft_strncmp(gnl, "NO", 2) == 0,
+	// 	gnl, config, gnl[len - 1] == '\n') == 0)
+	// {
+	// 	config->north_path = ft_strdup(&gnl[3]);
+	// 	len = ft_strlen(config->north_path);
+	// 	if (config->north_path[len - 1] == '\n')
+	// 		config->north_path[len - 1] = '\0';
+	// }
+int	error_key(int strcmp_bool, char *gnl, t_config *config, int has_n)
+{
+	int	i;
+
+	i = 0;
+	(void)i;
+	(void)has_n;
+	(void)strcmp_bool;
+	return (0);
+	get_next_line(-1);
+	free(gnl);
+	free_config(config);
+	exit (1);
+	return (1);
+}
+	// if (strcmp_bool && gnl[2] != '\0' && ft_isspace(gnl[2])
+	// 	&& gnl[3] != '\0' && !ft_isspace(gnl[3]))
+	// 	return (0);
+	// if (strcmp_bool && config->north_path != NULL)
+	// 	printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
+	// else if (strcmp_bool && gnl[2] != '\0' && ft_isspace(gnl[3]) && !has_n)
+	// 	printf("\033[0;31m""Error\nKILL YOURSELF!\n""\033[0m");
+	// else if (strcmp_bool && gnl[2] != '\0' && !ft_isspace(gnl[3]) && !has_n)
+	// 	printf("\033[0;31m"
+	// 		"Error\nOne of the texture path is empty!\n""\033[0m");
+	// else if (strcmp_bool && gnl[2] != '\0' && ft_isspace(gnl[3]) && has_n && gnl[3] == '\0')
+	// 	printf("\033[0;31m""Error\nKILL YOURSELF!\n""\033[0m");
+	// else if (strcmp_bool && gnl[2] != '\0' && !ft_isspace(gnl[3]) && has_n && gnl[3] != '\0' && gnl[4] == '\0')
+	// 	printf("\033[0;31m"
+	// 		"Error\nOne of the texture path is empty!\n""\033[0m");
+
+void	east_key_manager(char *gnl, t_config *config)
+{
+	int	len;
+
+	if (ft_strncmp(gnl, "EA ", 3) == 0 && config->east_path != NULL)
+	{
+		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
+		get_next_line(-1);
+		free(gnl);
+		free_config(config);
+		exit (1);
+	}
+	if (ft_strncmp(gnl, "EA ", 3) == 0 && gnl[3] != '\0')
+	{
+		config->east_path = ft_strdup(&gnl[3]);
+		len = ft_strlen(config->east_path);
+		config->east_path[len - 1] = '\0';
+	}
+}
+
+void	west_key_manager(char *gnl, t_config *config)
+{
+	int	len;
+
+	if (ft_strncmp(gnl, "WE ", 3) == 0 && config->west_path != NULL)
+	{
+		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
+		get_next_line(-1);
+		free(gnl);
+		free_config(config);
+		exit (1);
+	}
+	if (ft_strncmp(gnl, "WE ", 3) == 0 && gnl[3] != '\0')
+	{
+		config->west_path = ft_strdup(&gnl[3]);
+		len = ft_strlen(config->west_path);
+		config->west_path[len - 1] = '\0';
+	}
+}
+
+void	south_key_manager(char *gnl, t_config *config)
+{
+	int	len;
+
+	if (ft_strncmp(gnl, "SO ", 3) == 0 && config->south_path != NULL)
+	{
+		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
+		get_next_line(-1);
+		free(gnl);
+		free_config(config);
+		exit (1);
+	}
+	if (ft_strncmp(gnl, "SO ", 3) == 0 && gnl[3] != '\0')
+	{
+		config->south_path = ft_strdup(&gnl[3]);
+		len = ft_strlen(config->south_path);
+		config->south_path[len - 1] = '\0';
+	}
+}
+
+void	ceiling_key_manager(char *gnl, t_config *config)
+{
+	if (ft_strncmp(gnl, "C ", 2) == 0 && config->ceiling_color != NULL)
+	{
+		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
+		get_next_line(-1);
+		free(gnl);
+		free_config(config);
+		exit (1);
+	}
+	if (ft_strncmp(gnl, "C ", 2) == 0 && gnl[2] != '\0')
+	{
+		config->ceiling_color = calloc(3, sizeof(int));
+		config->ceiling_color[0] = ft_atoc(&gnl[2]);
+		config->ceiling_color[1] = ft_atoc(ft_strchr(&gnl[2], ',') + 1);
+		config->ceiling_color[2] = ft_atoc(ft_strrchr(gnl, ',') + 1);
+		if (charcmp(gnl, ',') != 2)
+		{
+			printf("\033[0;31m""Error\nColors needs 3 numbers!\n""\033[0m");
+			get_next_line(-1);
+			free(gnl);
+			free_config(config);
+			exit (1);
+		}
+	}
+}
+
+void	floor_key_manager(char *gnl, t_config *config)
+{
+	if (ft_strncmp(gnl, "F ", 2) == 0 && config->floor_color != NULL)
+	{
+		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
+		get_next_line(-1);
+		free(gnl);
+		free_config(config);
+		exit (1);
+	}
+	if (ft_strncmp(gnl, "F ", 2) == 0 && gnl[2] != '\0')
+	{
+		config->floor_color = calloc(3, sizeof(int));
+		config->floor_color[0] = ft_atoc(&gnl[2]);
+		config->floor_color[1] = ft_atoc(ft_strchr(&gnl[2], ',') + 1);
+		config->floor_color[2] = ft_atoc(ft_strrchr(gnl, ',') + 1);
+		if (charcmp(gnl, ',') != 2)
+		{
+			printf("\033[0;31m""Error\nColors needs 3 numbers!\n""\033[0m");
+			get_next_line(-1);
+			free(gnl);
+			free_config(config);
+			exit (1);
+		}
+	}
 }
 
 int	parse_line(char *gnl, t_config *config)
 {
 	if (gnl == NULL)
-	{
-		free(gnl);
 		return (0);
-	}
-	if (ft_strncmp(gnl, "NO ", 3) == 0 && config->north_path != NULL)
-	{
-		printf("\033[0;31m""Error \nDouble keys are not allowed!\n""\033[0m");
-		get_next_line(-1);
-		free(gnl);
-		free(config->north_path);
-		exit (1);
-	}
-	if (ft_strncmp(gnl, "NO ", 3) == 0 && gnl[3] != '\0')
-		config->north_path = ft_strdup(&gnl[3]);
+	north_key_manager(gnl, config);
+	south_key_manager(gnl, config);
+	east_key_manager(gnl, config);
+	west_key_manager(gnl, config);
+	floor_key_manager(gnl, config);
+	ceiling_key_manager(gnl, config);
 	free(gnl);
 	return (1);
 }
