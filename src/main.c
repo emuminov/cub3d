@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:35:57 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/18 15:55:25 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/23 15:38:05 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	error_key(char *gnl, t_config *conf, int i, int strcmp_value)
 		else if (ft_isspace(gnl[i]) == 1)
 			printf("\033[0;31m"
 				"Error\nOnly one space is needed after a key!\n""\033[0m");
-		else if (strcmp_value == 0)
+		else if (strcmp_value == 1)
 			return (0);
 	}
 	get_next_line(-1);
@@ -191,7 +191,7 @@ void	floor_key_manager(char *gnl, t_config *conf)
 {
 	if (ft_strncmp(gnl, "F", 1) != 0)
 		return ;
-	if (error_key(gnl, conf, 1, ft_strncmp(gnl, "F", 1)) == 1)
+	if (error_key(gnl, conf, 1, ft_strncmp(gnl, "F", 1) == 0) == 1)
 		return ;
 	if (conf->floor_c != NULL)
 	{
