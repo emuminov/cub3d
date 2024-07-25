@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:35:57 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/23 15:38:05 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/25 11:50:11 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	error_manager(int argc, char *argv)
 	return (fd);
 }
 
-void	parse_map(int fd, t_config *conf)
+void	parse_map(int fd, t_config_parsing *conf)
 {
 	char	*gnl;
 
@@ -64,11 +64,10 @@ void	parse_map(int fd, t_config *conf)
 		printf("%d, %d, %d\n", conf->floor_c[0], conf->floor_c[1], conf->floor_c[2]);
 	if (conf->ceiling_c != NULL)
 		printf("%d, %d, %d\n", conf->ceiling_c[0], conf->ceiling_c[1], conf->ceiling_c[2]);
-	free_config(conf);
 	close(fd);
 }
 
-void	north_key_manager(char *gnl, t_config *conf)
+void	north_key_manager(char *gnl, t_config_parsing *conf)
 {
 	if (ft_strncmp(gnl, "NO", 2) != 0)
 		return ;
@@ -78,14 +77,14 @@ void	north_key_manager(char *gnl, t_config *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config(conf), exit(1));
+		return (free(gnl), free_config_p(conf), exit(1));
 	}
 	conf->north_path = ft_strdup(&gnl[3]);
 	if (gnl[ft_strlen(gnl) - 1] == '\n')
 		conf->north_path[ft_strlen(conf->north_path) - 1] = '\0';
 }
 
-int	error_key(char *gnl, t_config *conf, int i, int strcmp_value)
+int	error_key(char *gnl, t_config_parsing *conf, int i, int strcmp_value)
 {
 	if (gnl[i] != '\0' && gnl[i] != '\n' && gnl[i] != ' ')
 		return (1);
@@ -106,10 +105,10 @@ int	error_key(char *gnl, t_config *conf, int i, int strcmp_value)
 			return (0);
 	}
 	get_next_line(-1);
-	return (free(gnl), free_config(conf), exit(1), 1);
+	return (free(gnl), free_config_p(conf), exit(1), 1);
 }
 
-void	east_key_manager(char *gnl, t_config *conf)
+void	east_key_manager(char *gnl, t_config_parsing *conf)
 {
 	if (ft_strncmp(gnl, "EA", 2) != 0)
 		return ;
@@ -119,31 +118,31 @@ void	east_key_manager(char *gnl, t_config *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config(conf), exit(1));
+		return (free(gnl), free_config_p(conf), exit(1));
 	}
 	conf->east_path = ft_strdup(&gnl[3]);
 	if (gnl[ft_strlen(gnl) - 1] == '\n')
 		conf->east_path[ft_strlen(conf->east_path) - 1] = '\0';
 }
 
-void	west_key_manager(char *gnl, t_config *conf)
+void	west_key_manager(char *gnl, t_config_parsing *conf)
 {
 	if (ft_strncmp(gnl, "WE", 2) != 0)
 		return ;
-	if (error_key(gnl, conf, 2, ft_strncmp(gnl, "WE", 2)) == 1)
+	if (error_key(gnl, conf, 2, ft_strncmp(gnl, "WE", 2) == 0) == 1)
 		return ;
 	if (conf->west_path != NULL)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config(conf), exit(1));
+		return (free(gnl), free_config_p(conf), exit(1));
 	}
 	conf->west_path = ft_strdup(&gnl[3]);
 	if (gnl[ft_strlen(gnl) - 1] == '\n')
 		conf->west_path[ft_strlen(conf->west_path) - 1] = '\0';
 }
 
-void	south_key_manager(char *gnl, t_config *conf)
+void	south_key_manager(char *gnl, t_config_parsing *conf)
 {
 	if (ft_strncmp(gnl, "SO", 2) != 0)
 		return ;
@@ -153,14 +152,14 @@ void	south_key_manager(char *gnl, t_config *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config(conf), exit(1));
+		return (free(gnl), free_config_p(conf), exit(1));
 	}
 	conf->south_path = ft_strdup(&gnl[3]);
 	if (gnl[ft_strlen(gnl) - 1] == '\n')
 		conf->south_path[ft_strlen(conf->south_path) - 1] = '\0';
 }
 
-void	ceiling_key_manager(char *gnl, t_config *conf)
+void	ceiling_key_manager(char *gnl, t_config_parsing *conf)
 {
 	if (ft_strncmp(gnl, "C", 1) != 0)
 		return ;
@@ -170,11 +169,11 @@ void	ceiling_key_manager(char *gnl, t_config *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config(conf), exit(1));
+		return (free(gnl), free_config_p(conf), exit(1));
 	}
-	conf->ceiling_c = calloc(3, sizeof(int));
 	if (ft_strchr(&gnl[2], ',') != NULL && ft_strrchr(gnl, ',') != NULL)
 	{
+		conf->ceiling_c = calloc(3, sizeof(int));
 		conf->ceiling_c[0] = ft_atoc(&gnl[2], gnl, conf);
 		conf->ceiling_c[1] = ft_atoc(ft_strchr(&gnl[2], ',') + 1, gnl, conf);
 		conf->ceiling_c[2] = ft_atoc(ft_strrchr(gnl, ',') + 1, gnl, conf);
@@ -183,11 +182,40 @@ void	ceiling_key_manager(char *gnl, t_config *conf)
 	{
 		printf("\033[0;31m""Error\nColors needs 3 numbers!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config(conf), exit(1));
+		return (free(gnl), free_config_p(conf), exit(1));
 	}
 }
 
-void	floor_key_manager(char *gnl, t_config *conf)
+void	path_format_checker(char *str, t_config_parsing *conf);
+
+void	paths_errors(t_config_parsing *conf)
+{
+	if (!conf->east_path || !conf->north_path || !conf->south_path || !conf->west_path || !conf->floor_c || !conf->ceiling_c)
+	{
+		printf("\033[0;31m""Error\nA key is missing!\n""\033[0m");
+		free_config_p(conf);
+		exit (1);
+	}
+	path_format_checker(conf->east_path, conf);
+	path_format_checker(conf->north_path, conf);
+	path_format_checker(conf->south_path, conf);
+	path_format_checker(conf->west_path, conf);
+}
+
+void	path_format_checker(char *str, t_config_parsing *conf)
+{
+	char	*check;
+
+	check = ft_strnstr(str, ".xpm", ft_strlen(str));
+	if (check == NULL || ft_strncmp(".xpm", check, 5) != 0)
+	{
+		printf("\033[0;31m""Error \nOne of the textures is not in a .xpm format!\n""\033[0m");
+		free_config_p(conf);
+		exit(1);
+	}
+}
+
+void	floor_key_manager(char *gnl, t_config_parsing *conf)
 {
 	if (ft_strncmp(gnl, "F", 1) != 0)
 		return ;
@@ -197,11 +225,11 @@ void	floor_key_manager(char *gnl, t_config *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config(conf), exit(1));
+		return (free(gnl), free_config_p(conf), exit(1));
 	}
-	conf->floor_c = calloc(3, sizeof(int));
 	if (ft_strchr(&gnl[2], ',') != NULL && ft_strrchr(gnl, ',') != NULL)
 	{
+		conf->floor_c = calloc(3, sizeof(int));
 		conf->floor_c[0] = ft_atoc(&gnl[2], gnl, conf);
 		conf->floor_c[1] = ft_atoc(ft_strchr(&gnl[2], ',') + 1, gnl, conf);
 		conf->floor_c[2] = ft_atoc(ft_strrchr(gnl, ',') + 1, gnl, conf);
@@ -210,11 +238,47 @@ void	floor_key_manager(char *gnl, t_config *conf)
 	{
 		printf("\033[0;31m""Error\nColors needs 3 numbers!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config(conf), exit(1));
+		return (free(gnl), free_config_p(conf), exit(1));
 	}
 }
 
-int	parse_line(char *gnl, t_config *conf)
+void	open_paths(t_config_parsing *conf_p, t_config *conf)
+{
+	conf->east_fd = open(conf_p->east_path, O_RDONLY);
+	if (conf->east_fd == -1)
+	{
+		printf("\033[0;31m"
+			"Error\nEast path: %s: no such file or directory!\n""\033[0m",
+			conf_p->east_path);
+		return (free_config_p(conf_p), free_config(conf), exit (1));
+	}
+	conf->north_fd = open(conf_p->north_path, O_RDONLY);
+	if (conf->north_fd == -1)
+	{
+		printf("\033[0;31m"
+			"Error\nNorth path: %s: no such file or directory!\n""\033[0m",
+			conf_p->north_path);
+		return (free_config_p(conf_p), free_config(conf), exit (1));
+	}
+	conf->west_fd = open(conf_p->west_path, O_RDONLY);
+	if (conf->west_fd == -1)
+	{
+		printf("\033[0;31m"
+			"Error\nWest path: %s: no such file or directory!\n""\033[0m",
+			conf_p->west_path);
+		return (free_config_p(conf_p), free_config(conf), exit (1));
+	}
+	conf->south_fd = open(conf_p->south_path, O_RDONLY);
+	if (conf->south_fd == -1)
+	{
+		printf("\033[0;31m"
+			"Error\nSouth path: %s: no such file or directory!\n""\033[0m",
+			conf_p->south_path);
+		return (free_config_p(conf_p), free_config(conf), exit (1));
+	}
+}
+
+int	parse_line(char *gnl, t_config_parsing *conf)
 {
 	if (gnl == NULL)
 		return (0);

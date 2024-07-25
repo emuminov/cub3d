@@ -8,7 +8,6 @@ OBJS_DIR = .obj/
 SRC_DIR = src/
 LIBFT_DIR = $(SRC_DIR)libft/
 MLBX_DIR = $(SRC_DIR)minilibx-linux/
-CUB_DIR = $(SRC_DIR)minishell/
 
 SRCS = main.c utils.c init.c
 
