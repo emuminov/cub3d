@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:16 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/25 11:38:40 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/25 14:38:44 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	free_config_p(t_config_parsing *conf)
 		free(conf->floor_c);
 	if (conf->ceiling_c != NULL)
 		free(conf->ceiling_c);
+	if (conf->map_fd != -1)
+		close(conf->map_fd);
 }
 
 void	free_config(t_config *conf)
