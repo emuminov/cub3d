@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:35:57 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/25 16:21:33 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/26 01:45:51 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	static t_game	game;
 
 	game = game_init(argc, argv);
-	free(game.map_1d);
+	(void)game;
 }
 
 int	error_manager(int argc, char *argv)
@@ -57,17 +57,18 @@ void	parse_map(int fd, t_config_parsing *conf, t_game *game)
 		close(fd);
 		exit (1);
 	}
-	while (parse_line_keys(gnl, conf) == 1)
+	while (parse_line(gnl, conf) == 1)
 		gnl = get_next_line(fd);
 	free(gnl);
 	close(fd);
 	// while ()
+	(void)game;
 	printf("north value : %s, east value : %s, south value : %s, west value : %s\n", conf->north_path, conf->east_path, conf->south_path, conf->west_path);
 	if (conf->floor_c != NULL)
 		printf("%d, %d, %d\n", conf->floor_c[0], conf->floor_c[1], conf->floor_c[2]);
 	if (conf->ceiling_c != NULL)
 		printf("%d, %d, %d\n", conf->ceiling_c[0], conf->ceiling_c[1], conf->ceiling_c[2]);
-	printf("%s\n", game->map_1d);
+	// printf("%s\n", conf->map_1d);
 }
 
 int	north_key_manager(char *gnl, t_config_parsing *conf)
@@ -306,24 +307,58 @@ char	*ft_strjoin_free(char *s1, char *s2)
 
 // ===TO DO===
 // check if there is no keys that are equal to gnl (= error of config)
-// 
+//
 
-int	parse_line_keys(char *gnl, t_config_parsing *conf_p)
+int	map_manager(char *gnl, t_config_parsing *conf)
+{
+	int	i;
+
+	i = 0;
+	if ((!conf->east_path || !conf->north_path || !conf->south_path
+		|| !conf->west_path || !conf->floor_c || !conf->ceiling_c))
+		return (0);
+	if (((ft_strncmp(gnl, "SO", 2) == 0 && (gnl[2] == '\0' || gnl[2] == '\n' || gnl[2] == ' '))
+		|| (ft_strncmp(gnl, "NO", 2) == 0 && (gnl[2] == '\0' || gnl[2] == '\n' || gnl[2] == ' '))
+		|| (ft_strncmp(gnl, "EA", 2) == 0 && (gnl[2] == '\0' || gnl[2] == '\n' || gnl[2] == ' '))
+		|| (ft_strncmp(gnl, "WE", 2) == 0 && (gnl[2] == '\0' || gnl[2] == '\n' || gnl[2] == ' '))
+		|| (ft_strncmp(gnl, "C", 1) == 0 && (gnl[1] == '\0' || gnl[1] == '\n' || gnl[1] == ' '))
+		|| (ft_strncmp(gnl, "F", 1) == 0 && (gnl[1] == '\0' || gnl[1] == '\n' || gnl[1] == ' '))) && conf->keys_finished == 0)
+		return (0);
+	while (gnl[i])
+	{
+		if (ft_strchr(" 01NESW\n", gnl[i]) == NULL)
+		{
+			printf("\033[0;31m""Error\nUnrecognized character in map!\n""\033[0m");
+			get_next_line(-1);
+			return (free_config_p(conf), free(gnl), exit(1), 0);
+		}
+		i++;
+	}
+	conf->map_1d = ft_strjoin_free(conf->map_1d, gnl);
+	return (1);
+}
+
+
+int	parse_line(char *gnl, t_config_parsing *conf_p)
 {
 	int	key_rv;
 
 	key_rv = 0;
 	if (gnl == NULL)
 		return (0);
-	key_rv += north_key_manager(gnl, conf_p);
-	key_rv += south_key_manager(gnl, conf_p);
-	key_rv += east_key_manager(gnl, conf_p);
-	key_rv += west_key_manager(gnl, conf_p);
-	key_rv += floor_key_manager(gnl, conf_p);
-	key_rv += ceiling_key_manager(gnl, conf_p);
-	if (key_rv != 1 && (ft_strcmp(gnl, "\n") != 0))
+	if (conf_p->keys_finished == 0)
 	{
-		printf("\033[0;31m""Error\nUnrecognized character in map!\n""\033[0m");
+		key_rv += north_key_manager(gnl, conf_p);
+		key_rv += south_key_manager(gnl, conf_p);
+		key_rv += east_key_manager(gnl, conf_p);
+		key_rv += west_key_manager(gnl, conf_p);
+		key_rv += floor_key_manager(gnl, conf_p);
+		key_rv += ceiling_key_manager(gnl, conf_p);
+	}
+	conf_p->keys_finished += map_manager(gnl, conf_p);
+	if (key_rv != 1 && (ft_strcmp(gnl, "\n") != 0) && conf_p->keys_finished == 0)
+	{
+		printf("\033[0;31m""Error\nUnrecognized character in keys!\n""\033[0m");
 		get_next_line(-1);
 		return (free_config_p(conf_p), free(gnl), exit(1), 0);
 	}

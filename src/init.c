@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/25 15:56:23 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/26 00:38:46 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_config_parsing	config_parsing_init(void)
 	conf.west_path = NULL;
 	conf.south_path = NULL;
 	conf.floor_c = NULL;
+	conf.map_1d = NULL;
+	conf.keys_finished = 0;
 	conf.map_fd = -1;
 	conf.ceiling_c = NULL;
 	return (conf);
@@ -47,7 +49,6 @@ t_game	game_init(int argc, char **argv)
 
 	fd = error_manager(argc, argv[1]);
 	conf_p = config_parsing_init();
-	game.map_1d = NULL;
 	game.conf = config_init();
 	parse_map(fd, &conf_p, &game);
 	paths_errors(&conf_p);

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/25 16:04:45 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/26 00:34:48 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_config_parsing
 	int		map_fd;
 	int		*floor_c;
 	int		*ceiling_c;
+	char	*map_1d;
+	int		keys_finished;
 }	t_config_parsing;
 
 typedef struct s_config
@@ -44,7 +46,6 @@ typedef struct s_config
 typedef struct s_game
 {
 	char		**map;
-	char		*map_1d;
 	t_config	conf;
 }	t_game;
 
@@ -52,7 +53,7 @@ typedef struct s_game
 unsigned char		ft_atoc(const char *str, char *gnl, t_config_parsing *conf);
 int					charcmp(char *str, char c);
 int					error_manager(int argc, char *argv);
-int					parse_line_keys(char *gnl, t_config_parsing *conf);
+int					parse_line(char *gnl, t_config_parsing *conf);
 void				parse_map(int fd, t_config_parsing *conf, t_game *game);
 t_config_parsing	config_parsing_init(void);
 t_config			config_init(void);
