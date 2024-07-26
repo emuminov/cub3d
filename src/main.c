@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:35:57 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/26 01:45:51 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/26 16:45:31 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,16 @@
 int	main(int argc, char **argv)
 {
 	static t_game	game;
+	int				i;
 
+	i = 0;
 	game = game_init(argc, argv);
-	(void)game;
+	while(game.map[i])
+	{
+		printf("%s\n", game.map[i]);
+		i++;
+	}
+	free_tab(game.map);
 }
 
 int	error_manager(int argc, char *argv)
@@ -45,7 +52,7 @@ int	error_manager(int argc, char *argv)
 	return (fd);
 }
 
-void	parse_map(int fd, t_config_parsing *conf, t_game *game)
+void	parse_map(int fd, t_config_parsing *conf)
 {
 	char	*gnl;
 
@@ -61,14 +68,13 @@ void	parse_map(int fd, t_config_parsing *conf, t_game *game)
 		gnl = get_next_line(fd);
 	free(gnl);
 	close(fd);
-	// while ()
-	(void)game;
+	if (conf->keys_finished == 0)
+		return (free_config_p(conf), printf("\033[0;31m""Error \nThe map contains only keys!\n""\033[0m"), exit(1));
 	printf("north value : %s, east value : %s, south value : %s, west value : %s\n", conf->north_path, conf->east_path, conf->south_path, conf->west_path);
 	if (conf->floor_c != NULL)
 		printf("%d, %d, %d\n", conf->floor_c[0], conf->floor_c[1], conf->floor_c[2]);
 	if (conf->ceiling_c != NULL)
 		printf("%d, %d, %d\n", conf->ceiling_c[0], conf->ceiling_c[1], conf->ceiling_c[2]);
-	// printf("%s\n", conf->map_1d);
 }
 
 int	north_key_manager(char *gnl, t_config_parsing *conf)

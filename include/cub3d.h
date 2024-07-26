@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/26 00:34:48 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/26 16:40:53 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ unsigned char		ft_atoc(const char *str, char *gnl, t_config_parsing *conf);
 int					charcmp(char *str, char c);
 int					error_manager(int argc, char *argv);
 int					parse_line(char *gnl, t_config_parsing *conf);
-void				parse_map(int fd, t_config_parsing *conf, t_game *game);
+void				parse_map(int fd, t_config_parsing *conf);
 t_config_parsing	config_parsing_init(void);
 t_config			config_init(void);
 void				free_config(t_config *conf);
@@ -63,5 +63,6 @@ t_game				game_init(int argc, char **argv);
 void				free_config_p(t_config_parsing *conf);
 int					error_key(char *gnl, t_config_parsing *conf, int i, int strcmp_value);
 void				open_paths(t_config_parsing *conf_p, t_config *conf);
+void				free_tab(char **tab);
 
 #endif

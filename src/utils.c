@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:16 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/26 00:31:56 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/26 16:40:39 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,14 @@ void	free_config(t_config *conf)
 		close(conf->north_fd);
 	if (conf->south_fd != -1)
 		close(conf->south_fd);
+}
+
+void	free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
 }

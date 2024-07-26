@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/26 00:38:46 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/26 16:35:42 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ t_game	game_init(int argc, char **argv)
 	fd = error_manager(argc, argv[1]);
 	conf_p = config_parsing_init();
 	game.conf = config_init();
-	parse_map(fd, &conf_p, &game);
+	parse_map(fd, &conf_p);
 	paths_errors(&conf_p);
 	open_paths(&conf_p, &game.conf);
+	game.map = ft_split(conf_p.map_1d, '\n');
 	free_config_p(&conf_p);
 	free_config(&game.conf);
 	return (game);
