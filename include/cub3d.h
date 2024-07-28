@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/26 16:40:53 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/28 16:30:56 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_config_parsing
 	int		*floor_c;
 	int		*ceiling_c;
 	char	*map_1d;
-	int		keys_finished;
+	int		keys_finish;
 }	t_config_parsing;
 
 typedef struct s_config
@@ -42,27 +42,43 @@ typedef struct s_config
 	int		*ceiling_c;
 }	t_config;
 
-
 typedef struct s_game
 {
 	char		**map;
 	t_config	conf;
 }	t_game;
 
-
-unsigned char		ft_atoc(const char *str, char *gnl, t_config_parsing *conf);
-int					charcmp(char *str, char c);
-int					error_manager(int argc, char *argv);
+/*					// PARSE \\					*/
 int					parse_line(char *gnl, t_config_parsing *conf);
 void				parse_map(int fd, t_config_parsing *conf);
+/*					// INNIT \\					*/
 t_config_parsing	config_parsing_init(void);
 t_config			config_init(void);
-void				free_config(t_config *conf);
-void				paths_errors(t_config_parsing *conf);
 t_game				game_init(int argc, char **argv);
-void				free_config_p(t_config_parsing *conf);
-int					error_key(char *gnl, t_config_parsing *conf, int i, int strcmp_value);
+/*					// KEY MANAGEMENT \\					*/
+int					north_key_manager(char *gnl, t_config_parsing *conf);
+int					east_key_manager(char *gnl, t_config_parsing *conf);
+int					west_key_manager(char *gnl, t_config_parsing *conf);
+int					south_key_manager(char *gnl, t_config_parsing *conf);
+int					ceiling_key_manager(char *gnl, t_config_parsing *conf);
+int					floor_key_manager(char *gnl, t_config_parsing *conf);
+int					error_key(char *gnl, t_config_parsing *conf,
+						int i, int strcmp_value);
+int					key_finish_check(char *gnl, t_config_parsing *conf);
+/*					// PATH MANAGEMENT \\					*/
+void				paths_errors(t_config_parsing *conf);
+void				path_format_checker(char *str, t_config_parsing *conf);
 void				open_paths(t_config_parsing *conf_p, t_config *conf);
+int					error_manager(int argc, char *argv);
+void				open_error_manager(t_config_parsing *conf_p, t_config *conf,
+						char *path, char *name);
+/*					// UTILS \\					*/
+unsigned char		ft_atoc(const char *str, char *gnl, t_config_parsing *conf);
+int					charcmp(char *str, char c);
+char				*ft_strjoin_free(char *s1, char *s2);
+/*					// FREE \\					*/
+void				free_config_p(t_config_parsing *conf);
+void				free_config(t_config *conf);
 void				free_tab(char **tab);
 
 #endif

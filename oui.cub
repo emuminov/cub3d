@@ -1,8 +1,14 @@
-NO oui.xpm
-SO oui.xpm
+NO             oui.xpm
 
-WE oui.xpm
-EA oui.xpm
 
-F 1,2,3
-C 1,2,3
+
+
+WE                              oui.xpm
+EA               oui.xpm
+SO           oui.xpm
+
+F           1          ,    2           ,         3           
+C               1             ,2             ,3
+
+
+100

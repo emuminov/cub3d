@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/26 16:35:42 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/28 13:51:44 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_config_parsing	config_parsing_init(void)
 	conf.south_path = NULL;
 	conf.floor_c = NULL;
 	conf.map_1d = NULL;
-	conf.keys_finished = 0;
+	conf.keys_finish = 0;
 	conf.map_fd = -1;
 	conf.ceiling_c = NULL;
 	return (conf);

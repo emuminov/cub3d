@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:16 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/26 16:40:39 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/28 17:56:11 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ int	charcmp(char *str, char c)
 	return (inturn);
 }
 
+int	space_checker(int i, const char *str)
+{
+	while (str[i] == ' ')
+		i++;
+	if (ft_isspace(str[i]) == 1 && str[i] != '\n')
+		return (printf("\033[0;31m"
+				"Error\nOnly spaces are accepted\n""\033[0m"), 1);
+	else if (str[i] != '\0' && str[i] != ',' && str[i] != '\n')
+		return (printf("\033[0;31m"
+				"Error\nOnly positive numbers are accepted for colors!\n"
+				"\033[0m"), 1);
+	return (0);
+}
+
 unsigned char	ft_atoc(const char *str, char *gnl, t_config_parsing *conf)
 {
 	unsigned char	result;
@@ -35,10 +49,13 @@ unsigned char	ft_atoc(const char *str, char *gnl, t_config_parsing *conf)
 
 	result = 0;
 	i = 0;
-	while (ft_isspace(str[i]))
+	while (str[i] == ' ')
 		i++;
 	if (str[i] == '+')
 		i++;
+	if (ft_isspace(str[i]) == 1 && str[i] != '\n')
+		return (printf("\033[0;31m""Error\nOnly spaces are accepted\n""\033[0m")
+			, get_next_line(-1), free(gnl), free_config_p(conf), exit(1), -1);
 	if (str[i] != '\0' && str[i] != ',' && str[i] != '\n')
 		while (str[i] && ft_isdigit(str[i]))
 			result = (result * 10) + (str[i++] - '0');
@@ -47,57 +64,31 @@ unsigned char	ft_atoc(const char *str, char *gnl, t_config_parsing *conf)
 		printf("\033[0;31m""Error\nColors needs 3 numbers!\n""\033[0m");
 		return (get_next_line(-1), free(gnl), free_config_p(conf), exit(1), -1);
 	}
-	if (str[i] != '\0' && str[i] != ',' && str[i] != '\n')
-	{
-		printf("\033[0;31m"
-			"Error\nOnly number are accepted for colors!\n""\033[0m");
+	if (space_checker(i, str) == 1)
 		return (get_next_line(-1), free(gnl), free_config_p(conf), exit(1), -1);
-	}
 	return (result);
 }
 
-void	free_config_p(t_config_parsing *conf)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-	if (conf->north_path != NULL)
-		free(conf->north_path);
-	if (conf->east_path != NULL)
-		free(conf->east_path);
-	if (conf->south_path != NULL)
-		free(conf->south_path);
-	if (conf->west_path != NULL)
-		free(conf->west_path);
-	if (conf->floor_c != NULL)
-		free(conf->floor_c);
-	if (conf->ceiling_c != NULL)
-		free(conf->ceiling_c);
-	if (conf->map_1d != NULL)
-		free(conf->map_1d);
-	if (conf->map_fd != -1)
-		close(conf->map_fd);
-}
+	char	*strs;
+	size_t	len;
+	int		i;
+	int		j;
 
-void	free_config(t_config *conf)
-{
-	if (conf->floor_c != NULL)
-		free(conf->floor_c);
-	if (conf->ceiling_c != NULL)
-		free(conf->ceiling_c);
-	if (conf->east_fd != -1)
-		close(conf->east_fd);
-	if (conf->west_fd != -1)
-		close(conf->west_fd);
-	if (conf->north_fd != -1)
-		close(conf->north_fd);
-	if (conf->south_fd != -1)
-		close(conf->south_fd);
-}
-
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
+	if (s1 == NULL)
+		return (ft_strdup(s2));
+	len = ft_strlen(s1) + ft_strlen(s2);
+	strs = malloc(sizeof(char) * (len + 1));
+	if (strs == NULL)
+		return (NULL);
+	i = -1;
+	while (s1[++i])
+		strs[i] = s1[i];
+	j = 0;
+	while (s2[j])
+		strs[i++] = s2[j++];
+	strs[i] = '\0';
+	free(s1);
+	return (strs);
 }
