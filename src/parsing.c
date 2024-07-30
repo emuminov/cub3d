@@ -6,13 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:31:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/28 17:32:24 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/30 19:10:36 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	parse_map(int fd, t_config_parsing *conf)
+void	pre_parsing(int fd, t_config_parsing *conf)
 {
 	char	*gnl;
 
@@ -32,6 +32,8 @@ void	parse_map(int fd, t_config_parsing *conf)
 		return (free_config_p(conf),
 			printf("\033[0;31m""Error \nThe map contains only keys!\n""\033[0m")
 			, exit(1));
+
+	
 	printf("north value : %s, east value : %s, south value : %s, west value : %s\n", conf->north_path, conf->east_path, conf->south_path, conf->west_path);
 	if (conf->floor_c != NULL)
 		printf("%d, %d, %d\n", conf->floor_c[0], conf->floor_c[1], conf->floor_c[2]);
@@ -60,13 +62,10 @@ int	map_manager(char *gnl, t_config_parsing *conf)
 		}
 		i++;
 	}
-	if (i == 1)
-	{
-		printf("\033[0;31m"
-				"Error\nA map line is empty!\n""\033[0m");
-		get_next_line(-1);
-		return (free_config_p(conf), free(gnl), exit(1), 0);
-	}
+	if (i == 1 && gnl[0] == '\n')
+		return (printf("\033[0;31m"
+				"Error\nA map line is empty!\n""\033[0m"), \
+				get_next_line(-1), free_config_p(conf), free(gnl), exit(1), 0);
 	conf->map_1d = ft_strjoin_free(conf->map_1d, gnl);
 	return (1);
 }

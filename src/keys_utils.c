@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:28:00 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/28 17:34:54 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/30 19:07:54 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	key_finish_check(char *gnl, t_config_parsing *conf)
 		|| (ft_strncmp(gnl, "C", 1) == 0 \
 		&& (gnl[1] == '\0' || gnl[1] == '\n' || gnl[1] == ' ')) \
 		|| (ft_strncmp(gnl, "F", 1) == 0 \
-		&& (gnl[1] == '\0' || gnl[1] == '\n' || gnl[1] == ' '))
-		|| ft_strcmp(gnl,"\n") == 0) \
+		&& (gnl[1] == '\0' || gnl[1] == '\n' || gnl[1] == ' ')) \
+		|| ft_strcmp(gnl, "\n") == 0) \
 		&& conf->keys_finish == 0)
 		return (1);
 	return (0);

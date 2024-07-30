@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/28 16:30:56 by eandre           ###   ########.fr       */
+/*   Updated: 2024/07/30 19:10:36 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_game
 
 /*					// PARSE \\					*/
 int					parse_line(char *gnl, t_config_parsing *conf);
-void				parse_map(int fd, t_config_parsing *conf);
+void				pre_parsing(int fd, t_config_parsing *conf);
 /*					// INNIT \\					*/
 t_config_parsing	config_parsing_init(void);
 t_config			config_init(void);
