@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 00:50:03 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:07:04 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,12 @@ void	wall_checker(char **map, int i, int j)
 	if (!map[i + 1] || !map[i - 1])
 		return ;
 	save = i;
-	while (map[++save])
-		if (map[save][j] == '0' || (map[save][j] != '1' && ((map[save][j + 1] && map[save][j + 1] == '0') || (map[save][j - 1] && map[save][j - 1] == '0'))))
+	while (map[++save] && map[save][j] != '1')
+		if (map[save][j] == '0' || (map[save][j] == ' ' && ((map[save][j + 1] && map[save][j + 1] == '0') || (map[save][j - 1] && map[save][j - 1] == '0'))))
 			printf("wall error 3 WIP\n");
-	while (map[--i] && i >= 0)
-		if (map[i][j] == '0' || (map[i][j] != '1' && ((map[i][j + 1] && map[i][j + 1] == '0') || (map[i][j - 1] && map[i][j - 1] == '0'))))
+	i++;
+	while ((map[--i] && i >= 0) && map[i][j] != '1')
+		if (map[i][j] == '0' || (map[i][j] == ' ' && ((map[i][j + 1] && map[i][j + 1] == '0') || (map[i][j - 1] && map[i][j - 1] == '0'))))
 			printf("wall error 4 WIP\n");
 }
 
@@ -98,21 +99,15 @@ void	parse_map(char **map)
 {
 	int	i;
 	int	j;
-	int	len_strs;
 
 	i = -1;
-	len_strs = (int)ft_strslen(map);
 	while (map[++i])
 	{
 		j = -1;
 		while (map[i][++j])
 		{
-			// if ((i == 0 || i == len_strs - 1) && (map[i][j] != ' ' && map[i][j] != '1'))
-			// 	printf("wall error WIP\n");
-			if ((map[i][j] == '0' && ((!map[i - 1] || !map[i - 1][j]) || (!map[i + 1] || !map[i + 1][j]))))
+			if ((map[i][j] == '0' && (((i == 0) || !map[i - 1] || !map[i - 1][j]) || (!map[i + 1] || !map[i + 1][j]) || (!map[i][j + 1] || !map[i][j - 1]))))
 				printf("wall error WIP\n");
-			if ((i != 0 && i != len_strs - 1) && (j == 0 || j == (int)(ft_strlen(map[i]) - 1)) && map[i][j] != ' ' && map[i][j] != '1')
-				printf("wall error 2 WIP\n");
 			if (map[i][j] == ' ')
 				wall_checker(map, i, j);
 		}
