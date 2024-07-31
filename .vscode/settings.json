@@ -60,6 +60,7 @@
     "fcntl.h": "c",
     "cub3d.h": "c",
     "ft_printf.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "type_traits": "c"
   }
 }
