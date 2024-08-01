@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:09:26 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:11:47 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,18 @@ void	parse_map(char **map)
 	int		test;
 	int		i;
 	int		j;
+	int		truc;
 	t_coord	start;
 
+	i = 0;
+	truc = 0;
+	while (map[i])
+	{
+		if (truc < (int)ft_strlen(map[i]))
+			truc = ft_strlen(map[i]);
+		printf("")
+		i++;
+	}
 	i = 0;
 	while (map[i])
 	{
@@ -123,7 +133,7 @@ void	parse_map(char **map)
 		}
 		i++;
 	}
-	test = fill(map, (t_coord){ft_strslen(map), 10}, start, '0');
+	test = fill(map, (t_coord){ft_strslen(map), truc + 1}, start, '0');
 	if (test != 0)
-		printf("wall error WIP\n");
+		printf("Error\nwall error WIP\n");
 }
