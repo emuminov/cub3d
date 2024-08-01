@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/01 20:27:11 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:31:08 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,14 @@ int	move_line(t_game *g)
 
 	mlx_mouse_get_pos(g->mlx, g->win, &x, &y);
 	line = (t_vector){.x = x, .y = y};
+	if (line.x > TILE_SIZE * 10)
+		line.x = TILE_SIZE * 10;
+	else if (line.x < 0)
+		line.x = 0;
+	if (line.y > TILE_SIZE * 10)
+		line.y = TILE_SIZE * 10;
+	else if (line.y < 0)
+		line.y = 0;
 	printf("x: %f\ty: %f\n", line.x, line.y);
 	draw_grid(g);
 	draw_line(&g->frame, (t_vector){.x = TILE_SIZE * 2.5, .y = TILE_SIZE * 1.5}, line);
