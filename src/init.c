@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:07:04 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:09:26 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,14 @@ t_game	game_init(int argc, char **argv)
 	conf_p = config_parsing_init();
 	game.conf = config_init();
 	pre_parsing(fd, &conf_p);
-	paths_errors(&conf_p, &game.conf);
+	paths_errors(&conf_p);
+	open_paths(&conf_p, &game.conf);
+	game.map_dup = ft_split(conf_p.map_1d, '\n');
 	game.map = ft_split(conf_p.map_1d, '\n');
-	parse_map(game.map);
+	parse_map(game.map_dup);
 	free_config_p(&conf_p);
 	free_config(&game.conf);
+	free_tab(game.map_dup);
 	return (game);
 }
 
@@ -79,37 +82,48 @@ size_t	ft_strslen(char **strs)
 	return (i);
 }
 
-void	wall_checker(char **map, int i, int j)
+//TODO while instead of recursive
+int	fill(char **tab, t_coord size, t_coord cur, char tofind)
 {
-	int	save;
+	int	inturn;
 
-	if (!map[i + 1] || !map[i - 1])
-		return ;
-	save = i;
-	while (map[++save] && map[save][j] != '1')
-		if (map[save][j] == '0' || (map[save][j] == ' ' && ((map[save][j + 1] && map[save][j + 1] == '0') || (map[save][j - 1] && map[save][j - 1] == '0'))))
-			printf("wall error 3 WIP\n");
-	i++;
-	while ((map[--i] && i >= 0) && map[i][j] != '1')
-		if (map[i][j] == '0' || (map[i][j] == ' ' && ((map[i][j + 1] && map[i][j + 1] == '0') || (map[i][j - 1] && map[i][j - 1] == '0'))))
-			printf("wall error 4 WIP\n");
+	inturn = ((cur.y == size.y || cur.x == size.x || cur.x == 0 || cur.y == 0) && (!tab[cur.y] || (tab[cur.y][cur.x] == tofind || tab[cur.y][cur.x] == ' ' || tab[cur.y][cur.x] == '\0')));
+	if (cur.y < 0 || cur.y >= size.y || cur.x < 0 || cur.x >= size.x
+		|| (tab[cur.y][cur.x] == '1' || tab[cur.y][cur.x] == 'F'))
+		return (inturn);
+	tab[cur.y][cur.x] = 'F';
+	inturn += fill(tab, size, (t_coord){cur.x - 1, cur.y}, tofind);
+	inturn += fill(tab, size, (t_coord){cur.x + 1, cur.y}, tofind);
+	inturn += fill(tab, size, (t_coord){cur.x, cur.y - 1}, tofind);
+	inturn += fill(tab, size, (t_coord){cur.x, cur.y + 1}, tofind);
+	return (inturn);
 }
+
 
 void	parse_map(char **map)
 {
-	int	i;
-	int	j;
+	int		test;
+	int		i;
+	int		j;
+	t_coord	start;
 
-	i = -1;
-	while (map[++i])
+	i = 0;
+	while (map[i])
 	{
-		j = -1;
-		while (map[i][++j])
+		j = 0;
+		while(map[i][j])
 		{
-			if ((map[i][j] == '0' && (((i == 0) || !map[i - 1] || !map[i - 1][j]) || (!map[i + 1] || !map[i + 1][j]) || (!map[i][j + 1] || !map[i][j - 1]))))
-				printf("wall error WIP\n");
-			if (map[i][j] == ' ')
-				wall_checker(map, i, j);
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W' || map[i][j] == 'W')
+			{
+				start.x = j;
+				start.y = i;
+				break ;
+			}
+			j++;
 		}
+		i++;
 	}
+	test = fill(map, (t_coord){ft_strslen(map), 10}, start, '0');
+	if (test != 0)
+		printf("wall error WIP\n");
 }
