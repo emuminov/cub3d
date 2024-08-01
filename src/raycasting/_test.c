@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/01 19:35:08 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:27:11 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ typedef struct	s_img
 	int		endian;
 }				t_img;
 
+typedef struct	s_game
+{
+	void	*mlx;
+	void	*win;
+	t_img	frame;
+}				t_game;
+
 typedef struct	s_vector
 {
 	double	x;
@@ -54,16 +61,23 @@ void	put_pixel_on_img(t_img *img, int x, int y, int color)
 
 void paint_tile(t_img *frame, int x, int y, int color)
 {
-	y = y * TILE_SIZE;
-	x = x * TILE_SIZE;
-	while (y < y + TILE_SIZE)
+	t_vector	start;
+	t_vector	end;
+
+	start.y = y * TILE_SIZE;
+	start.x = x * TILE_SIZE;
+
+	end.y = start.y + TILE_SIZE;
+	end.x = start.x + TILE_SIZE;
+	while (start.y < end.y)
 	{
-		while (x < x + TILE_SIZE)
+		start.x = x * TILE_SIZE;
+		while (start.x < end.x)
 		{
-			put_pixel_on_img(frame, x, y, color);
-			x++;
+			put_pixel_on_img(frame, start.x, start.y, color);
+			start.x++;
 		}
-		y++;
+		start.y++;
 	}
 }
 
@@ -109,57 +123,66 @@ unsigned int	get_pixel_img(t_img img, int x, int y) {
 }
 
 /* DDA line drawing algorithm */
-void	draw_line(void *mlx, void *win, t_vector start, t_vector end)
+void	draw_line(t_img *frame, t_vector start, t_vector end)
 {
 	const t_vector	delta = vector_sub(end, start);
 	const int		steps = max(abs_d(delta.x), abs_d(delta.y));
 	t_vector		inc;
-	t_img			img;
 	int				i;
 
 	inc.x = delta.x / steps;
 	inc.y = delta.y / steps;
-	img.img = mlx_new_image(mlx, 10 * TILE_SIZE, 10 * TILE_SIZE);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_len,
-			&img.endian);
 
 	i = 0;
 	while (i < steps)
 	{
-		put_pixel_on_img(&img, round(start.x), round(start.y), 0x00A0FF);
+		put_pixel_on_img(frame, round(start.x), round(start.y), 0x00A0FF);
 		start.x += inc.x;
 		start.y += inc.y;
 		i++;
 	}
-	printf("%x\n", get_pixel_img(img, 0, 0));
-	mlx_put_image_to_window(mlx, win, img.img, 0, 0);
+}
+
+void	draw_grid(t_game *g)
+{
+	for (int y = 0; y < 10; y++) {
+		for (int x = 0; x < 10; x++) {
+			if (map[y][x] == 0)
+				paint_tile(&g->frame, x, y, 0xAAAAAA);
+			else if (map[y][x] == 1)
+				paint_tile(&g->frame, x, y, 0x000000);
+			else if (map[y][x] == 2)
+				paint_tile(&g->frame, x, y, 0xAA0500);
+		}
+	}
+}
+
+int	move_line(t_game *g)
+{
+	int			x;
+	int			y;
+	t_vector	line;
+
+	mlx_mouse_get_pos(g->mlx, g->win, &x, &y);
+	line = (t_vector){.x = x, .y = y};
+	printf("x: %f\ty: %f\n", line.x, line.y);
+	draw_grid(g);
+	draw_line(&g->frame, (t_vector){.x = TILE_SIZE * 2.5, .y = TILE_SIZE * 1.5}, line);
+	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
+	return 1;
 }
 
 int main()
 {
-	void	*mlx;
-	void	*win;
-	t_img	frame;
+	static t_game	g;
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 10 * TILE_SIZE, 10 * TILE_SIZE, "Test");
-	frame.img = mlx_new_image(mlx, TILE_SIZE, TILE_SIZE);
-	frame.addr = mlx_get_data_addr(frame.img, &frame.bits_per_pixel,
-			&frame.line_len, &frame.endian);
+	g.mlx = mlx_init();
+	g.win = mlx_new_window(g.mlx, 10 * TILE_SIZE, 10 * TILE_SIZE, "Test");
+	g.frame.img = mlx_new_image(g.mlx, 10 * TILE_SIZE, 10 * TILE_SIZE);
+	g.frame.addr = mlx_get_data_addr(g.frame.img, &g.frame.bits_per_pixel,
+			&g.frame.line_len, &g.frame.endian);
 
-	for (int y = 0; y < 10; y++) {
-		for (int x = 0; x < 10; x++) {
-			if (map[y][x] == 0)
-				paint_tile(&frame, x, y, 0xAAAAAA);
-			else if (map[y][x] == 1)
-				paint_tile(&frame, x, y, 0x000000);
-			else if (map[y][x] == 2)
-				paint_tile(&frame, x, y, 0xAA0500);
-		}
-	}
-
-	mlx_put_image_to_window(mlx, win, frame.img, 0, 0);
-	// draw_line(mlx, win, (t_vector){.x = TILE_SIZE * 0.25, .y = TILE_SIZE * 0.25}, (t_vector){.x = TILE_SIZE * 0.10, .y = TILE_SIZE * 0.25});
-
-	mlx_loop(mlx);
+	mlx_put_image_to_window(g.mlx, g.win, g.frame.img, 0, 0);
+	mlx_loop_hook(g.mlx, move_line, &g);
+	mlx_loop(g.mlx);
 }
