@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:11:47 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:15:31 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@ t_config_parsing	config_parsing_init(void)
 	conf.east_path = NULL;
 	conf.west_path = NULL;
 	conf.south_path = NULL;
-	conf.floor_c = NULL;
+	conf.floor_c[0] = -1;
+	conf.floor_c[1] = -1;
+	conf.floor_c[2] = -1;
+	conf.ceiling_c[0] = -1;
+	conf.ceiling_c[1] = -1;
+	conf.ceiling_c[2] = -1;
 	conf.map_1d = NULL;
 	conf.keys_finish = 0;
 	conf.map_fd = -1;
-	conf.ceiling_c = NULL;
 	return (conf);
 }
 
@@ -43,6 +47,11 @@ t_config	config_init(void)
 	return (conf);
 }
 
+<<<<<<< HEAD
+=======
+int	parse_map(char **map);
+
+>>>>>>> 44f4d35 (fixed parsing and optimization)
 t_game	game_init(int argc, char **argv)
 {
 	int					fd;
@@ -65,7 +74,14 @@ t_game	game_init(int argc, char **argv)
 	open_paths(&conf_p, &game.conf);
 	game.map_dup = ft_split(conf_p.map_1d, '\n');
 	game.map = ft_split(conf_p.map_1d, '\n');
-	parse_map(game.map_dup);
+	if (parse_map(game.map_dup) == 1)
+	{
+		free_config_p(&conf_p);
+		free_config(&game.conf);
+		free_tab(game.map_dup);
+		free_tab(game.map);
+		exit (1);
+	}
 	free_config_p(&conf_p);
 	free_config(&game.conf);
 	free_tab(game.map_dup);
@@ -98,32 +114,45 @@ int	fill(char **tab, t_coord size, t_coord cur, char tofind)
 	inturn += fill(tab, size, (t_coord){cur.x, cur.y + 1}, tofind);
 	return (inturn);
 }
+t_coord	get_start(char **map);
 
-
-void	parse_map(char **map)
+int	parse_map(char **map)
 {
-	int		test;
 	int		i;
-	int		j;
-	int		truc;
+	int		max_len;
 	t_coord	start;
 
 	i = 0;
-	truc = 0;
+	max_len = 0;
 	while (map[i])
 	{
-		if (truc < (int)ft_strlen(map[i]))
-			truc = ft_strlen(map[i]);
-		printf("")
+		if (max_len < (int)ft_strlen(map[i]))
+			max_len = ft_strlen(map[i]);
 		i++;
 	}
+	start = get_start(map);
+	if (fill(map, (t_coord){max_len, ft_strslen(map)}, start, '0') != 0)
+	{
+		printf("\033[0;31m""Error\nThe map is not closed!\n""\033[0m");
+		return (1);
+	}
+	return (0);
+}
+
+t_coord	get_start(char **map)
+{
+	t_coord	start;
+	int		i;
+	int		j;
+
 	i = 0;
 	while (map[i])
 	{
 		j = 0;
-		while(map[i][j])
+		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W' || map[i][j] == 'W')
+			if (map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'W' || map[i][j] == 'W')
 			{
 				start.x = j;
 				start.y = i;
@@ -133,7 +162,5 @@ void	parse_map(char **map)
 		}
 		i++;
 	}
-	test = fill(map, (t_coord){ft_strslen(map), truc + 1}, start, '0');
-	if (test != 0)
-		printf("Error\nwall error WIP\n");
+	return (start);
 }

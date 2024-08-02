@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:07:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/24 19:35:18 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:15:26 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,29 @@ void	free_config(t_config *conf)
 		free(conf->south_path);
 	if (conf->west_path != NULL)
 		free(conf->west_path);
+<<<<<<< HEAD
+=======
+	if (conf->map_1d != NULL)
+		free(conf->map_1d);
+	if (conf->map_fd != -1)
+		close(conf->map_fd);
+}
+
+void	free_config(t_config *conf)
+{
+	if (conf->floor_c != NULL)
+		free(conf->floor_c);
+	if (conf->ceiling_c != NULL)
+		free(conf->ceiling_c);
+	if (conf->east_fd != -1)
+		close(conf->east_fd);
+	if (conf->west_fd != -1)
+		close(conf->west_fd);
+	if (conf->north_fd != -1)
+		close(conf->north_fd);
+	if (conf->south_fd != -1)
+		close(conf->south_fd);
+>>>>>>> 44f4d35 (fixed parsing and optimization)
 }
 
 void	free_tab(char **tab)

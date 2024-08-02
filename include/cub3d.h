@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:10:56 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:14:39 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ typedef struct s_img
 
 typedef struct s_config_parsing
 {
-	char			*north_path;
-	char			*east_path;
-	char			*south_path;
-	char			*west_path;
-	int				map_fd;
-	int				*floor_c;
-	int				*ceiling_c;
-	char			*map_1d;
-	int				keys_finish;
-}					t_config_parsing;
+	char	*north_path;
+	char	*east_path;
+	char	*south_path;
+	char	*west_path;
+	int		map_fd;
+	int		floor_c[3];
+	int		ceiling_c[3];
+	char	*map_1d;
+	int		keys_finish;
+}	t_config_parsing;
 
 typedef struct s_dda_params
 {

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:31:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:12:16 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:14:55 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,22 @@ void	pre_parsing(int fd, t_config_parsing *conf)
 			printf("\033[0;31m""Error\nThe map contains only keys!\n""\033[0m")
 			, exit(1));
 	printf("north value : %s, east value : %s, south value : %s, west value : %s\n", conf->north_path, conf->east_path, conf->south_path, conf->west_path);
-	if (conf->floor_c != NULL)
-		printf("%d, %d, %d\n", conf->floor_c[0], conf->floor_c[1], conf->floor_c[2]);
-	if (conf->ceiling_c != NULL)
-		printf("%d, %d, %d\n", conf->ceiling_c[0], conf->ceiling_c[1], conf->ceiling_c[2]);
+	printf("%d, %d, %d\n", conf->floor_c[0], conf->floor_c[1], conf->floor_c[2]);
+	printf("%d, %d, %d\n", conf->ceiling_c[0], conf->ceiling_c[1], conf->ceiling_c[2]);
 }
 
 int	map_manager(char *gnl, t_config_parsing *conf)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if ((!conf->east_path || !conf->north_path || !conf->south_path
-			|| !conf->west_path || !conf->floor_c || !conf->ceiling_c))
+			|| !conf->west_path || conf->floor_c[0] == -1 
+			|| conf->ceiling_c[0] == -1))
 		return (0);
 	if (key_finish_check(gnl, conf) == 1)
 		return (0);
-	while (gnl[i])
+	while (gnl[++i])
 	{
 		if (ft_strchr(" 01NESW\n", gnl[i]) == NULL)
 		{
@@ -60,7 +59,6 @@ int	map_manager(char *gnl, t_config_parsing *conf)
 			get_next_line(-1);
 			return (free_config_p(conf), free(gnl), exit(1), 0);
 		}
-		i++;
 	}
 	if (i == 1 && gnl[0] == '\n')
 		return (printf("\033[0;31m"
