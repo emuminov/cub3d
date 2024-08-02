@@ -6,13 +6,14 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/02 18:25:46 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/02 20:19:23 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #define TILE_SIZE 128
 
 #include "../minilibx-linux/mlx.h"
@@ -30,6 +31,7 @@ const int map[10][10] = {
 	{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 };
 
+/* All the relevant data to rendered images */
 typedef struct	s_img
 {
 	void	*img;
@@ -39,26 +41,37 @@ typedef struct	s_img
 	int		endian;
 }				t_img;
 
-typedef struct	s_vector
+typedef struct	s_vectorf
 {
 	double	x;
 	double	y;
-}				t_vector;
+}				t_vectorf;
+
+typedef struct	s_vectori
+{
+	int		x;
+	int		y;
+}				t_vectori;
+
+typedef	t_vectorf t_grid_coordsf;
+typedef	t_vectori t_pixel_point;
+typedef	t_vectori t_grid_coordsi;
 
 typedef struct	s_dda_params
 {
-	t_vector	inspected_grid;
-	t_vector	ray_step;
-	t_vector	delta;
-	t_vector	dist_until_first_side;
-	double		camera;
+	t_grid_coordsf	ray_step;
+	t_grid_coordsf	delta;
+	t_grid_coordsf	dist_until_first_side;
+	t_grid_coordsi	inspected_grid;
+	bool			found_wall;
+	double			camera;
 }				t_dda_params;
 
 typedef struct	s_player
 {
-	t_vector	pos;
-	t_vector	dir;
-	t_vector	plane;
+	t_grid_coordsf	pos;
+	t_vectorf		dir;
+	t_vectorf		plane;
 }				t_player;
 
 typedef struct	s_game
@@ -68,76 +81,69 @@ typedef struct	s_game
 	t_img			frame;
 	t_player		player;
 	t_dda_params	dp;
+	int				**map;
 }				t_game;
 
-void	put_pixel_on_img(t_img *img, int x, int y, int color)
+void	put_pixel_on_img(t_img *img, t_pixel_point p, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->line_len + x * (img->bits_per_pixel / 8));
+	dst = img->addr + (p.y * img->line_len + p.x * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 
-void paint_tile(t_img *frame, int x, int y, int color)
+void paint_tile(t_img *frame, t_pixel_point p, int color)
 {
-	t_vector	start;
-	t_vector	end;
+	t_pixel_point	start;
+	t_pixel_point	end;
 
-	start.y = y * TILE_SIZE;
-	start.x = x * TILE_SIZE;
+	start.y = p.y * TILE_SIZE;
+	start.x = p.x * TILE_SIZE;
 
 	end.y = start.y + TILE_SIZE;
 	end.x = start.x + TILE_SIZE;
 	while (start.y < end.y)
 	{
-		start.x = x * TILE_SIZE;
+		start.x = p.x * TILE_SIZE;
 		while (start.x < end.x)
 		{
-			put_pixel_on_img(frame, start.x, start.y, color);
+			put_pixel_on_img(frame, start, color);
 			start.x++;
 		}
 		start.y++;
 	}
 }
 
-t_vector	vector_sub(t_vector v1, t_vector v2)
+t_vectorf	vectorf_sub(t_vectorf v1, t_vectorf v2)
 {
-	return (t_vector){.x=v1.x - v2.x, .y=v1.y - v2.y};
+	return (t_vectorf){.x=v1.x - v2.x, .y=v1.y - v2.y};
 }
 
-t_vector	vector_add(t_vector v1, t_vector v2)
+t_vectorf	vectorf_add(t_vectorf v1, t_vectorf v2)
 {
-	return (t_vector){.x=v1.x + v2.x, .y=v1.y + v2.y};
+	return (t_vectorf){.x=v1.x + v2.x, .y=v1.y + v2.y};
 }
 
-t_vector	vector_scale(t_vector v, double nbr)
+t_vectorf	vectorf_scale(t_vectorf v, double nbr)
 {
-	return (t_vector){.x=v.x * nbr, .y=v.y * nbr};
+	return (t_vectorf){.x=v.x * nbr, .y=v.y * nbr};
 }
 
-t_vector	vector_abs(t_vector v)
+t_vectori	vectori_sub(t_vectori v1, t_vectori v2)
 {
-	t_vector res;
-
-	if (v.x < 0)
-		res.x = -v.x;
-	if (v.y < 0)
-		res.y = -v.y;
-	return res;
+	return (t_vectori){.x=v1.x - v2.x, .y=v1.y - v2.y};
 }
 
-double	abs_d(double n)
+double	abs_f(double n)
 {
 	if (n < 0)
 		return -n;
 	return n;
 }
 
-double	vector_find_slope(t_vector delta)
+t_vectorf	vectorf_abs(t_vectorf v)
 {
-	if (delta.x == 0)
-		return INFINITY;
-	return delta.y / delta.x;
+	return (t_vectorf){.x = abs_f(v.x), .y = abs_f(v.y)};
 }
 
 int	max(int n1, int n2)
@@ -146,62 +152,68 @@ int	max(int n1, int n2)
 		return n1;
 	return n2;
 }
+
 unsigned int	get_pixel_img(t_img img, int x, int y) {
 	return (*(unsigned int *)((img.addr
 			+ (y * img.line_len) + (x * img.bits_per_pixel / 8))));
 }
 
 /* DDA line drawing algorithm */
-void	draw_line(t_img *frame, t_vector start, t_vector end)
+void	draw_line(t_img *frame, t_pixel_point start, t_pixel_point end)
 {
-	const t_vector	delta = vector_sub(end, start);
-	const int		steps = max(abs_d(delta.x), abs_d(delta.y));
-	t_vector		inc;
-	int				i;
+	const t_pixel_point		delta = vectori_sub(end, start);
+	const int				steps = max(abs(delta.x), abs(delta.y));
+	t_vectorf				next_point;
+	t_vectorf				inc;
+	int						i;
 
-	inc.x = delta.x / steps;
-	inc.y = delta.y / steps;
+	next_point = (t_vectorf){.x = start.x, .y = start.y};
+	inc = (t_vectorf){.x = (double)delta.x / steps, .y = (double)delta.y / steps};
 
 	i = 0;
 	while (i < steps)
 	{
-		put_pixel_on_img(frame, round(start.x), round(start.y), 0x00A0FF);
-		start.x += inc.x;
-		start.y += inc.y;
+		put_pixel_on_img(frame,
+				(t_pixel_point){.x = round(next_point.x), .y = round(next_point.y)},
+				0x00A0FF);
+		next_point.x += inc.x;
+		next_point.y += inc.y;
 		i++;
 	}
 }
 
 void	draw_grid(t_game *g)
 {
-	for (int y = 0; y < 10; y++) {
-		for (int x = 0; x < 10; x++) {
-			if (map[y][x] == 0)
-				paint_tile(&g->frame, x, y, 0xAAAAAA);
-			else if (map[y][x] == 1)
-				paint_tile(&g->frame, x, y, 0x000000);
-			else if (map[y][x] == 2)
-				paint_tile(&g->frame, x, y, 0xAA0500);
+	t_pixel_point	p;
+
+	for (p.y = 0; p.y < 10; p.y++) {
+		for (p.x = 0; p.x < 10; p.x++) {
+			if (map[p.y][p.x] == 0)
+				paint_tile(&g->frame, p, 0xAAAAAA);
+			else if (map[p.y][p.x] == 1)
+				paint_tile(&g->frame, p, 0x000000);
+			else if (map[p.y][p.x] == 2)
+				paint_tile(&g->frame, p, 0xAA0500);
 		}
 	}
 }
 
-bool	is_in_bounds_of_window(t_vector v)
+bool	is_in_bounds_of_window(t_pixel_point p)
 {
-	return !(v.x < 0 || v.x > (TILE_SIZE * 10) || v.y < 0
-			|| v.y > (TILE_SIZE * 10));
+	return !(p.x < 0 || p.x > (TILE_SIZE * 10) || p.y < 0
+			|| p.y > (TILE_SIZE * 10));
 }
 
-bool	is_in_bounds_of_grid(t_vector v)
+bool	is_in_bounds_of_grid(t_vectori v)
 {
 	return !(v.x < 0 || v.x > 9 || v.y < 0 || v.y > 9 );
 }
 
-void	draw_square(t_img *frame, t_vector pos, int size)
+void	draw_square(t_img *frame, t_pixel_point pos, int size)
 {
-	int			y;
-	int			x;
-	t_vector	point;
+	int				y;
+	int				x;
+	t_pixel_point	point;
 	
 	y = 0;
 	while (y <= size)
@@ -214,62 +226,52 @@ void	draw_square(t_img *frame, t_vector pos, int size)
 				point.x = round((pos.x + x) - (double)size / 2);
 				point.y = round((pos.y + y) - (double)size / 2);
 				if (is_in_bounds_of_window(point))
-						put_pixel_on_img(frame, point.x, point.y, 0x009F00);
+						put_pixel_on_img(frame, point, 0x009F00);
 				x++;
 			}
 		}
 		point.x = round(pos.x - (double)size / 2);
 		point.y = round((pos.y + y) - (double)size / 2);
 		if (is_in_bounds_of_window(point))
-			put_pixel_on_img(frame, point.x, point.y, 0x009F00);
+			put_pixel_on_img(frame, point, 0x009F00);
 		point.x = round(pos.x + (double)size / 2);
 		point.y = round((pos.y + y) - (double)size / 2);
 		if (is_in_bounds_of_window(point))
-			put_pixel_on_img(frame, point.x, point.y, 0x009F00);
+			put_pixel_on_img(frame, point, 0x009F00);
 		y++;
 	}
 }
 
-t_vector	grid_coords_to_pixel_point(t_vector v)
+t_pixel_point	grid_coords_to_pixel_point(t_grid_coordsf v)
 {
-	return (t_vector){.x = TILE_SIZE * v.x, .y = TILE_SIZE * v.y};
+	return (t_vectori){.x = round(v.x * TILE_SIZE), .y = round(v.y * TILE_SIZE)};
 }
 
-t_vector	pixel_point_to_grid_coord(t_vector v)
+t_grid_coordsf	pixel_point_to_grid_coord(t_pixel_point v)
 {
-	return (t_vector){.x = v.x / TILE_SIZE, .y = v.y / TILE_SIZE};
+	return (t_vectorf){.x = (double)v.x / TILE_SIZE, .y = (double)v.y / TILE_SIZE};
 }
 
-double	vector_len(t_vector v)
+double	vector_len(t_vectorf v)
 {
 	return sqrt(v.y * v.y + v.x * v.x);
 }
 
-t_vector	vector_norm(t_vector v)
+t_vectorf	vectorf_norm(t_vectorf v)
 {
 	const double	len = vector_len(v);
 	if (len == 0)
 		return v;
-	return (t_vector){.x = v.x / len, .y = v.y / len};
+	return (t_vectorf){.x = v.x / len, .y = v.y / len};
 }
 
-double	abs_f(double nbr)
+t_vectorf	detect_walls(t_game *g, t_vectorf v)
 {
-	if (nbr < 0)
-		return -nbr;
-	return nbr;
-}
-
-t_vector	detect_walls(t_game *g, t_vector v)
-{
-	g->player.dir = vector_norm(vector_sub(v, g->player.pos));
-	// g->dp.delta.x = sqrt(1 + (g->player.dir.y * g->player.dir.y) / (g->player.dir.x * g->player.dir.x));
-	// g->dp.delta.y = sqrt(1 + (g->player.dir.x * g->player.dir.x) / (g->player.dir.y * g->player.dir.y));
+	g->player.dir = vectorf_norm(vectorf_sub(v, g->player.pos));
 	g->dp.delta.x = abs_f(1 / g->player.dir.x);
 	g->dp.delta.y = abs_f(1 / g->player.dir.y);
 
-	// TODO: inspected grid should be int
-	g->dp.inspected_grid = (t_vector){.x = floor(g->player.pos.x), .y = floor(g->player.pos.y)};
+	g->dp.inspected_grid = (t_grid_coordsi){.x = (int)g->player.pos.x, .y = (int)g->player.pos.y};
 	if (g->player.dir.x < 0)
 	{
 		g->dp.ray_step.x = -1;
@@ -291,14 +293,14 @@ t_vector	detect_walls(t_game *g, t_vector v)
 		g->dp.dist_until_first_side.y = ((g->dp.inspected_grid.y + 1) - g->player.pos.y) * g->dp.delta.y;
 	}
 
-	bool found_wall = false;
+	g->dp.found_wall = false;
 	double max_distance = 100;
 	double distance = 0;
-	while (!found_wall && distance < max_distance)
+	while (!g->dp.found_wall && distance < max_distance)
 	{
 		// printf("difference: %f %f\n",vector_sub(v, g->player.pos).x, vector_sub(v, g->player.pos).y); 
 		printf("ray delta: %f %f\n", g->dp.delta.x, g->dp.delta.y);
-		printf("inspected grid: %f %f\n", g->dp.inspected_grid.x, g->dp.inspected_grid.x);
+		printf("inspected grid: %d %d\n", g->dp.inspected_grid.x, g->dp.inspected_grid.x);
 		if (g->dp.dist_until_first_side.x < g->dp.dist_until_first_side.y)
 		{
 			g->dp.inspected_grid.x += g->dp.ray_step.x;
@@ -316,21 +318,15 @@ t_vector	detect_walls(t_game *g, t_vector v)
 		{
 			printf("is wall: %d\n", map[(int)g->dp.inspected_grid.y][(int)g->dp.inspected_grid.x] == 1);
 			if (map[(int)g->dp.inspected_grid.y][(int)g->dp.inspected_grid.x] == 1)
-			{
-				found_wall = true;
-			}
+				g->dp.found_wall = true;
 		}
 		else
-		{
 			break;
-		}
 	}
 
-	t_vector	intersection;
-	if (found_wall)
-	{
-		intersection = vector_add(g->player.pos, vector_scale(g->player.dir, distance));
-	}
+	t_vectorf	intersection;
+	if (g->dp.found_wall)
+		intersection = vectorf_add(g->player.pos, vectorf_scale(g->player.dir, distance));
 	else
 		intersection = v;
 	return intersection;
@@ -338,12 +334,12 @@ t_vector	detect_walls(t_game *g, t_vector v)
 
 int	move_line(t_game *g)
 {
-	int			x;
-	int			y;
-	t_vector	line;
+	int				x;
+	int				y;
+	t_grid_coordsf	line;
 
 	mlx_mouse_get_pos(g->mlx, g->win, &x, &y);
-	line = (t_vector){.x = x, .y = y};
+	line = pixel_point_to_grid_coord((t_pixel_point){.x = x, .y = y});
 	if (line.x > TILE_SIZE * 10)
 		line.x = TILE_SIZE * 10;
 	else if (line.x < 0)
@@ -353,14 +349,10 @@ int	move_line(t_game *g)
 	else if (line.y < 0)
 		line.y = 0;
 	draw_grid(g);
-	line = detect_walls(g, pixel_point_to_grid_coord(line));
-	// line = pixel_point_to_grid_coord(line);
+	line = detect_walls(g, line);
 	draw_line(&g->frame, grid_coords_to_pixel_point(g->player.pos), grid_coords_to_pixel_point(line));
 	draw_square(&g->frame, grid_coords_to_pixel_point(line), 25);
 	printf("x: %f\ty: %f\n", line.x, line.y);
-	// printf("x: %f\ty: %f\n", pixel_point_to_grid_coord(line).x, pixel_point_to_grid_coord(line).y);
-	// draw_line(&g->frame, grid_coords_to_pixel_point(g->player.pos), grid_coords_to_pixel_point(line));
-	// draw_square(&g->frame, grid_coords_to_pixel_point(line), 25);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 	return 1;
 }
@@ -374,7 +366,7 @@ int main()
 	g.frame.img = mlx_new_image(g.mlx, 10 * TILE_SIZE, 10 * TILE_SIZE);
 	g.frame.addr = mlx_get_data_addr(g.frame.img, &g.frame.bits_per_pixel,
 			&g.frame.line_len, &g.frame.endian);
-	g.player.pos = (t_vector){.x = 2.5, .y = 1.5};
+	g.player.pos = (t_vectorf){.x = 2.5, .y = 1.5};
 	mlx_put_image_to_window(g.mlx, g.win, g.frame.img, 0, 0);
 	mlx_loop_hook(g.mlx, move_line, &g);
 	mlx_loop(g.mlx);
