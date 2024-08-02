@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:16 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 00:43:23 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:16:52 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	space_checker(int i, const char *str)
 	return (0);
 }
 
-unsigned char	ft_atoc(const char *str, char *gnl, t_config_parsing *conf)
+int	ft_atoc(const char *str, char *gnl, t_config_parsing *conf)
 {
-	unsigned char	result;
-	size_t			i;
+	int		result;
+	size_t	i;
 
 	result = 0;
 	i = 0;

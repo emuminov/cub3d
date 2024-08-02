@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:15:31 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:17:16 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,6 @@ t_config	config_init(void)
 	return (conf);
 }
 
-<<<<<<< HEAD
-=======
-int	parse_map(char **map);
-
->>>>>>> 44f4d35 (fixed parsing and optimization)
 t_game	game_init(int argc, char **argv)
 {
 	int					fd;
@@ -114,7 +109,6 @@ int	fill(char **tab, t_coord size, t_coord cur, char tofind)
 	inturn += fill(tab, size, (t_coord){cur.x, cur.y + 1}, tofind);
 	return (inturn);
 }
-t_coord	get_start(char **map);
 
 int	parse_map(char **map)
 {
