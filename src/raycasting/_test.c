@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/03 14:09:22 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:50:36 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,18 @@
 
 #include <math.h>
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <X11/keysym.h>
 #define TILE_SIZE 128
+#define RADIAN_TO_DEGREE_SCALING 0.0174533
+
+enum	e_direction
+{
+	up,
+	down,
+	left,
+	right
+};
 
 t_pixel_point	grid_coordsf_to_pixel_point(t_grid_coordsf v)
 {
@@ -34,14 +43,14 @@ t_grid_coordsf	pixel_point_to_grid_coordsf(t_pixel_point v)
 	return (t_grid_coordsf){.x = (double)v.x / TILE_SIZE, .y = (double)v.y / TILE_SIZE};
 }
 
-double	vector_len(t_vectorf v)
+double	vectorf_len(t_vectorf v)
 {
 	return sqrt(v.y * v.y + v.x * v.x);
 }
 
 t_vectorf	vectorf_norm(t_vectorf v)
 {
-	const double	len = vector_len(v);
+	const double	len = vectorf_len(v);
 	if (len == 0)
 		return v;
 	return (t_vectorf){.x = v.x / len, .y = v.y / len};
@@ -50,6 +59,11 @@ t_vectorf	vectorf_norm(t_vectorf v)
 t_vectorf	vectorf_sub(t_vectorf v1, t_vectorf v2)
 {
 	return (t_vectorf){.x=v1.x - v2.x, .y=v1.y - v2.y};
+}
+
+t_vectorf	vectorf_dir(t_vectorf start, t_vectorf end)
+{
+	return vectorf_norm(vectorf_sub(end, start));
 }
 
 t_vectorf	vectorf_add(t_vectorf v1, t_vectorf v2)
@@ -77,6 +91,16 @@ double	abs_f(double n)
 t_vectorf	vectorf_abs(t_vectorf v)
 {
 	return (t_vectorf){.x = abs_f(v.x), .y = abs_f(v.y)};
+}
+
+t_vectorf	vectorf_rotate(t_vectorf dir, double theta)
+{
+	t_vectorf	res;
+
+	theta = theta * RADIAN_TO_DEGREE_SCALING;
+	res.x = dir.x * cos(theta) - dir.y * sin(theta);
+	res.y = dir.x * sin(theta) + dir.y * cos(theta);
+	return res;
 }
 
 int	max(int n1, int n2)
@@ -167,12 +191,10 @@ void	draw_grid(t_game *g)
 		p.x = 0;
 		while (p.x < 10)
 		{
-			if (map[p.y][p.x] == 0)
+			if (map[p.y][p.x] == 0 || map[p.y][p.x] == 2)
 				paint_tile(&g->frame, p, 0xAAAAAA);
 			else if (map[p.y][p.x] == 1)
 				paint_tile(&g->frame, p, 0x000000);
-			else if (map[p.y][p.x] == 2)
-				paint_tile(&g->frame, p, 0xAA0500);
 			p.x++;
 		}
 		p.y++;
@@ -190,38 +212,56 @@ bool	is_in_bounds_of_grid(t_grid_coordsi v)
 	return !(v.x < 0 || v.x > 9 || v.y < 0 || v.y > 9 );
 }
 
+void	draw_hollow_square(t_img *frame, t_pixel_point pos, int size)
+{
+	int				i;
+	t_pixel_point	point;
+	
+	i = 0;
+	while (i <= size)
+	{
+		point.x = round((pos.x + i) - (double)size / 2);
+		point.y = round((pos.y) - (double)size / 2);
+		if (is_in_bounds_of_window(point))
+			put_pixel_on_img(frame, point, 0x009F00);
+		point.x = round((pos.x) - (double)size / 2);
+		point.y = round((pos.y + i) - (double)size / 2);
+		if (is_in_bounds_of_window(point))
+			put_pixel_on_img(frame, point, 0x009F00);
+		point.x = round((pos.x + size) - (double)size / 2);
+		point.y = round((pos.y + i) - (double)size / 2);
+		if (is_in_bounds_of_window(point))
+			put_pixel_on_img(frame, point, 0x009F00);
+		point.x = round((pos.x + i) - (double)size / 2);
+		point.y = round((pos.y + size) - (double)size / 2);
+		if (is_in_bounds_of_window(point))
+			put_pixel_on_img(frame, point, 0x009F00);
+		i++;
+	}
+}
+
 void	draw_square(t_img *frame, t_pixel_point pos, int size)
 {
+	t_pixel_point	point;
 	int				y;
 	int				x;
-	t_pixel_point	point;
 	
 	y = 0;
 	while (y <= size)
 	{
 		x = 0;
-		if (y == 0 || y == size)
+		while (x <= size)
 		{
-			while (x <= size)
-			{
-				point.x = round((pos.x + x) - (double)size / 2);
-				point.y = round((pos.y + y) - (double)size / 2);
-				if (is_in_bounds_of_window(point))
-						put_pixel_on_img(frame, point, 0x009F00);
-				x++;
-			}
+			point.x = round((pos.x + x) - (double)size / 2);
+			point.y = round((pos.y + y) - (double)size / 2);
+			if (is_in_bounds_of_window(point))
+				put_pixel_on_img(frame, point, 0x5F009F);
+			x++;
 		}
-		point.x = round(pos.x - (double)size / 2);
-		point.y = round((pos.y + y) - (double)size / 2);
-		if (is_in_bounds_of_window(point))
-			put_pixel_on_img(frame, point, 0x009F00);
-		point.x = round(pos.x + (double)size / 2);
-		point.y = round((pos.y + y) - (double)size / 2);
-		if (is_in_bounds_of_window(point))
-			put_pixel_on_img(frame, point, 0x009F00);
 		y++;
 	}
 }
+
 
 double	signf(double nbr)
 {
@@ -240,41 +280,46 @@ void	set_initial_dda_params(t_dda_params *dp, t_grid_coordsf start,
 	dp->ray_step.x = signf(dir.x);
 	dp->ray_step.y = signf(dir.y);
 	if (dir.x < 0)
-		dp->dist_until_first_side.x = (start.x - dp->inspected_grid.x) *
+		dp->dist_until_grid_side.x = (start.x - dp->inspected_grid.x) *
 			dp->rate_of_change.x;
 	else
-		dp->dist_until_first_side.x = ((dp->inspected_grid.x + 1) - start.x) *
+		dp->dist_until_grid_side.x = ((dp->inspected_grid.x + 1) - start.x) *
 			dp->rate_of_change.x;
 	if (dir.y < 0)
-		dp->dist_until_first_side.y = (start.y - dp->inspected_grid.y) *
+		dp->dist_until_grid_side.y = (start.y - dp->inspected_grid.y) *
 			dp->rate_of_change.y;
 	else
-		dp->dist_until_first_side.y = ((dp->inspected_grid.y + 1) - start.y) *
+		dp->dist_until_grid_side.y = ((dp->inspected_grid.y + 1) - start.y) *
 			dp->rate_of_change.y;
 	dp->found_wall = false;
 	dp->max_distance = 100;
 	dp->distance = 0;
 }
 
-t_vectorf	dda_detect_wall(t_dda_params *dp, t_grid_coordsf start, t_vectorf dir)
+void	move_to_next_grid_cell(t_dda_params *dp)
 {
-	set_initial_dda_params(dp, start, dir);
+	if (dp->dist_until_grid_side.x < dp->dist_until_grid_side.y)
+	{
+		dp->inspected_grid.x += dp->ray_step.x;
+		dp->distance = dp->dist_until_grid_side.x;
+		dp->dist_until_grid_side.x += dp->rate_of_change.x;
+	}
+	else
+	{
+		dp->inspected_grid.y += dp->ray_step.y;
+		dp->distance = dp->dist_until_grid_side.y;
+		dp->dist_until_grid_side.y += dp->rate_of_change.y;
+	}
+}
 
+t_vectorf	check_wall_in_dir(t_dda_params *dp, t_grid_coordsf start, t_vectorf dir)
+{
+	t_vectorf	intersection;
+
+	set_initial_dda_params(dp, start, dir);
 	while (!dp->found_wall && dp->distance < dp->max_distance)
 	{
-		if (dp->dist_until_first_side.x < dp->dist_until_first_side.y)
-		{
-			dp->inspected_grid.x += dp->ray_step.x;
-			dp->distance = dp->dist_until_first_side.x;
-			dp->dist_until_first_side.x += dp->rate_of_change.x;
-		}
-		else
-		{
-			dp->inspected_grid.y += dp->ray_step.y;
-			dp->distance = dp->dist_until_first_side.y;
-			dp->dist_until_first_side.y += dp->rate_of_change.y;
-		}
-
+		move_to_next_grid_cell(dp);
 		if (is_in_bounds_of_grid(dp->inspected_grid))
 		{
 			if (map[(int)dp->inspected_grid.y][(int)dp->inspected_grid.x] == 1)
@@ -283,18 +328,49 @@ t_vectorf	dda_detect_wall(t_dda_params *dp, t_grid_coordsf start, t_vectorf dir)
 		else
 			break;
 	}
-
-	t_vectorf	intersection;
 	if (dp->found_wall)
 		intersection = vectorf_add(start, vectorf_scale(dir, dp->distance));
-
-	// TODO: handle the case where wall was not found
 	else
 		intersection = (t_grid_coordsf){.x = -1, .y = -1};
 	return intersection;
 }
 
-int	move_line(t_game *g)
+int	handle_key_press(int keysym, t_game *g)
+{
+	if (keysym == XK_Left)
+		g->controls.rotate_left_pressed = true;
+	else if (keysym == XK_Right)
+		g->controls.rotate_right_pressed = true;
+	else if (keysym == XK_w)
+		g->controls.move_up_pressed = true;
+	else if (keysym == XK_s)
+		g->controls.move_down_pressed = true;
+	else if (keysym == XK_a)
+		g->controls.move_left_pressed = true;
+	else if (keysym == XK_d)
+		g->controls.move_right_pressed = true;
+	return (1);
+}
+
+int	handle_key_release(int keysym, t_game *g)
+{
+	printf("%d\n", keysym);
+	if (keysym == XK_Left)
+		g->controls.rotate_left_pressed = false;
+	else if (keysym == XK_Right)
+		g->controls.rotate_right_pressed = false;
+	else if (keysym == XK_w)
+		g->controls.move_up_pressed = false;
+	else if (keysym == XK_s)
+		g->controls.move_down_pressed = false;
+	else if (keysym == XK_a)
+		g->controls.move_left_pressed = false;
+	else if (keysym == XK_d)
+		g->controls.move_right_pressed = false;
+	return (1);
+}
+
+t_vectorf	mouse_pos_to_grid_coordsf(t_game *g)
 {
 	int				x;
 	int				y;
@@ -310,13 +386,51 @@ int	move_line(t_game *g)
 		mouse_grid_pos.y = TILE_SIZE * 10;
 	else if (mouse_grid_pos.y < 0)
 		mouse_grid_pos.y = 0;
+	return mouse_grid_pos;
+}
+
+bool	is_in_the_wall(t_grid_coordsf pos)
+{
+	return map[(int)pos.y][(int)pos.x] != 1;
+}
+
+t_grid_coordsf	move(t_grid_coordsf old_pos, enum e_direction m)
+{
+	if (m == up)
+		old_pos.y -= 0.1;
+	else if (m == down)
+		old_pos.y += 0.1;
+	else if (m == left)
+		old_pos.x -= 0.1;
+	else if (m == right)
+		old_pos.x += 0.1;
+	return old_pos;
+}
+
+int	move_line(t_game *g)
+{
+	t_grid_coordsf	end;
+
 	draw_grid(g);
-	g->player.dir = vectorf_norm(vectorf_sub(mouse_grid_pos, g->player.pos));
-	mouse_grid_pos = dda_detect_wall(&g->dp, g->player.pos, g->player.dir);
-	draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), grid_coordsf_to_pixel_point(mouse_grid_pos));
-	draw_square(&g->frame, grid_coordsf_to_pixel_point(mouse_grid_pos), 25);
+	if (g->controls.rotate_left_pressed)
+		g->player.dir = vectorf_rotate(g->player.dir, 2);
+	else if (g->controls.rotate_right_pressed)
+		g->player.dir = vectorf_rotate(g->player.dir, -2);
+	else if (g->controls.move_up_pressed && is_in_the_wall(move(g->player.pos, up)))
+		g->player.pos = move(g->player.pos, up);
+	else if (g->controls.move_down_pressed && is_in_the_wall(move(g->player.pos, down)))
+		g->player.pos = move(g->player.pos, down);
+	else if (g->controls.move_left_pressed && is_in_the_wall(move(g->player.pos, left)))
+		g->player.pos = move(g->player.pos, left);
+	else if (g->controls.move_right_pressed && is_in_the_wall(move(g->player.pos, right)))
+		g->player.pos = move(g->player.pos, right);
+	printf("%f %f\n", g->player.pos.x, g->player.pos.y);
+	end = check_wall_in_dir(&g->dp, g->player.pos, g->player.dir);
+	draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 24);
+	draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), grid_coordsf_to_pixel_point(end));
+	draw_hollow_square(&g->frame, grid_coordsf_to_pixel_point(end), 25);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
-	return 1;
+	return 0;
 }
 
 int main()
@@ -329,8 +443,13 @@ int main()
 	g.frame.addr = mlx_get_data_addr(g.frame.img, &g.frame.bits_per_pixel,
 			&g.frame.line_len, &g.frame.endian);
 	g.player.pos = (t_vectorf){.x = 2.5, .y = 1.5};
+	g.player.dir = (t_vectorf){.x = 1, .y = 0};
+	g.player.dir = vectorf_rotate(g.player.dir, -225);
+	printf("%f\t%f\n", g.player.dir.x, g.player.dir.y);
 	g.map_size = (t_grid_coordsi){.x = 10, .y = 10};
 	mlx_put_image_to_window(g.mlx, g.win, g.frame.img, 0, 0);
+	mlx_hook(g.win, 2, (1L<<0), handle_key_press, &g);
+	mlx_hook(g.win, 3, (1L<<1), handle_key_release, &g);
 	mlx_loop_hook(g.mlx, move_line, &g);
 	mlx_loop(g.mlx);
 }
