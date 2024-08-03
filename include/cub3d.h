@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/30 19:10:36 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/03 13:39:15 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,33 @@
 # include "../src/libft/get_next_line/get_next_line.h"
 # include <stdio.h>
 # include <fcntl.h>
+# include <stdbool.h>
+
+/* All the relevant data to rendered images */
+typedef struct	s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_len;
+	int		endian;
+}				t_img;
+
+typedef struct	s_vectorf
+{
+	double	x;
+	double	y;
+}				t_vectorf;
+
+typedef struct	s_vectori
+{
+	int		x;
+	int		y;
+}				t_vectori;
+
+typedef	t_vectorf t_grid_coordsf;
+typedef	t_vectori t_pixel_point;
+typedef	t_vectori t_grid_coordsi;
 
 typedef struct s_config_parsing
 {
@@ -32,6 +59,25 @@ typedef struct s_config_parsing
 	int		keys_finish;
 }	t_config_parsing;
 
+typedef struct	s_dda_params
+{
+	t_grid_coordsf	ray_step;
+	t_grid_coordsf	rate_of_change;
+	t_grid_coordsf	dist_until_first_side;
+	t_grid_coordsi	inspected_grid;
+	bool			found_wall;
+	double			camera;
+	double			distance;
+	double			max_distance;
+}				t_dda_params;
+
+typedef struct	s_player
+{
+	t_grid_coordsf	pos;
+	t_vectorf		dir;
+	t_vectorf		plane;
+}				t_player;
+
 typedef struct s_config
 {
 	int		north_fd;
@@ -42,11 +88,17 @@ typedef struct s_config
 	int		*ceiling_c;
 }	t_config;
 
-typedef struct s_game
+typedef struct	s_game
 {
-	char		**map;
-	t_config	conf;
-}	t_game;
+	void			*mlx;
+	void			*win;
+	t_img			frame;
+	t_player		player;
+	t_dda_params	dp;
+	char			**map;
+	t_grid_coordsi	map_size;
+	t_config		conf;
+}				t_game;
 
 /*					// PARSE \\					*/
 int					parse_line(char *gnl, t_config_parsing *conf);
