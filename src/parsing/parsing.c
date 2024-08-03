@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:31:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:16:47 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:20:14 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	pre_parsing(int fd, t_config_parsing *conf)
 			printf("\033[0;31m""Error\nThe map contains only keys!\n""\033[0m")
 			, exit(1));
 	if (conf->ceiling_c[0] > 255 || conf->ceiling_c[1] > 255
-		|| conf->ceiling_c[2] > 255 || conf->floor_c[0] > 255 
+		|| conf->ceiling_c[2] > 255 || conf->floor_c[0] > 255
 		|| conf->floor_c[1] > 255 || conf->floor_c[2] > 255)
 		return (free_config_p(conf),
 			printf("\033[0;31m" \
-			"Error\nOne of the number is above or under the char limit!\n" \
-			"\033[0m"), exit(1));
+			"Error\nOne of the number is above the char limit!\n""\033[0m")
+			, exit(1));
 }
 
 int	map_manager(char *gnl, t_config_parsing *conf)

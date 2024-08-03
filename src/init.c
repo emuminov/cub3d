@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:17:16 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:19:44 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,16 @@ t_config	config_init(void)
 {
 	t_config	conf;
 
-	conf.north_path = NULL;
-	conf.east_path = NULL;
-	conf.west_path = NULL;
-	conf.south_path = NULL;
-	conf.floor_c = -1;
-	conf.ceiling_c = -1;
+	conf.north_fd = -1;
+	conf.east_fd = -1;
+	conf.south_fd = -1;
+	conf.west_fd = -1;
+	conf.floor_c[0] = -1;
+	conf.floor_c[1] = -1;
+	conf.floor_c[2] = -1;
+	conf.ceiling_c[0] = -1;
+	conf.ceiling_c[1] = -1;
+	conf.ceiling_c[2] = -1;
 	return (conf);
 }
 
@@ -98,15 +102,22 @@ int	fill(char **tab, t_coord size, t_coord cur, char tofind)
 {
 	int	inturn;
 
-	inturn = ((cur.y == size.y || cur.x == size.x || cur.x == 0 || cur.y == 0) && (!tab[cur.y] || (tab[cur.y][cur.x] == tofind || tab[cur.y][cur.x] == ' ' || tab[cur.y][cur.x] == '\0')));
-	if (cur.y < 0 || cur.y >= size.y || cur.x < 0 || cur.x >= size.x
-		|| (tab[cur.y][cur.x] == '1' || tab[cur.y][cur.x] == 'F'))
+	inturn = (cur.y >= 0 && cur.y <= size.y && cur.x >= 0 && cur.x <= size.x
+		&& tab[cur.y] && tab[cur.y][cur.x] 
+		&& (tab[cur.y][cur.x] == '1' || tab[cur.y][cur.x] == 'F'));
+	if ((cur.y >= 0 && cur.y <= size.y && cur.x >= 0 && cur.x <= size.x
+		&& tab[cur.y] && tab[cur.y][cur.x] 
+		&& (tab[cur.y][cur.x] == '1' || tab[cur.y][cur.x] == 'F')))
+		return (0);
+	if (cur.y <= 0 || cur.y >= size.y || cur.x <= 0 || cur.x >= size.x
+		|| (!tab[cur.y][cur.x] || ft_isspace(tab[cur.y][cur.x])))
 		return (inturn);
-	tab[cur.y][cur.x] = 'F';
-	inturn += fill(tab, size, (t_coord){cur.x - 1, cur.y}, tofind);
-	inturn += fill(tab, size, (t_coord){cur.x + 1, cur.y}, tofind);
+	if (tab[cur.y] && tab[cur.y][cur.x] && tab[cur.y][cur.x] == '0')
+		tab[cur.y][cur.x] = 'F';
 	inturn += fill(tab, size, (t_coord){cur.x, cur.y - 1}, tofind);
 	inturn += fill(tab, size, (t_coord){cur.x, cur.y + 1}, tofind);
+	inturn += fill(tab, size, (t_coord){cur.x - 1, cur.y}, tofind);
+	inturn += fill(tab, size, (t_coord){cur.x + 1, cur.y}, tofind);
 	return (inturn);
 }
 
@@ -125,7 +136,7 @@ int	parse_map(char **map)
 		i++;
 	}
 	start = get_start(map);
-	if (fill(map, (t_coord){max_len, ft_strslen(map)}, start, '0') != 0)
+	if (fill(map, (t_coord){.x = max_len, .y = ft_strslen(map)}, start, '0') != 0)
 	{
 		printf("\033[0;31m""Error\nThe map is not closed!\n""\033[0m");
 		return (1);

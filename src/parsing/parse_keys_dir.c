@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:10:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 00:43:16 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:20:06 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../include/parsing.h"
 #include <stdio.h>
 
+//TODO: NEED TO FIX PRE KEY SPACES
 int	north_key_manager(char *gnl, t_config_parsing *conf)
 {
 	int	i;
