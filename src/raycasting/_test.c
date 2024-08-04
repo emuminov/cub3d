@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/04 14:51:50 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/04 14:54:25 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,9 +414,9 @@ int	move_line(t_game *g)
 
 	draw_grid(g);
 	if (g->controls.rotate_left_pressed)
-		g->player.dir = vectorf_rotate(g->player.dir, 2);
+		g->player.dir = vectorf_rotate(g->player.dir, 4);
 	else if (g->controls.rotate_right_pressed)
-		g->player.dir = vectorf_rotate(g->player.dir, -2);
+		g->player.dir = vectorf_rotate(g->player.dir, -4);
 	else if (g->controls.move_up_pressed && !is_in_the_wall(move_player(g->player, up)))
 		g->player.pos = move_player(g->player, up);
 	else if (g->controls.move_down_pressed && !is_in_the_wall(move_player(g->player, down)))
