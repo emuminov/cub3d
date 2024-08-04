@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:10:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:20:06 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:21:09 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ int	north_key_manager(char *gnl, t_config_parsing *conf)
 {
 	int	i;
 
-	i = 2;
-	if (ft_strncmp(gnl, "NO", 2) != 0 || error_key(gnl, conf, 2, 1) == 1)
+	i = 0;
+	while (gnl[i] == ' ')
+		i++;
+	if (ft_strncmp(&gnl[i], "NO", 2) || error_key(&gnl[i], conf, 2, 1) == 1)
 		return (0);
 	if (conf->north_path != NULL)
 	{
@@ -28,6 +30,7 @@ int	north_key_manager(char *gnl, t_config_parsing *conf)
 		get_next_line(-1);
 		return (free(gnl), free_config_p(conf), exit(1), 0);
 	}
+	i += 2;
 	while (gnl[i] == ' ')
 		i++;
 	conf->north_path = ft_strdup(&gnl[i]);
@@ -40,8 +43,10 @@ int	east_key_manager(char *gnl, t_config_parsing *conf)
 {
 	int	i;
 
-	i = 2;
-	if (ft_strncmp(gnl, "EA", 2) != 0 || error_key(gnl, conf, 2, 1) == 1)
+	i = 0;
+	while (gnl[i] == ' ')
+		i++;
+	if (ft_strncmp(&gnl[i], "EA", 2) || error_key(&gnl[i], conf, 2, 1) == 1)
 		return (0);
 	if (conf->east_path != NULL)
 	{
@@ -49,6 +54,7 @@ int	east_key_manager(char *gnl, t_config_parsing *conf)
 		get_next_line(-1);
 		return (free(gnl), free_config_p(conf), exit(1), 0);
 	}
+	i += 2;
 	while (gnl[i] == ' ')
 		i++;
 	conf->east_path = ft_strdup(&gnl[i]);
@@ -61,8 +67,10 @@ int	west_key_manager(char *gnl, t_config_parsing *conf)
 {
 	int	i;
 
-	i = 2;
-	if (ft_strncmp(gnl, "WE", 2) != 0 || error_key(gnl, conf, 2, 1) == 1)
+	i = 0;
+	while (gnl[i] == ' ')
+		i++;
+	if (ft_strncmp(&gnl[i], "WE", 2) || error_key(&gnl[i], conf, 2, 1) == 1)
 		return (0);
 	if (conf->west_path != NULL)
 	{
@@ -70,6 +78,7 @@ int	west_key_manager(char *gnl, t_config_parsing *conf)
 		get_next_line(-1);
 		return (free(gnl), free_config_p(conf), exit(1), 0);
 	}
+	i += 2;
 	while (gnl[i] == ' ')
 		i++;
 	conf->west_path = ft_strdup(&gnl[i]);
@@ -82,8 +91,10 @@ int	south_key_manager(char *gnl, t_config_parsing *conf)
 {
 	int	i;
 
-	i = 2;
-	if (ft_strncmp(gnl, "SO", 2) != 0 || error_key(gnl, conf, 2, 1) == 1)
+	i = 0;
+	while (gnl[i] == ' ')
+		i++;
+	if (ft_strncmp(&gnl[i], "SO", 2) || error_key(&gnl[i], conf, 2, 1) == 1)
 		return (0);
 	if (conf->south_path != NULL)
 	{
@@ -91,6 +102,7 @@ int	south_key_manager(char *gnl, t_config_parsing *conf)
 		get_next_line(-1);
 		return (free(gnl), free_config_p(conf), exit(1), 0);
 	}
+	i += 2;
 	while (gnl[i] == ' ')
 		i++;
 	conf->south_path = ft_strdup(&gnl[i]);
