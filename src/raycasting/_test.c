@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/03 19:50:36 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/04 14:51:50 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,7 +354,6 @@ int	handle_key_press(int keysym, t_game *g)
 
 int	handle_key_release(int keysym, t_game *g)
 {
-	printf("%d\n", keysym);
 	if (keysym == XK_Left)
 		g->controls.rotate_left_pressed = false;
 	else if (keysym == XK_Right)
@@ -391,20 +390,22 @@ t_vectorf	mouse_pos_to_grid_coordsf(t_game *g)
 
 bool	is_in_the_wall(t_grid_coordsf pos)
 {
-	return map[(int)pos.y][(int)pos.x] != 1;
+	const t_grid_coordsi	c = (t_grid_coordsi){.x = pos.x, .y = pos.y};
+	return map[c.y][c.x] == 1;
 }
 
-t_grid_coordsf	move(t_grid_coordsf old_pos, enum e_direction m)
+t_grid_coordsf	move_player(t_player p, enum e_direction m)
 {
 	if (m == up)
-		old_pos.y -= 0.1;
+		p.pos = vectorf_add(p.pos, vectorf_scale(p.dir, 0.1));
 	else if (m == down)
-		old_pos.y += 0.1;
+		p.pos = vectorf_sub(p.pos, vectorf_scale(p.dir, 0.1));
 	else if (m == left)
-		old_pos.x -= 0.1;
+		p.pos = vectorf_add(p.pos, vectorf_scale(vectorf_rotate(p.dir, -90), 0.1));
 	else if (m == right)
-		old_pos.x += 0.1;
-	return old_pos;
+		p.pos = vectorf_add(p.pos, vectorf_scale(vectorf_rotate(p.dir, 90), 0.1));
+	printf("%f %f\n", p.pos.x, p.pos.y);
+	return p.pos;
 }
 
 int	move_line(t_game *g)
@@ -416,15 +417,15 @@ int	move_line(t_game *g)
 		g->player.dir = vectorf_rotate(g->player.dir, 2);
 	else if (g->controls.rotate_right_pressed)
 		g->player.dir = vectorf_rotate(g->player.dir, -2);
-	else if (g->controls.move_up_pressed && is_in_the_wall(move(g->player.pos, up)))
-		g->player.pos = move(g->player.pos, up);
-	else if (g->controls.move_down_pressed && is_in_the_wall(move(g->player.pos, down)))
-		g->player.pos = move(g->player.pos, down);
-	else if (g->controls.move_left_pressed && is_in_the_wall(move(g->player.pos, left)))
-		g->player.pos = move(g->player.pos, left);
-	else if (g->controls.move_right_pressed && is_in_the_wall(move(g->player.pos, right)))
-		g->player.pos = move(g->player.pos, right);
-	printf("%f %f\n", g->player.pos.x, g->player.pos.y);
+	else if (g->controls.move_up_pressed && !is_in_the_wall(move_player(g->player, up)))
+		g->player.pos = move_player(g->player, up);
+	else if (g->controls.move_down_pressed && !is_in_the_wall(move_player(g->player, down)))
+		g->player.pos = move_player(g->player, down);
+	else if (g->controls.move_left_pressed && !is_in_the_wall(move_player(g->player, left)))
+		g->player.pos = move_player(g->player, left);
+	else if (g->controls.move_right_pressed && !is_in_the_wall(move_player(g->player, right)))
+		g->player.pos = move_player(g->player, right);
+	// printf("%f %f\n", g->player.pos.x, g->player.pos.y);
 	end = check_wall_in_dir(&g->dp, g->player.pos, g->player.dir);
 	draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 24);
 	draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), grid_coordsf_to_pixel_point(end));
@@ -445,7 +446,6 @@ int main()
 	g.player.pos = (t_vectorf){.x = 2.5, .y = 1.5};
 	g.player.dir = (t_vectorf){.x = 1, .y = 0};
 	g.player.dir = vectorf_rotate(g.player.dir, -225);
-	printf("%f\t%f\n", g.player.dir.x, g.player.dir.y);
 	g.map_size = (t_grid_coordsi){.x = 10, .y = 10};
 	mlx_put_image_to_window(g.mlx, g.win, g.frame.img, 0, 0);
 	mlx_hook(g.win, 2, (1L<<0), handle_key_press, &g);
