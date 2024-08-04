@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/03 13:39:15 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:23:55 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct	s_dda_params
 {
 	t_grid_coordsf	ray_step;
 	t_grid_coordsf	rate_of_change;
-	t_grid_coordsf	dist_until_first_side;
+	t_grid_coordsf	dist_until_grid_side;
 	t_grid_coordsi	inspected_grid;
 	bool			found_wall;
 	double			camera;
@@ -88,6 +88,16 @@ typedef struct s_config
 	int		*ceiling_c;
 }	t_config;
 
+typedef struct	s_controls
+{
+	bool	rotate_left_pressed;
+	bool	rotate_right_pressed;
+	bool	move_up_pressed;
+	bool	move_down_pressed;
+	bool	move_left_pressed;
+	bool	move_right_pressed;
+}				t_controls;
+
 typedef struct	s_game
 {
 	void			*mlx;
@@ -98,6 +108,7 @@ typedef struct	s_game
 	char			**map;
 	t_grid_coordsi	map_size;
 	t_config		conf;
+	t_controls		controls;
 }				t_game;
 
 /*					// PARSE \\					*/
