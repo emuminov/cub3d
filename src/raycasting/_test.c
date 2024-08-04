@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/04 14:54:25 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:29:23 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ t_vectorf	vectorf_abs(t_vectorf v)
 	return (t_vectorf){.x = abs_f(v.x), .y = abs_f(v.y)};
 }
 
+// TODO: store the rotation constants somewhere
 t_vectorf	vectorf_rotate(t_vectorf dir, double theta)
 {
 	t_vectorf	res;
@@ -120,7 +121,7 @@ const int map[10][10] = {
 	{ 1, 0, 2, 0, 0, 0, 0, 0, 0, 1 },
 	{ 1, 0, 0, 0, 0, 1, 1, 0, 0, 1 },
 	{ 1, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
-	{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+	{ 1, 0, 0, 0, 1, 0, 0, 0, 0, 1 },
 	{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 	{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 	{ 1, 1, 0, 0, 1, 0, 0, 0, 0, 1 },
@@ -262,7 +263,6 @@ void	draw_square(t_img *frame, t_pixel_point pos, int size)
 	}
 }
 
-
 double	signf(double nbr)
 {
 	if (nbr < 0)
@@ -388,9 +388,17 @@ t_vectorf	mouse_pos_to_grid_coordsf(t_game *g)
 	return mouse_grid_pos;
 }
 
+t_vectorf	vectorf_epsilon(t_vectorf dir)
+{
+	return (t_vectorf){.x = 1e-9 * signf(dir.x), .y = 1e-9 * signf(dir.y)};
+}
+
 bool	is_in_the_wall(t_grid_coordsf pos)
 {
 	const t_grid_coordsi	c = (t_grid_coordsi){.x = pos.x, .y = pos.y};
+	printf("float: %f\t%f\n", pos.x, pos.y);
+	printf("int:   %d\t\t%d\n", c.x, c.y);
+	printf("wall:  %d\t\n", map[c.y][c.x] == 1);
 	return map[c.y][c.x] == 1;
 }
 
@@ -404,8 +412,24 @@ t_grid_coordsf	move_player(t_player p, enum e_direction m)
 		p.pos = vectorf_add(p.pos, vectorf_scale(vectorf_rotate(p.dir, -90), 0.1));
 	else if (m == right)
 		p.pos = vectorf_add(p.pos, vectorf_scale(vectorf_rotate(p.dir, 90), 0.1));
-	printf("%f %f\n", p.pos.x, p.pos.y);
 	return p.pos;
+}
+
+bool	is_end(t_vectorf pos, t_vectorf end)
+{
+	t_vectorf	dir;
+
+	dir = vectorf_dir(pos, end);
+	printf("%f %f\n", pos.x, pos.y);
+	printf("%f %f\n", end.x, end.y);
+	if (dir.x < 0 && dir.y >= 0)
+		return (pos.x <= end.x || pos.y >= dir.y);
+	else if (dir.x < 0 && dir.y < 0)
+		return (pos.x <= end.x || pos.y <= dir.y);
+	else if (dir.x >= 0 && dir.y >= 0)
+		return (pos.x >= end.x || pos.y >= dir.y);
+	else
+		return (pos.x >= end.x || pos.y <= dir.y);
 }
 
 int	move_line(t_game *g)
@@ -413,10 +437,11 @@ int	move_line(t_game *g)
 	t_grid_coordsf	end;
 
 	draw_grid(g);
+	end = check_wall_in_dir(&g->dp, g->player.pos, g->player.dir);
 	if (g->controls.rotate_left_pressed)
-		g->player.dir = vectorf_rotate(g->player.dir, 4);
+		g->player.dir = vectorf_rotate(g->player.dir, 2);
 	else if (g->controls.rotate_right_pressed)
-		g->player.dir = vectorf_rotate(g->player.dir, -4);
+		g->player.dir = vectorf_rotate(g->player.dir, -2);
 	else if (g->controls.move_up_pressed && !is_in_the_wall(move_player(g->player, up)))
 		g->player.pos = move_player(g->player, up);
 	else if (g->controls.move_down_pressed && !is_in_the_wall(move_player(g->player, down)))
@@ -425,9 +450,8 @@ int	move_line(t_game *g)
 		g->player.pos = move_player(g->player, left);
 	else if (g->controls.move_right_pressed && !is_in_the_wall(move_player(g->player, right)))
 		g->player.pos = move_player(g->player, right);
-	// printf("%f %f\n", g->player.pos.x, g->player.pos.y);
-	end = check_wall_in_dir(&g->dp, g->player.pos, g->player.dir);
-	draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 24);
+	printf("%f %f\n", g->player.pos.x, g->player.pos.y);
+	draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 25);
 	draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), grid_coordsf_to_pixel_point(end));
 	draw_hollow_square(&g->frame, grid_coordsf_to_pixel_point(end), 25);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
