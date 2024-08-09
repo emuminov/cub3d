@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/04 18:29:23 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/09 23:28:07 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,15 +393,6 @@ t_vectorf	vectorf_epsilon(t_vectorf dir)
 	return (t_vectorf){.x = 1e-9 * signf(dir.x), .y = 1e-9 * signf(dir.y)};
 }
 
-bool	is_in_the_wall(t_grid_coordsf pos)
-{
-	const t_grid_coordsi	c = (t_grid_coordsi){.x = pos.x, .y = pos.y};
-	printf("float: %f\t%f\n", pos.x, pos.y);
-	printf("int:   %d\t\t%d\n", c.x, c.y);
-	printf("wall:  %d\t\n", map[c.y][c.x] == 1);
-	return map[c.y][c.x] == 1;
-}
-
 t_grid_coordsf	move_player(t_player p, enum e_direction m)
 {
 	if (m == up)
@@ -415,21 +406,20 @@ t_grid_coordsf	move_player(t_player p, enum e_direction m)
 	return p.pos;
 }
 
-bool	is_end(t_vectorf pos, t_vectorf end)
+bool	is_end(t_grid_coordsf original_pos, t_grid_coordsf new_pos, t_grid_coordsf end)
 {
 	t_vectorf	dir;
 
-	dir = vectorf_dir(pos, end);
-	printf("%f %f\n", pos.x, pos.y);
-	printf("%f %f\n", end.x, end.y);
+	dir = vectorf_dir(original_pos, end);
 	if (dir.x < 0 && dir.y >= 0)
-		return (pos.x <= end.x || pos.y >= dir.y);
-	else if (dir.x < 0 && dir.y < 0)
-		return (pos.x <= end.x || pos.y <= dir.y);
-	else if (dir.x >= 0 && dir.y >= 0)
-		return (pos.x >= end.x || pos.y >= dir.y);
-	else
-		return (pos.x >= end.x || pos.y <= dir.y);
+		return (new_pos.x <= end.x || new_pos.y >= end.y);
+	if (dir.x < 0 && dir.y < 0)
+		return (new_pos.x <= end.x || new_pos.y <= end.y);
+	if (dir.x >= 0 && dir.y >= 0)
+		return (new_pos.x >= end.x || new_pos.y >= end.y);
+	if (dir.x >= 0 && dir.y < 0)
+		return (new_pos.x >= end.x || new_pos.y <= end.y);
+	return 1;
 }
 
 int	move_line(t_game *g)
@@ -442,15 +432,33 @@ int	move_line(t_game *g)
 		g->player.dir = vectorf_rotate(g->player.dir, 2);
 	else if (g->controls.rotate_right_pressed)
 		g->player.dir = vectorf_rotate(g->player.dir, -2);
-	else if (g->controls.move_up_pressed && !is_in_the_wall(move_player(g->player, up)))
-		g->player.pos = move_player(g->player, up);
-	else if (g->controls.move_down_pressed && !is_in_the_wall(move_player(g->player, down)))
-		g->player.pos = move_player(g->player, down);
-	else if (g->controls.move_left_pressed && !is_in_the_wall(move_player(g->player, left)))
-		g->player.pos = move_player(g->player, left);
-	else if (g->controls.move_right_pressed && !is_in_the_wall(move_player(g->player, right)))
-		g->player.pos = move_player(g->player, right);
-	printf("%f %f\n", g->player.pos.x, g->player.pos.y);
+	else if (g->controls.move_up_pressed)
+	{
+		t_grid_coordsf new_pos = move_player(g->player, up);
+		if (!is_end(g->player.pos, new_pos, end))
+			g->player.pos = new_pos;
+	}
+	else if (g->controls.move_down_pressed)
+	{
+		t_grid_coordsf new_pos = move_player(g->player, down);
+		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, 180));
+		if (!is_end(g->player.pos, new_pos, collision_point))
+			g->player.pos = new_pos;
+	}
+	else if (g->controls.move_left_pressed)
+	{
+		t_grid_coordsf new_pos = move_player(g->player, left);
+		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, -90));
+		if (!is_end(g->player.pos, new_pos, collision_point))
+			g->player.pos = new_pos;
+	}
+	else if (g->controls.move_right_pressed)
+	{
+		t_grid_coordsf new_pos = move_player(g->player, right);
+		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, 90));
+		if (!is_end(g->player.pos, new_pos, collision_point))
+			g->player.pos = new_pos;
+	}
 	draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 25);
 	draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), grid_coordsf_to_pixel_point(end));
 	draw_hollow_square(&g->frame, grid_coordsf_to_pixel_point(end), 25);
