@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:21:33 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:22:11 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,49 +98,51 @@ size_t	ft_strslen(char **strs)
 }
 
 //TODO while instead of recursive
-int	fill(char **tab, t_coord size, t_coord cur, char tofind)
+int	fill(char **tab, int len_strs, t_coord cur, int *len_tab)
 {
 	int	inturn;
-	inturn = ((cur.y == size.y || cur.x == size.x || cur.x == 0 || cur.y == 0)
-		&& (!tab[cur.y] || (tab[cur.y][cur.x] == tofind
-		|| tab[cur.y][cur.x] == ' ' || tab[cur.y][cur.x] == '\0')));
-	if (cur.y < 0 || cur.y >= size.y || cur.x < 0 || cur.x >= size.x
+
+	inturn = (!(cur.y < 0 || cur.x < 0)
+		&& ((cur.y == len_strs || cur.x == len_tab[cur.y] \
+		|| cur.x == 0 || cur.y == 0) && (!tab[cur.y] \
+		|| (tab[cur.y][cur.x] == '0' || tab[cur.y][cur.x] == ' ' \
+		|| tab[cur.y][cur.x] == '\0'))));
+	if (cur.y < 0 || cur.y >= len_strs || cur.x < 0 || cur.x >= len_tab[cur.y]
 		|| (tab[cur.y][cur.x] == '1' || tab[cur.y][cur.x] == 'F'))
 		return (inturn);
 	tab[cur.y][cur.x] = 'F';
-	inturn += fill(tab, size, (t_coord){cur.x - 1, cur.y}, tofind);
-	inturn += fill(tab, size, (t_coord){cur.x + 1, cur.y}, tofind);
-	inturn += fill(tab, size, (t_coord){cur.x, cur.y - 1}, tofind);
-	inturn += fill(tab, size, (t_coord){cur.x, cur.y + 1}, tofind);
+	inturn += fill(tab, len_strs, (t_coord){cur.x - 1, cur.y}, len_tab);
+	inturn += fill(tab, len_strs, (t_coord){cur.x + 1, cur.y}, len_tab);
+	inturn += fill(tab, len_strs, (t_coord){cur.x, cur.y - 1}, len_tab);
+	inturn += fill(tab, len_strs, (t_coord){cur.x, cur.y + 1}, len_tab);
 	return (inturn);
 }
 
+int	get_max_and_fill(char **map, int *len_tab);
+
 int	parse_map(char **map)
 {
+	int		*len_tab;
 	int		i;
-	int		max_len;
 	t_coord	start;
 
-	i = 0;
-	max_len = 0;
-	while (map[i])
-	{
-		if (max_len < (int)ft_strlen(map[i]))
-			max_len = ft_strlen(map[i]);
-		i++;
-	}
+	i = -1;
+	len_tab = malloc(sizeof(int) * ft_strslen(map));
+	while (map[++i])
+		len_tab[i] = (int)ft_strlen(map[i]);
 	start = get_start(map);
 	if (start.y == -1 && start.x == -1)
 	{
 		printf("\033[0;31m""Error\nThe map needs to have one player!\n"
 			"\033[0m");
-		return (1);
+		return (free(len_tab), 1);
 	}
-	if (fill(map, (t_coord){max_len, ft_strslen(map)}, start, '0') != 0)
+	if (fill(map, (int)ft_strslen(map), start, len_tab) != 0)
 	{
 		printf("\033[0;31m""Error\nThe map is not closed!\n""\033[0m");
-		return (1);
+		return (free(len_tab), 1);
 	}
+	free(len_tab);
 	return (0);
 }
 

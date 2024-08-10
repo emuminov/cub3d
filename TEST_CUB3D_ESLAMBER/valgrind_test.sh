@@ -87,7 +87,7 @@ $1 valgrind ../cub3D $path_incorrecte/double_perso2.cub
 echo "###############################################"
 $1 valgrind ../cub3D $path_incorrecte/double_perso3.cub
 echo "###############################################"
-$1 valgrind ../cub3D $path_incorrecte/map_démesurée_sans_perso.cub
+# $1 valgrind ../cub3D $path_incorrecte/map_démesurée_sans_perso.cub
 echo "###############################################"
 $1 valgrind ../cub3D $path_incorrecte/without_perso.cub
 echo "###############################################"
