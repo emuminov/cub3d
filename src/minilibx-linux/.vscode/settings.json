@@ -55,5 +55,20 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
+<<<<<<< HEAD:src/minilibx-linux/.vscode/settings.json
   "C_Cpp_Runner.msvcSecureNoWarnings": false
+=======
+  "C_Cpp_Runner.msvcSecureNoWarnings": false,
+  "files.associations": {
+    "fcntl.h": "c",
+    "cub3d.h": "c",
+    "ft_printf.h": "c",
+    "stdio.h": "c",
+    "type_traits": "c",
+    "array": "c",
+    "string_view": "c",
+    "initializer_list": "c",
+    "utility": "c"
+  }
+>>>>>>> 9351cbe (need to do the norm still but it works):.vscode/settings.json
 }

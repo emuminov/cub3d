@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:22:11 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:23:57 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,26 +97,87 @@ size_t	ft_strslen(char **strs)
 	return (i);
 }
 
-//TODO while instead of recursive
+// void	manage_x_fill(char **tab, int *len_tab, t_coord cur, t_coord *stack)
+// {
+
+// }
+
+// void	manage_y_fill(char **tab, int len_strs, t_coord cur, t_coord *stack)
+// {
+
+// }
+
+int	cur_border_checker(t_coord cur, int *len_tab, int len_strs)
+{
+	return (cur.y == 0 || cur.y == len_strs - 1 || cur.x == 0
+	|| cur.x == len_tab[cur.y] - 1 || (cur.y + 1 < len_strs
+	&& cur.x >= len_tab[cur.y + 1]) || (cur.y > 0
+	&& cur.x >= len_tab[cur.y - 1]));
+}
+
 int	fill(char **tab, int len_strs, t_coord cur, int *len_tab)
 {
-	int	inturn;
+	int		stack_size;
+	t_coord	*stack;
+	int		inturn;
 
-	inturn = (!(cur.y < 0 || cur.x < 0)
-		&& ((cur.y == len_strs || cur.x == len_tab[cur.y] \
-		|| cur.x == 0 || cur.y == 0) && (!tab[cur.y] \
-		|| (tab[cur.y][cur.x] == '0' || tab[cur.y][cur.x] == ' ' \
-		|| tab[cur.y][cur.x] == '\0'))));
-	if (cur.y < 0 || cur.y >= len_strs || cur.x < 0 || cur.x >= len_tab[cur.y]
-		|| (tab[cur.y][cur.x] == '1' || tab[cur.y][cur.x] == 'F'))
-		return (inturn);
-	tab[cur.y][cur.x] = 'F';
-	inturn += fill(tab, len_strs, (t_coord){cur.x - 1, cur.y}, len_tab);
-	inturn += fill(tab, len_strs, (t_coord){cur.x + 1, cur.y}, len_tab);
-	inturn += fill(tab, len_strs, (t_coord){cur.x, cur.y - 1}, len_tab);
-	inturn += fill(tab, len_strs, (t_coord){cur.x, cur.y + 1}, len_tab);
-	return (inturn);
+	if (cur_border_checker(cur, len_tab, len_strs) == 1)
+		return (1);
+	inturn = 0;
+	stack = malloc(sizeof(t_coord) * len_strs * len_tab[0]);
+	if (stack == NULL)
+		return (printf("\033[0;31m""Error\nMalloc error!\n""\033[0m"), 2);
+	stack_size = 0;
+	stack[stack_size++] = cur;
+	while (stack_size-- > 0)
+	{
+		cur = stack[stack_size];
+		if (cur.y < 0 || cur.y >= len_strs || cur.x < 0 || cur.x
+			>= len_tab[cur.y] || (tab[cur.y][cur.x] == '1'
+			|| tab[cur.y][cur.x] == 'F'))
+			continue ;
+		tab[cur.y][cur.x] = 'F';
+		inturn |= (cur.y == 0 || cur.y == len_strs - 1 || cur.x == 0
+				|| cur.x == len_tab[cur.y] - 1);
+		if ((cur.y + 1 < len_strs && cur.x >= len_tab[cur.y + 1])
+			|| (cur.y - 1 < len_strs && cur.x >= len_tab[cur.y - 1]))
+			inturn = 1;
+		if (cur.x - 1 >= 0 && tab[cur.y][cur.x - 1] != '1'
+				&& tab[cur.y][cur.x - 1] != 'F')
+			stack[stack_size++] = (t_coord){cur.x - 1, cur.y};
+		if (cur.x + 1 < len_tab[cur.y] && tab[cur.y][cur.x + 1] != '1'
+				&& tab[cur.y][cur.x + 1] != 'F')
+			stack[stack_size++] = (t_coord){cur.x + 1, cur.y};
+		if (cur.y - 1 >= 0 && tab[cur.y - 1][cur.x] != '1'
+				&& tab[cur.y - 1][cur.x] != 'F')
+			stack[stack_size++] = (t_coord){cur.x, cur.y - 1};
+		if (cur.y + 1 < len_strs && tab[cur.y + 1][cur.x] != '1'
+				&& tab[cur.y + 1][cur.x] != 'F')
+			stack[stack_size++] = (t_coord){cur.x, cur.y + 1};
+	}
+	return (free(stack), inturn);
 }
+
+//TODO while instead of recursive
+// int	fill(char **tab, int len_strs, t_coord cur, int *len_tab)
+// {
+// 	int	inturn;
+
+// 	inturn = (!(cur.y < 0 || cur.x < 0)
+// 		&& ((cur.y == len_strs || cur.x == len_tab[cur.y] 
+// 		|| cur.x == 0 || cur.y == 0) && (!tab[cur.y] 
+// 		|| (tab[cur.y][cur.x] == '0' || tab[cur.y][cur.x] == ' ' 
+// 		|| tab[cur.y][cur.x] == '\0'))));
+// 	if (cur.y < 0 || cur.y >= len_strs || cur.x < 0 || cur.x >= len_tab[cur.y]
+// 		|| (tab[cur.y][cur.x] == '1' || tab[cur.y][cur.x] == 'F'))
+// 		return (inturn);
+// 	tab[cur.y][cur.x] = 'F';
+// 	inturn += fill(tab, len_strs, (t_coord){cur.x - 1, cur.y}, len_tab);
+// 	inturn += fill(tab, len_strs, (t_coord){cur.x + 1, cur.y}, len_tab);
+// 	inturn += fill(tab, len_strs, (t_coord){cur.x, cur.y - 1}, len_tab);
+// 	inturn += fill(tab, len_strs, (t_coord){cur.x, cur.y + 1}, len_tab);
+// 	return (inturn);
+// }
 
 int	get_max_and_fill(char **map, int *len_tab);
 
@@ -126,24 +187,26 @@ int	parse_map(char **map)
 	int		i;
 	t_coord	start;
 
-	i = -1;
-	len_tab = malloc(sizeof(int) * ft_strslen(map));
-	while (map[++i])
-		len_tab[i] = (int)ft_strlen(map[i]);
 	start = get_start(map);
 	if (start.y == -1 && start.x == -1)
-	{
-		printf("\033[0;31m""Error\nThe map needs to have one player!\n"
-			"\033[0m");
-		return (free(len_tab), 1);
-	}
-	if (fill(map, (int)ft_strslen(map), start, len_tab) != 0)
+		return (printf("\033[0;31m""Error\nThe map needs to have one player!\n"
+			"\033[0m"), 1);
+	len_tab = malloc(sizeof(int) * ft_strslen(map));
+	if (len_tab == NULL)
+		return (printf("\033[0;31m""Error\nMalloc error!\n"
+			"\033[0m"), 1);
+	i = -1;
+	while (map[++i])
+		len_tab[i] = (int)ft_strlen(map[i]);
+	i = fill(map, (int)ft_strslen(map), start, len_tab);
+	if (i == 1)
 	{
 		printf("\033[0;31m""Error\nThe map is not closed!\n""\033[0m");
 		return (free(len_tab), 1);
 	}
-	free(len_tab);
-	return (0);
+	if (i == 2)
+		return (free(len_tab), 1);
+	return (free(len_tab), 0);
 }
 
 t_coord	get_start(char **map)
