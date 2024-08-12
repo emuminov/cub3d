@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/09 23:28:07 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/12 01:13:18 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ void	put_pixel_on_img(t_img *img, t_pixel_point p, int color)
 {
 	char	*dst;
 
+	if (p.x < 0 || p.x > img->dimensions.x || p.y < 0 || p.y > img->dimensions.y)
+		return;
 	dst = img->addr + (p.y * img->line_len + p.x * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
@@ -187,10 +189,10 @@ void	draw_grid(t_game *g)
 	t_pixel_point	p;
 
 	p.y = 0;
-	while (p.y < 10)
+	while (p.y < g->map_size.y)
 	{
 		p.x = 0;
-		while (p.x < 10)
+		while (p.x < g->map_size.x)
 		{
 			if (map[p.y][p.x] == 0 || map[p.y][p.x] == 2)
 				paint_tile(&g->frame, p, 0xAAAAAA);
@@ -200,12 +202,6 @@ void	draw_grid(t_game *g)
 		}
 		p.y++;
 	}
-}
-
-bool	is_in_bounds_of_window(t_pixel_point p)
-{
-	return !(p.x < 0 || p.x > (TILE_SIZE * 10) || p.y < 0
-		|| p.y > (TILE_SIZE * 10));
 }
 
 bool	is_in_bounds_of_grid(t_grid_coordsi v)
@@ -223,20 +219,16 @@ void	draw_hollow_square(t_img *frame, t_pixel_point pos, int size)
 	{
 		point.x = round((pos.x + i) - (double)size / 2);
 		point.y = round((pos.y) - (double)size / 2);
-		if (is_in_bounds_of_window(point))
-			put_pixel_on_img(frame, point, 0x009F00);
+		put_pixel_on_img(frame, point, 0x009F00);
 		point.x = round((pos.x) - (double)size / 2);
 		point.y = round((pos.y + i) - (double)size / 2);
-		if (is_in_bounds_of_window(point))
-			put_pixel_on_img(frame, point, 0x009F00);
+		put_pixel_on_img(frame, point, 0x009F00);
 		point.x = round((pos.x + size) - (double)size / 2);
 		point.y = round((pos.y + i) - (double)size / 2);
-		if (is_in_bounds_of_window(point))
-			put_pixel_on_img(frame, point, 0x009F00);
+		put_pixel_on_img(frame, point, 0x009F00);
 		point.x = round((pos.x + i) - (double)size / 2);
 		point.y = round((pos.y + size) - (double)size / 2);
-		if (is_in_bounds_of_window(point))
-			put_pixel_on_img(frame, point, 0x009F00);
+		put_pixel_on_img(frame, point, 0x009F00);
 		i++;
 	}
 }
@@ -255,8 +247,7 @@ void	draw_square(t_img *frame, t_pixel_point pos, int size)
 		{
 			point.x = round((pos.x + x) - (double)size / 2);
 			point.y = round((pos.y + y) - (double)size / 2);
-			if (is_in_bounds_of_window(point))
-				put_pixel_on_img(frame, point, 0x5F009F);
+			put_pixel_on_img(frame, point, 0x5F009F);
 			x++;
 		}
 		y++;
@@ -271,7 +262,7 @@ double	signf(double nbr)
 }
 
 void	set_initial_dda_params(t_dda_params *dp, t_grid_coordsf start,
-		t_vectorf dir)
+		t_vectorf dir, double max_distance)
 {
 	dp->rate_of_change.x = abs_f(1 / dir.x);
 	dp->rate_of_change.y = abs_f(1 / dir.y);
@@ -292,7 +283,7 @@ void	set_initial_dda_params(t_dda_params *dp, t_grid_coordsf start,
 		dp->dist_until_grid_side.y = ((dp->inspected_grid.y + 1) - start.y) *
 			dp->rate_of_change.y;
 	dp->found_wall = false;
-	dp->max_distance = 100;
+	dp->max_distance = max_distance;
 	dp->distance = 0;
 }
 
@@ -312,11 +303,11 @@ void	move_to_next_grid_cell(t_dda_params *dp)
 	}
 }
 
-t_vectorf	check_wall_in_dir(t_dda_params *dp, t_grid_coordsf start, t_vectorf dir)
+t_vectorf	check_wall_in_dir(t_dda_params *dp, t_grid_coordsf start, t_vectorf dir, double max_distance)
 {
 	t_vectorf	intersection;
 
-	set_initial_dda_params(dp, start, dir);
+	set_initial_dda_params(dp, start, dir, max_distance);
 	while (!dp->found_wall && dp->distance < dp->max_distance)
 	{
 		move_to_next_grid_cell(dp);
@@ -377,12 +368,12 @@ t_vectorf	mouse_pos_to_grid_coordsf(t_game *g)
 
 	mlx_mouse_get_pos(g->mlx, g->win, &x, &y);
 	mouse_grid_pos = pixel_point_to_grid_coordsf((t_pixel_point){.x = x, .y = y});
-	if (mouse_grid_pos.x > TILE_SIZE * 10)
-		mouse_grid_pos.x = TILE_SIZE * 10;
+	if (mouse_grid_pos.x > g->window_size.x)
+		mouse_grid_pos.x = g->window_size.x;
 	else if (mouse_grid_pos.x < 0)
 		mouse_grid_pos.x = 0;
-	if (mouse_grid_pos.y > TILE_SIZE * 10)
-		mouse_grid_pos.y = TILE_SIZE * 10;
+	if (mouse_grid_pos.y > g->window_size.y)
+		mouse_grid_pos.y = g->window_size.y;
 	else if (mouse_grid_pos.y < 0)
 		mouse_grid_pos.y = 0;
 	return mouse_grid_pos;
@@ -426,8 +417,7 @@ int	move_line(t_game *g)
 {
 	t_grid_coordsf	end;
 
-	draw_grid(g);
-	end = check_wall_in_dir(&g->dp, g->player.pos, g->player.dir);
+	end = check_wall_in_dir(&g->dp, g->player.pos, g->player.dir, 100);
 	if (g->controls.rotate_left_pressed)
 		g->player.dir = vectorf_rotate(g->player.dir, 2);
 	else if (g->controls.rotate_right_pressed)
@@ -441,24 +431,25 @@ int	move_line(t_game *g)
 	else if (g->controls.move_down_pressed)
 	{
 		t_grid_coordsf new_pos = move_player(g->player, down);
-		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, 180));
+		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, 180), 1);
 		if (!is_end(g->player.pos, new_pos, collision_point))
 			g->player.pos = new_pos;
 	}
 	else if (g->controls.move_left_pressed)
 	{
 		t_grid_coordsf new_pos = move_player(g->player, left);
-		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, -90));
+		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, -90), 1);
 		if (!is_end(g->player.pos, new_pos, collision_point))
 			g->player.pos = new_pos;
 	}
 	else if (g->controls.move_right_pressed)
 	{
 		t_grid_coordsf new_pos = move_player(g->player, right);
-		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, 90));
+		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, 90), 1);
 		if (!is_end(g->player.pos, new_pos, collision_point))
 			g->player.pos = new_pos;
 	}
+	draw_grid(g);
 	draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 25);
 	draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), grid_coordsf_to_pixel_point(end));
 	draw_hollow_square(&g->frame, grid_coordsf_to_pixel_point(end), 25);
@@ -466,19 +457,33 @@ int	move_line(t_game *g)
 	return 0;
 }
 
+int	init_image_data(void *mlx, t_img *img, int x, int y)
+{
+	img->dimensions = (t_vectori){.x = x * TILE_SIZE, .y = y * TILE_SIZE};
+	img->img = mlx_new_image(mlx, img->dimensions.x, img->dimensions.y);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->line_len, &img->endian);
+	return 0;
+}
+
+int	init_game(t_game *g, int x, int y)
+{
+	g->mlx = mlx_init();
+	g->win = mlx_new_window(g->mlx, x * TILE_SIZE, y * TILE_SIZE, "Test");
+	init_image_data(g->mlx, &g->frame, x, y);
+	g->window_size = (t_pixel_point){.x = x * TILE_SIZE, .y = y * TILE_SIZE};
+	g->player.pos = (t_vectorf){.x = 2.5, .y = 1.5};
+	g->player.dir = (t_vectorf){.x = 1, .y = 0};
+	g->player.dir = vectorf_rotate(g->player.dir, -225);
+	g->map_size = (t_grid_coordsi){.x = 10, .y = 10}; // size of actual map
+	return 0;
+}
+
 int main()
 {
 	static t_game	g;
 
-	g.mlx = mlx_init();
-	g.win = mlx_new_window(g.mlx, 10 * TILE_SIZE, 10 * TILE_SIZE, "Test");
-	g.frame.img = mlx_new_image(g.mlx, 10 * TILE_SIZE, 10 * TILE_SIZE);
-	g.frame.addr = mlx_get_data_addr(g.frame.img, &g.frame.bits_per_pixel,
-			&g.frame.line_len, &g.frame.endian);
-	g.player.pos = (t_vectorf){.x = 2.5, .y = 1.5};
-	g.player.dir = (t_vectorf){.x = 1, .y = 0};
-	g.player.dir = vectorf_rotate(g.player.dir, -225);
-	g.map_size = (t_grid_coordsi){.x = 10, .y = 10};
+	init_game(&g, 5, 5);
 	mlx_put_image_to_window(g.mlx, g.win, g.frame.img, 0, 0);
 	mlx_hook(g.win, 2, (1L<<0), handle_key_press, &g);
 	mlx_hook(g.win, 3, (1L<<1), handle_key_release, &g);

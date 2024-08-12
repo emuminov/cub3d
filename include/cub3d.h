@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/03 19:23:55 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/12 01:06:11 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,6 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdbool.h>
-
-/* All the relevant data to rendered images */
-typedef struct	s_img
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_len;
-	int		endian;
-}				t_img;
 
 typedef struct	s_vectorf
 {
@@ -45,6 +35,17 @@ typedef struct	s_vectori
 typedef	t_vectorf t_grid_coordsf;
 typedef	t_vectori t_pixel_point;
 typedef	t_vectori t_grid_coordsi;
+
+/* All the relevant data to rendered images */
+typedef struct	s_img
+{
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_len;
+	int			endian;
+	t_vectori	dimensions;
+}				t_img;
 
 typedef struct s_config_parsing
 {
@@ -106,9 +107,10 @@ typedef struct	s_game
 	t_player		player;
 	t_dda_params	dp;
 	char			**map;
-	t_grid_coordsi	map_size;
 	t_config		conf;
 	t_controls		controls;
+	t_grid_coordsi	map_size;
+	t_pixel_point	window_size;
 }				t_game;
 
 /*					// PARSE \\					*/
