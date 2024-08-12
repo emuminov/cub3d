@@ -43,9 +43,9 @@ $1 ../cub3D $path_correcte/map_nord2.cub
 echo
 echo "Tests dimensions map"
 echo "$path_correcte/map_démesurée.cub"
-# $1 ../cub3D $path_correcte/map_démesurée.cub
+$1 ../cub3D $path_correcte/map_démesurée.cub
 echo "$path_correcte/map_démesurée2.cub"
-# $1 ../cub3D $path_correcte/map_démesurée2.cub
+$1 ../cub3D $path_correcte/map_démesurée2.cub
 echo "$path_correcte/map_démesurée_labyrinthe.cub"
 $1 ../cub3D $path_correcte/map_démesurée_labyrinthe.cub
 echo "$path_correcte/toute_petite.cub"
