@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:31:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:20:14 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:27:18 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ int	map_manager(char *gnl, t_config_parsing *conf)
 	i = -1;
 	if ((!conf->east_path || !conf->north_path || !conf->south_path
 			|| !conf->west_path || conf->floor_c[0] == -1
-			|| conf->ceiling_c[0] == -1))
-		return (0);
-	if (key_finish_check(gnl, conf) == 1)
+			|| conf->ceiling_c[0] == -1) || key_finish_check(gnl, conf) == 1)
 		return (0);
 	while (gnl[++i])
 	{
@@ -69,6 +67,8 @@ int	map_manager(char *gnl, t_config_parsing *conf)
 				"Error\nA map line is empty!\n""\033[0m"), \
 				get_next_line(-1), free_config_p(conf), free(gnl), exit(1), 0);
 	conf->map_1d = ft_strjoin_free(conf->map_1d, gnl);
+	if (conf->map_1d == NULL)
+		return (get_next_line(-1), free_config_p(conf), free(gnl), exit(1), 0);
 	return (1);
 }
 

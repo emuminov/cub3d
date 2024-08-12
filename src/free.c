@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:07:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:19:00 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:27:12 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
+	if (tab == NULL)
+		return ;
 	while (tab[i])
 		free(tab[i++]);
 	free(tab);

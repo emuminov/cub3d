@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:24:56 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:27:08 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ t_game	game_init(int argc, char **argv)
 	open_paths(&conf_p, &game.conf);
 	game.map_dup = ft_split(conf_p.map_1d, '\n');
 	game.map = ft_split(conf_p.map_1d, '\n');
-	if (parse_map(game.map_dup) == 1)
+	if (game.map == NULL || game.map_dup == NULL
+		|| parse_map(game.map_dup) == 1)
 	{
 		free_config_p(&conf_p);
 		free_config(&game.conf);
