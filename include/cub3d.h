@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/12 01:06:11 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/12 20:27:21 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct	s_dda_params
 typedef struct	s_player
 {
 	t_grid_coordsf	pos;
+	t_grid_coordsf	collision_point;
 	t_vectorf		dir;
 	t_vectorf		plane;
 }				t_player;
@@ -110,6 +111,7 @@ typedef struct	s_game
 	t_config		conf;
 	t_controls		controls;
 	t_grid_coordsi	map_size;
+	t_grid_coordsf	minimap_camera;
 	t_pixel_point	window_size;
 }				t_game;
 

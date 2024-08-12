@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/12 19:22:08 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/12 20:18:56 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -521,6 +521,8 @@ int	init_image_data(void *mlx, t_img *img, int x, int y)
 {
 	img->dimensions = (t_vectori){.x = x * TILE_SIZE, .y = y * TILE_SIZE};
 	img->img = mlx_new_image(mlx, img->dimensions.x, img->dimensions.y);
+	if (!img->img)
+		return -1;
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_len, &img->endian);
 	return 0;
