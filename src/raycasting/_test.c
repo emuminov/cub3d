@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/12 15:53:09 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:06:31 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ t_pixel_point	grid_coordsi_to_pixel_point(t_grid_coordsi v)
 t_grid_coordsf	pixel_point_to_grid_coordsf(t_pixel_point v)
 {
 	return (t_grid_coordsf){.x = (double)v.x / TILE_SIZE, .y = (double)v.y / TILE_SIZE};
+}
+
+t_grid_coordsi	pixel_point_to_grid_coordsi(t_pixel_point v)
+{
+	return (t_grid_coordsi){.x = v.x / TILE_SIZE, .y = v.y / TILE_SIZE};
 }
 
 double	vectorf_len(t_vectorf v)
@@ -177,7 +182,7 @@ void	draw_line(t_img *frame, t_pixel_point start, t_pixel_point end)
 	{
 		put_pixel_on_img(frame,
 			(t_pixel_point){.x = round(next_point.x), .y = round(next_point.y)},
-			0x00A0FF);
+			0x1010FF);
 		next_point.x += inc.x;
 		next_point.y += inc.y;
 		i++;
@@ -186,18 +191,19 @@ void	draw_line(t_img *frame, t_pixel_point start, t_pixel_point end)
 
 void	draw_grid(t_game *g)
 {
-	t_pixel_point	p;
+	t_grid_coordsi			p;
+	const t_grid_coordsi	visible_grid = pixel_point_to_grid_coordsi(g->frame.dimensions);
 
 	p.y = 0;
-	while (p.y < g->map_size.y)
+	while (p.y < visible_grid.y)
 	{
 		p.x = 0;
-		while (p.x < g->map_size.x)
+		while (p.x < visible_grid.x)
 		{
 			if (map[p.y][p.x] == 0 || map[p.y][p.x] == 2)
 				paint_tile(&g->frame, p, 0xAAAAAA);
 			else if (map[p.y][p.x] == 1)
-				paint_tile(&g->frame, p, 0x000000);
+				paint_tile(&g->frame, p, 0x454545);
 			p.x++;
 		}
 		p.y++;
@@ -416,6 +422,9 @@ bool	is_end(t_grid_coordsf original_pos, t_grid_coordsf new_pos, t_grid_coordsf 
 int	move_line(t_game *g)
 {
 	t_grid_coordsf	end;
+	t_grid_coordsf	collision_point;
+	collision_point.x = -1;
+	collision_point.y = -1;
 
 	end = check_wall_in_dir(&g->dp, g->player.pos, g->player.dir, 100);
 	if (g->controls.rotate_left_pressed)
@@ -431,27 +440,32 @@ int	move_line(t_game *g)
 	else if (g->controls.move_down_pressed)
 	{
 		t_grid_coordsf new_pos = move_player(g->player, down);
-		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, 180), 1);
+		collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, 180), 100);
 		if (!is_end(g->player.pos, new_pos, collision_point))
 			g->player.pos = new_pos;
 	}
 	else if (g->controls.move_left_pressed)
 	{
 		t_grid_coordsf new_pos = move_player(g->player, left);
-		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, -90), 1);
+		collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, -90), 1);
 		if (!is_end(g->player.pos, new_pos, collision_point))
 			g->player.pos = new_pos;
 	}
 	else if (g->controls.move_right_pressed)
 	{
 		t_grid_coordsf new_pos = move_player(g->player, right);
-		t_grid_coordsf collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, 90), 1);
+		collision_point = check_wall_in_dir(&g->dp, g->player.pos, vectorf_rotate(g->player.dir, 90), 1);
 		if (!is_end(g->player.pos, new_pos, collision_point))
 			g->player.pos = new_pos;
 	}
 	draw_grid(g);
 	draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 25);
 	draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), grid_coordsf_to_pixel_point(end));
+	if (collision_point.x != -1)
+	{
+		draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), grid_coordsf_to_pixel_point(collision_point));
+		draw_hollow_square(&g->frame, grid_coordsf_to_pixel_point(collision_point), 25);
+	}
 	draw_hollow_square(&g->frame, grid_coordsf_to_pixel_point(end), 25);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 	return 0;
