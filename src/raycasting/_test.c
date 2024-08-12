@@ -133,7 +133,7 @@ void	put_pixel_on_img(t_img *img, t_pixel_point p, int color)
 {
 	char	*dst;
 
-	if (p.x < 0 || p.x > img->dimensions.x || p.y < 0 || p.y > img->dimensions.y)
+	if (p.x < 0 || p.x >= img->dimensions.x || p.y < 0 || p.y >= img->dimensions.y)
 		return;
 	dst = img->addr + (p.y * img->line_len + p.x * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
