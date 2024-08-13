@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/12 20:18:56 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:41:49 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,12 @@ t_vectorf	vectorf_rotate(t_vectorf dir, double theta)
 	t_vectorf	res;
 
 	theta = theta * RADIAN_TO_DEGREE_SCALING;
+	if (theta == 90)
+	{
+		res.x = dir.x * 0 - dir.y * 1;
+		res.y = dir.x * 1 + dir.y * 0;
+		return res;
+	}
 	res.x = dir.x * cos(theta) - dir.y * sin(theta);
 	res.y = dir.x * sin(theta) + dir.y * cos(theta);
 	return (res);
@@ -442,9 +448,9 @@ t_vectorf	get_movement_dir(const t_controls *controls, const t_player *player)
 void	resolve_rotation(t_game *g)
 {
 	if (g->controls.rotate_left_pressed)
-		g->player.dir = vectorf_rotate(g->player.dir, 2);
+		g->player.dir = vectorf_rotate(g->player.dir, 3);
 	else if (g->controls.rotate_right_pressed)
-		g->player.dir = vectorf_rotate(g->player.dir, -2);
+		g->player.dir = vectorf_rotate(g->player.dir, -3);
 }
 
 /* Collision is resolved using DDA which checks one grid in the direction of
@@ -488,6 +494,38 @@ void	update_game_state(t_game *g)
 	}
 }
 
+t_vectorf	vectorf_round(t_vectorf v)
+{
+	return (t_vectorf){.x = round(v.x), .y = round(v.y)};
+}
+
+void	draw_minimap(t_game *g)
+{
+	t_grid_coordsf	curr_grid;
+	t_pixel_point	p;
+
+	curr_grid = vectorf_round(vectorf_sub(g->player.pos, vectorf_scale(pixel_point_to_grid_coordsf(g->window_size), 0.5)));
+	printf("%f %f\n", curr_grid.x, curr_grid.y);
+	p.y = 0;
+	while (p.y < g->window_size.y)
+	{
+		p.x = 0;
+		curr_grid.x = round(g->player.pos.x - (pixel_point_to_grid_coordsf(g->window_size).x * 0.5));
+		while (p.x < g->window_size.x)
+		{
+			if (map[(int)curr_grid.y][(int)curr_grid.x] == 1)
+				put_pixel_on_img(&g->frame, p, 0x000000);
+			else if (map[(int)curr_grid.y][(int)curr_grid.x] == 0 ||
+					map[(int)curr_grid.y][(int)curr_grid.x] == 2)
+				put_pixel_on_img(&g->frame, p, 0xA0A0A0);
+			curr_grid.x++;
+			p.x++;
+		}
+		curr_grid.y++;
+		p.y++;
+	}
+}
+
 void	render_graphics(t_game *g)
 {
 	t_grid_coordsf	ray;
@@ -495,8 +533,12 @@ void	render_graphics(t_game *g)
 	ray = check_wall_in_dir(&g->dp, g->player.pos, g->player.dir, 100);
 	draw_grid(g);
 	draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 25);
-	draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos),
-		grid_coordsf_to_pixel_point(ray));
+	if (ray.x != -1)
+	{
+		draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos),
+				grid_coordsf_to_pixel_point(ray));
+		draw_hollow_square(&g->frame, grid_coordsf_to_pixel_point(ray), 25);
+	}
 	if (g->player.collision_point.x != -1)
 	{
 		draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos),
@@ -504,7 +546,7 @@ void	render_graphics(t_game *g)
 		draw_hollow_square(&g->frame,
 			grid_coordsf_to_pixel_point(g->player.collision_point), 25);
 	}
-	draw_hollow_square(&g->frame, grid_coordsf_to_pixel_point(ray), 25);
+	draw_minimap(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 }
 

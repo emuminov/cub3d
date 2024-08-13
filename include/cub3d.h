@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/12 20:27:21 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:23:26 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct	s_game
 	t_grid_coordsi	map_size;
 	t_grid_coordsf	minimap_camera;
 	t_pixel_point	window_size;
+	t_grid_coordsf	rays[30];
 }				t_game;
 
 /*					// PARSE \\					*/
