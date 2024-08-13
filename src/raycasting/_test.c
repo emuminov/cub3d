@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/13 19:41:49 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/13 20:25:35 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -506,22 +506,14 @@ void	draw_minimap(t_game *g)
 
 	curr_grid = vectorf_round(vectorf_sub(g->player.pos, vectorf_scale(pixel_point_to_grid_coordsf(g->window_size), 0.5)));
 	printf("%f %f\n", curr_grid.x, curr_grid.y);
+	p.x = 0;
 	p.y = 0;
-	while (p.y < g->window_size.y)
+	while (p.y < g->frame.dimensions.y)
 	{
-		p.x = 0;
-		curr_grid.x = round(g->player.pos.x - (pixel_point_to_grid_coordsf(g->window_size).x * 0.5));
-		while (p.x < g->window_size.x)
+		while (p.x < g->frame.dimensions.x)
 		{
-			if (map[(int)curr_grid.y][(int)curr_grid.x] == 1)
-				put_pixel_on_img(&g->frame, p, 0x000000);
-			else if (map[(int)curr_grid.y][(int)curr_grid.x] == 0 ||
-					map[(int)curr_grid.y][(int)curr_grid.x] == 2)
-				put_pixel_on_img(&g->frame, p, 0xA0A0A0);
-			curr_grid.x++;
 			p.x++;
 		}
-		curr_grid.y++;
 		p.y++;
 	}
 }
@@ -576,7 +568,7 @@ int	init_mlx(t_game *g, int x, int y)
 	g->win = mlx_new_window(g->mlx, x * TILE_SIZE, y * TILE_SIZE, "Test");
 	init_image_data(g->mlx, &g->frame, x, y);
 	g->window_size = (t_pixel_point){.x = x * TILE_SIZE, .y = y * TILE_SIZE};
-	g->player.pos = (t_vectorf){.x = 2.5, .y = 1.5};
+	g->player.pos = (t_vectorf){.x = 2.5, .y = 2.5};
 	g->player.dir = (t_vectorf){.x = 1, .y = 0};
 	g->player.dir = vectorf_rotate(g->player.dir, -225);
 	g->map_size = (t_grid_coordsi){.x = 10, .y = 10}; // size of actual map
