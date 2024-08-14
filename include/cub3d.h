@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/14 16:34:38 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:14:40 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,11 +219,11 @@ void				draw_tile(t_img *frame, t_grid_coordsi p, int color);
 /* Initializes mlx, creates new window, initializes game struct */
 int					init_game(t_game *g, int x, int y);
 
-/*					// MINIMAP \\								*/
+/*					// MINIMAP \\							*/
 /* TODO: under construction */
 void				draw_minimap(t_game *g);
 
-/*					// MLX IMG UTILS \\							*/
+/*					// MLX IMG UTILS \\						*/
 unsigned int		get_pixel_of_img(t_img img, t_pixel_point p);
 void				put_pixel_on_img(t_img *img, t_pixel_point p, int color);
 int					init_img_data(void *mlx, t_img *img, t_pixel_point p);
@@ -235,7 +235,7 @@ t_vectorf			get_movement_dir(const t_controls *controls,
 void				resolve_rotation(t_game *g);
 void				resolve_movement(t_game *g);
 
-/*					// ULDATE GAME STATE \\						*/
+/*					// ULDATE GAME STATE \\					*/
 /* Everything that updates the state during runtime. For now it's a simple
  * function that includes resolution of movement and rotations. */
 void				update_game_state(t_game *g);
