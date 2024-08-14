@@ -9,21 +9,18 @@ SRC_DIR = src/
 LIBFT_DIR = $(SRC_DIR)libft/
 MLBX_DIR = $(SRC_DIR)minilibx-linux/
 
-SRCS = main.c utils.c init.c free.c parse_keys_dir.c parse_keys_colors.c paths.c keys_utils.c arg_manager.c parsing.c
-
 HEADERS = ./src/libft/libft.h ./src/libft/ft_printf/ft_printf.h \
 		./src/libft/get_next_line/get_next_line.h include/cub3d.h \
 
-OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
-
-# my temporary addition for compilation
+# Compilation of functionality without main
+SRCS = main.c utils.c init.c free.c parse_keys_dir.c parse_keys_colors.c paths.c keys_utils.c arg_manager.c parsing.c
 SRCS_GAME_LOOP = $(addprefix game_loop/, controls_handling.c dda.c draw_utils.c init_game.c minimap.c mlx_img_utils.c movement.c testing_2d_plane_loop.c update_game_state.c)
 SRCS_MATH_FUNCS = $(addprefix math_funcs/, grid_bounds_checking.c grid_pixel_conversions.c utils.c vectorf1.c vectorf2.c vectori.c)
-SRCS_TESTING_2D_PLANE = _testing_2d_plane_main.c $(SRCS_GAME_LOOP) $(SRCS_MATH_FUNCS)
+OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
+# Compilation of functionality with testing 2D main
+SRCS_TESTING_2D_PLANE = _testing_2d_plane_main.c $(SRCS_GAME_LOOP) $(SRCS_MATH_FUNCS)
 OBJS_TESTING_2D_PLANE = $(addprefix $(OBJS_DIR), $(SRCS_TESTING_2D_PLANE:.c=.o))
-# OBJS_TESTING_2D_PLANE = $(addprefix $(OBJS_DIR), $(notdir $(SRCS_TESTING_2D_PLANE:.c=.o)))
-# end of additions
 
 .SILENT :
 
@@ -48,8 +45,7 @@ $(NAME) : $(OBJS)
 	$(CC) $^  $(XFLAGS) $(CFLAGS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -o $(NAME) && sleep 0.1
 	@echo "$(Green)\r------Compilation de cub3d finie !-------${NC}"
 
-test : $(OBJS_TESTING_2D_PLANE) obj
-	echo $^
+test : obj libft minilibx $(OBJS_TESTING_2D_PLANE)
 	$(CC) $(CFLAGS) $(OBJS_TESTING_2D_PLANE) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -lXext -lX11 -lm -o test
 
 $(OBJS_DIR)%.o : $(SRC_DIR)%.c Makefile $(HEADERS)
