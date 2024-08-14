@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:19:45 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/14 16:33:06 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/14 20:03:31 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 static void	render_2d_plane_graphics(t_game *g);
 static int	testing_2d_plane_loop(t_game *g);
+static void	create_basic_map(t_game *g);
 
 /* Draws a simple 2d plane for testing purposes
  * TODO: check for possible memory failures */
@@ -23,6 +24,7 @@ int	init_testing_2d_plane_loop(void)
 	static t_game	g;
 
 	init_game(&g, 640, 640);
+	create_basic_map(&g);
 	mlx_put_image_to_window(g.mlx, g.win, g.frame.img, 0, 0);
 	mlx_hook(g.win, 2, (1L << 0), handle_key_press, &g);
 	mlx_hook(g.win, 3, (1L << 1), handle_key_release, &g);
@@ -62,4 +64,28 @@ static int	testing_2d_plane_loop(t_game *g)
 	update_game_state(g);
 	render_2d_plane_graphics(g);
 	return 0;
+}
+
+static void	create_basic_map(t_game *g)
+{
+	int	x;
+	int	y;
+
+	g->map = ft_calloc(10, sizeof(char *));
+	y = 0;
+	while (y < 10)
+	{
+		g->map[y] = ft_calloc(10, sizeof(char));
+		x = 0;
+		while (x < 10)
+		{
+			if (x == 0 || x == 9 || y == 0 || y == 9)
+				g->map[y][x] = '1';
+			else
+				g->map[y][x] = '0';
+			x++;
+		}
+		y++;
+	}
+	g->map[2][2] = '2';
 }

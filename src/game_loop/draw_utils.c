@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:30:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/14 16:27:29 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:48:53 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	draw_grid(t_game *g, t_img *frame)
 		p.x = 0;
 		while (p.x < visible_grid.x)
 		{
-			if (g->map[p.y][p.x] == 0 || g->map[p.y][p.x] == 2)
+			if (g->map[p.y][p.x] == '0' || g->map[p.y][p.x] == '2')
 				draw_tile(&g->frame, p, 0xAAAAAA);
-			else if (g->map[p.y][p.x] == 1)
+			else if (g->map[p.y][p.x] == '1')
 				draw_tile(&g->frame, p, 0x454545);
 			p.x++;
 		}

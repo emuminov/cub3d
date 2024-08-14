@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:01 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/14 15:55:59 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:48:01 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_vectorf	check_wall_in_dir(t_game *g, t_dda_params *dp, t_grid_coordsf start,
 		check_next_grid_cell(dp);
 		if (is_in_bounds_of_grid(dp->inspected_grid, g->map_size))
 		{
-			if (g->map[(int)dp->inspected_grid.y][(int)dp->inspected_grid.x] == 1)
+			if (g->map[(int)dp->inspected_grid.y][(int)dp->inspected_grid.x] == '1')
 				dp->found_wall = true;
 		}
 		else

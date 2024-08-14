@@ -16,12 +16,23 @@ HEADERS = ./src/libft/libft.h ./src/libft/ft_printf/ft_printf.h \
 
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
+# my temporary addition for compilation
+SRCS_GAME_LOOP = $(addprefix game_loop/, controls_handling.c dda.c draw_utils.c init_game.c minimap.c mlx_img_utils.c movement.c testing_2d_plane_loop.c update_game_state.c)
+SRCS_MATH_FUNCS = $(addprefix math_funcs/, grid_bounds_checking.c grid_pixel_conversions.c utils.c vectorf1.c vectorf2.c vectori.c)
+SRCS_TESTING_2D_PLANE = _testing_2d_plane_main.c $(SRCS_GAME_LOOP) $(SRCS_MATH_FUNCS)
+
+OBJS_TESTING_2D_PLANE = $(addprefix $(OBJS_DIR), $(SRCS_TESTING_2D_PLANE:.c=.o))
+# OBJS_TESTING_2D_PLANE = $(addprefix $(OBJS_DIR), $(notdir $(SRCS_TESTING_2D_PLANE:.c=.o)))
+# end of additions
+
 .SILENT :
 
 all : obj libft minilibx $(NAME)
 
 obj :
 	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)/game_loop
+	@mkdir -p $(OBJS_DIR)/math_funcs
 
 minilibx :
 	@make --no-print-directory -C $(MLBX_DIR)
@@ -36,6 +47,31 @@ $(NAME) : $(OBJS)
 	@echo -n "$(Red)\rCompilation de cub3d ...${NC}"
 	$(CC) $^  $(XFLAGS) $(CFLAGS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -o $(NAME) && sleep 0.1
 	@echo "$(Green)\r------Compilation de cub3d finie !-------${NC}"
+
+test : $(OBJS_TESTING_2D_PLANE) obj
+	echo $^
+	$(CC) $(CFLAGS) $(OBJS_TESTING_2D_PLANE) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -lXext -lX11 -lm -o test
+
+$(OBJS_DIR)%.o : $(SRC_DIR)%.c Makefile $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean :
+	@cd $(MLBX_DIR) && $(MAKE) --no-print-directory clean
+	@cd $(LIBFT_DIR) && $(MAKE) --no-print-directory clean
+	@rm -rf $(OBJS_DIR)
+
+fclean :
+	@cd $(MLBX_DIR) && $(MAKE) --no-print-directory clean
+	@cd $(LIBFT_DIR) && $(MAKE) --no-print-directory fclean
+	@rm -rf $(OBJS_DIR) $(NAME)
+
+re : fclean
+	$(MAKE) all
+
+# allows printing of Makefile variables
+# make print-SRCS ------> prints content of the SRCS
+print-%: 
+	@echo $*=$($*)
 
 sus:
 	@echo "$(IRed)           ⣠⣤⣤⣤⣤⣤⣶⣦⣤⣄⡀        $(NC)"
@@ -57,23 +93,7 @@ sus:
 	@echo "$(White)         ░▀▀█░█░█░▀▀█$(NC)"
 	@echo "$(White)         ░▀▀▀░▀▀▀░▀▀▀$(NC)"
 
-$(OBJS_DIR)%.o : $(SRC_DIR)%.c Makefile $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-clean :
-	@cd $(MLBX_DIR) && $(MAKE) --no-print-directory clean
-	@cd $(LIBFT_DIR) && $(MAKE) --no-print-directory clean
-	@rm -rf $(OBJS_DIR)
-
-fclean :
-	@cd $(MLBX_DIR) && $(MAKE) --no-print-directory clean
-	@cd $(LIBFT_DIR) && $(MAKE) --no-print-directory fclean
-	@rm -rf $(OBJS_DIR) $(NAME)
-
-re : fclean
-	$(MAKE) all
-
-.PHONY : all clean fclean re obj sus libft
+.PHONY : all clean fclean re obj libft print-% sus
 
 # COLORS =======================================================================
 
