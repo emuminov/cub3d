@@ -24,7 +24,7 @@ t_grid_coordsf	move_player(t_player p, const t_controls *controls)
 	else if (controls->move_right_pressed)
 		p.pos = vectorf_add(p.pos, vectorf_scale(vectorf_rotate(p.dir, 90),
 					0.1));
-	return p.pos;
+	return (p.pos);
 }
 
 /* Gets the direction of player based on the key pressed */
@@ -41,7 +41,7 @@ t_vectorf	get_movement_dir(const t_controls *controls, const t_player *player)
 		dir = vectorf_rotate(player->dir, -90);
 	else if (controls->move_right_pressed)
 		dir = vectorf_rotate(player->dir, 90);
-	return dir;
+	return (dir);
 }
 
 void	resolve_rotation(t_game *g)

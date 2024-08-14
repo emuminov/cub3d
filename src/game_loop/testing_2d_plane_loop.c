@@ -30,7 +30,7 @@ int	init_testing_2d_plane_loop(void)
 	mlx_hook(g.win, 3, (1L << 1), handle_key_release, &g);
 	mlx_loop_hook(g.mlx, testing_2d_plane_loop, &g);
 	mlx_loop(g.mlx);
-	return 0;
+	return (0);
 }
 
 static void	render_2d_plane_graphics(t_game *g)
@@ -39,20 +39,22 @@ static void	render_2d_plane_graphics(t_game *g)
 
 	ray = check_wall_in_dir(g, &g->dp, g->player.pos, g->player.dir, 100);
 	draw_grid(g, &g->frame);
-	draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 25, 0xAA00AA);
+	draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 25,
+		0xAA00AA);
 	if (ray.x != -1)
 	{
 		draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos),
-				grid_coordsf_to_pixel_point(ray), 0xAA00AA);
+			grid_coordsf_to_pixel_point(ray), 0xAA00AA);
 		draw_hollow_square(&g->frame, grid_coordsf_to_pixel_point(ray), 25,
-				0x2AAA2A);
+			0x2AAA2A);
 	}
 	if (g->player.collision_point.x != -1)
 	{
 		draw_line(&g->frame, grid_coordsf_to_pixel_point(g->player.pos),
 			grid_coordsf_to_pixel_point(g->player.collision_point), 0xAA1A1A);
 		draw_hollow_square(&g->frame,
-			grid_coordsf_to_pixel_point(g->player.collision_point), 25, 0xAA1A1A);
+			grid_coordsf_to_pixel_point(g->player.collision_point), 25,
+			0xAA1A1A);
 	}
 	draw_minimap(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
@@ -63,7 +65,7 @@ static int	testing_2d_plane_loop(t_game *g)
 {
 	update_game_state(g);
 	render_2d_plane_graphics(g);
-	return 0;
+	return (0);
 }
 
 static void	create_basic_map(t_game *g)

@@ -17,7 +17,9 @@ void	draw_minimap(t_game *g)
 	t_grid_coordsf	curr_grid;
 	t_pixel_point	p;
 
-	curr_grid = vectorf_round(vectorf_sub(g->player.pos, vectorf_scale(pixel_point_to_grid_coordsf(g->window_size), 0.5)));
+	curr_grid = vectorf_round(vectorf_sub(g->player.pos,
+				vectorf_scale(pixel_point_to_grid_coordsf(g->window_size),
+					0.5)));
 	printf("%f %f\n", curr_grid.x, curr_grid.y);
 	p.x = 0;
 	p.y = 0;

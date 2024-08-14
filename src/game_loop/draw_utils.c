@@ -14,7 +14,8 @@
 #include <math.h>
 
 /* DDA line drawing algorithm */
-void	draw_line(t_img *frame, t_pixel_point start, t_pixel_point end, int color)
+void	draw_line(t_img *frame, t_pixel_point start, t_pixel_point end,
+		int color)
 {
 	const t_pixel_point	delta = vectori_sub(end, start);
 	const int			steps = max(abs(delta.x), abs(delta.y));

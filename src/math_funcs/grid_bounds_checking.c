@@ -14,7 +14,8 @@
 
 bool	is_in_bounds_of_grid(t_grid_coordsi v, t_grid_coordsi map_size)
 {
-	return !(v.x < 0 || v.x > (map_size.x - 1) || v.y < 0 || v.y > (map_size.y - 1));
+	return (!(v.x < 0 || v.x > (map_size.x - 1) || v.y < 0 || v.y > (map_size.y
+				- 1)));
 }
 
 /* Checks if v1 goes further than v2 in the direction dir */
@@ -28,5 +29,5 @@ bool	is_beyond(t_grid_coordsf v1, t_grid_coordsf v2, t_vectorf dir)
 		return (v1.x >= v2.x || v1.y >= v2.y);
 	if (dir.x >= 0 && dir.y < 0)
 		return (v1.x >= v2.x || v1.y <= v2.y);
-	return 1;
+	return (1);
 }

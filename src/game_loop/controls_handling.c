@@ -72,5 +72,5 @@ t_vectorf	mouse_pos_to_grid_coordsf(t_game *g)
 		mouse_grid_pos.y = g->window_size.y;
 	else if (mouse_grid_pos.y < 0)
 		mouse_grid_pos.y = 0;
-	return mouse_grid_pos;
+	return (mouse_grid_pos);
 }

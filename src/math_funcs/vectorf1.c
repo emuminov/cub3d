@@ -43,4 +43,3 @@ t_vectorf	vectorf_add(t_vectorf v1, t_vectorf v2)
 {
 	return ((t_vectorf){.x = v1.x + v2.x, .y = v1.y + v2.y});
 }
-

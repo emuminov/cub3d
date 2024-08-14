@@ -16,9 +16,9 @@
 /* Gets color on certain point on the image. Checks for overflows */
 unsigned int	get_pixel_of_img(t_img img, t_pixel_point p)
 {
-	if (p.x < 0 || p.x >= img.dimensions.x || p.y < 0 ||
-			p.y >= img.dimensions.y)
-		return 0;
+	if (p.x < 0 || p.x >= img.dimensions.x || p.y < 0
+		|| p.y >= img.dimensions.y)
+		return (0);
 	return (*(unsigned int *)((img.addr + (p.y * img.line_len) + (p.x
 					* img.bits_per_pixel / 8))));
 }
@@ -41,8 +41,8 @@ int	init_img_data(void *mlx, t_img *img, t_pixel_point p)
 	img->dimensions = p;
 	img->img = mlx_new_image(mlx, p.x, p.y);
 	if (!img->img)
-		return -1;
+		return (-1);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_len, &img->endian);
-	return 0;
+	return (0);
 }

@@ -15,7 +15,7 @@
 /* DDA algorithm for finding the nearest wall in the certain directions */
 
 static void	set_initial_dda_params(t_dda_params *dp, t_grid_coordsf start,
-		t_vectorf dir, double max_distance);
+				t_vectorf dir, double max_distance);
 static void	check_next_grid_cell(t_dda_params *dp);
 
 t_vectorf	check_wall_in_dir(t_game *g, t_dda_params *dp, t_grid_coordsf start,
@@ -39,7 +39,7 @@ t_vectorf	check_wall_in_dir(t_game *g, t_dda_params *dp, t_grid_coordsf start,
 		intersection = vectorf_add(start, vectorf_scale(dir, dp->distance));
 	else
 		intersection = (t_grid_coordsf){.x = -1, .y = -1};
-	return intersection;
+	return (intersection);
 }
 
 static void	set_initial_dda_params(t_dda_params *dp, t_grid_coordsf start,

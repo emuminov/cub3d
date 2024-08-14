@@ -36,10 +36,10 @@ t_vectorf	vectorf_rotate(t_vectorf dir, double theta)
 
 t_vectorf	vectorf_round(t_vectorf v)
 {
-	return (t_vectorf){.x = round(v.x), .y = round(v.y)};
+	return ((t_vectorf){.x = round(v.x), .y = round(v.y)});
 }
 
 t_vectorf	vectorf_epsilon(t_vectorf dir)
 {
-	return (t_vectorf){.x = 1e-6 * sign_f(dir.x), .y = 1e-6 * sign_f(dir.y)};
+	return ((t_vectorf){.x = 1e-6 * sign_f(dir.x), .y = 1e-6 * sign_f(dir.y)});
 }

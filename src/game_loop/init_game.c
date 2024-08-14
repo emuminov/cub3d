@@ -31,5 +31,5 @@ int	init_game(t_game *g, int x, int y)
 	g->player.dir = (t_vectorf){.x = 1, .y = 0};
 	g->player.dir = vectorf_rotate(g->player.dir, -225);
 	g->map_size = (t_grid_coordsi){.x = 10, .y = 10}; // size of actual map
-	return 0;
+	return (0);
 }
