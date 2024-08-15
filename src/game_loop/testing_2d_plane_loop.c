@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   testing_2d_plane_loop.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:19:45 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/21 00:09:54 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:17:59 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../minilibx-linux/mlx.h"
+#include <X11/XKBlib.h>
+#include <X11/Xutil.h>
 
 // static void	render_2d_plane_graphic(t_game *g);
 static int	testing_2d_plane_loop(t_game *g);
@@ -30,6 +32,8 @@ int	init_testing_2d_plane_loop(void)
 	mlx_put_image_to_window(g.mlx, g.win, g.frame.img, 0, 0);
 	mlx_hook(g.win, 2, (1L << 0), handle_key_press, &g);
 	mlx_hook(g.win, 3, (1L << 1), handle_key_release, &g);
+	mlx_hook(g.win, DestroyNotify, StructureNotifyMask,
+		exit_hook_cross, &g);
 	mlx_loop_hook(g.mlx, testing_2d_plane_loop, &g);
 	mlx_loop(g.mlx);
 	return (0);

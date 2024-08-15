@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/21 00:08:12 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:16:27 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_dda_params
 	t_grid_coordsf	dist_until_grid_side;
 	t_grid_coordsi	inspected_grid;
 	bool			found_cell;
+	int				side;
 	double			camera;
 	double			distance;
 	double			max_distance;
@@ -218,6 +219,7 @@ bool				is_any_key_pressed(t_game *g);
 int					handle_key_press(int keysym, t_game *g);
 int					handle_key_release(int keysym, t_game *g);
 t_vectorf			mouse_pos_to_grid_coordsf(t_game *g);
+int					exit_hook_cross(t_game *g);
 
 /*					// DRAW UTILS \\ 						*/
 /* Functions for drawing simple shapes. */

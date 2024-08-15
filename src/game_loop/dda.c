@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:01 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/21 00:14:34 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:17:39 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,14 @@ static void	check_next_grid_cell(t_dda_params *dp)
 {
 	if (dp->dist_until_grid_side.x < dp->dist_until_grid_side.y)
 	{
+		dp->side = 0;
 		dp->inspected_grid.x += dp->ray_step.x;
 		dp->distance = dp->dist_until_grid_side.x;
 		dp->dist_until_grid_side.x += dp->rate_of_change.x;
 	}
 	else
 	{
+		dp->side = 1;
 		dp->inspected_grid.y += dp->ray_step.y;
 		dp->distance = dp->dist_until_grid_side.y;
 		dp->dist_until_grid_side.y += dp->rate_of_change.y;
