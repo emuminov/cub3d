@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/14 16:19:24 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:24:16 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,12 @@
 // TODO: check for malloc errors
 int	init_game(t_game *g, int x, int y)
 {
-	t_pixel_point	win_dimensions;
-
-	win_dimensions.x = x;
-	win_dimensions.y = y;
+	g->window_size.x = x;
+	g->window_size.y = y;
 	g->mlx = mlx_init();
 	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
-	init_img_data(g->mlx, &g->frame, win_dimensions);
-	g->window_size = (t_pixel_point){.x = x * TILE_SIZE, .y = y * TILE_SIZE};
-	g->player.pos = (t_vectorf){.x = 2.5, .y = 2.5};
+	init_img_data(g->mlx, &g->frame, g->window_size);
+	g->player.pos = (t_vectorf){.x = 5.2, .y = 3.5};
 	g->player.dir = (t_vectorf){.x = 1, .y = 0};
 	g->player.dir = vectorf_rotate(g->player.dir, -225);
 	g->map_size = (t_grid_coordsi){.x = 10, .y = 10}; // size of actual map

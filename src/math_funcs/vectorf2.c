@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:15:40 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/14 15:55:30 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:12:15 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_vectorf	vectorf_round(t_vectorf v)
 	return ((t_vectorf){.x = round(v.x), .y = round(v.y)});
 }
 
-t_vectorf	vectorf_epsilon(t_vectorf dir)
+t_vectorf	vectorf_floor(t_vectorf v)
 {
-	return ((t_vectorf){.x = 1e-6 * sign_f(dir.x), .y = 1e-6 * sign_f(dir.y)});
+	return ((t_vectorf){.x = floor(v.x), .y = floor(v.y)});
 }
