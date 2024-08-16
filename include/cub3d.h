@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/14 20:14:40 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/17 01:18:56 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ bool				is_beyond(t_grid_coordsf v1, t_grid_coordsf v2,
 
 /* 					// VECTORI \\ 							*/
 t_vectori			vectori_sub(t_vectori v1, t_vectori v2);
+t_vectori			vectori_add(t_vectori v1, t_vectori v2);
 
 /*					// UTILS \\  							*/
 double				abs_f(double n);

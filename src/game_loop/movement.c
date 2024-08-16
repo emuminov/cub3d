@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:07:41 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/14 16:27:59 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/17 01:20:45 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 t_grid_coordsf	move_player(t_player p, const t_controls *controls)
 {
 	if (controls->move_up_pressed)
-		p.pos = vectorf_add(p.pos, vectorf_scale(p.dir, 0.1));
+		p.pos = vectorf_add(p.pos, vectorf_scale(p.dir, 0.005));
 	else if (controls->move_down_pressed)
-		p.pos = vectorf_sub(p.pos, vectorf_scale(p.dir, 0.1));
+		p.pos = vectorf_sub(p.pos, vectorf_scale(p.dir, 0.005));
 	else if (controls->move_left_pressed)
 		p.pos = vectorf_add(p.pos, vectorf_scale(vectorf_rotate(p.dir, -90),
-					0.1));
+					0.005));
 	else if (controls->move_right_pressed)
 		p.pos = vectorf_add(p.pos, vectorf_scale(vectorf_rotate(p.dir, 90),
-					0.1));
+					0.005));
 	return (p.pos);
 }
 
@@ -47,9 +47,9 @@ t_vectorf	get_movement_dir(const t_controls *controls, const t_player *player)
 void	resolve_rotation(t_game *g)
 {
 	if (g->controls.rotate_left_pressed)
-		g->player.dir = vectorf_rotate(g->player.dir, 3);
+		g->player.dir = vectorf_rotate(g->player.dir, 0.2);
 	else if (g->controls.rotate_right_pressed)
-		g->player.dir = vectorf_rotate(g->player.dir, -3);
+		g->player.dir = vectorf_rotate(g->player.dir, -0.2);
 }
 
 /* Collision is resolved using DDA which checks one grid in the direction of
