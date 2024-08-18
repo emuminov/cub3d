@@ -6,25 +6,29 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:18:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/15 13:23:55 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/16 14:53:32 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	paths_errors(t_config_parsing *conf)
+void	paths_errors(t_config_parsing *conf_p, t_config *conf)
 {
-	if (!conf->east_path || !conf->north_path || !conf->south_path
-		|| !conf->west_path || !conf->floor_c || !conf->ceiling_c)
+	if (!conf_p->east_path || !conf_p->north_path || !conf_p->south_path
+		|| !conf_p->west_path || !conf_p->floor_c || !conf_p->ceiling_c)
 	{
 		printf("\033[0;31m""Error\nA key is missing!\n""\033[0m");
-		free_config_p(conf);
+		free_config_p(conf_p);
 		exit (1);
 	}
-	path_format_checker(conf->east_path, conf);
-	path_format_checker(conf->north_path, conf);
-	path_format_checker(conf->south_path, conf);
-	path_format_checker(conf->west_path, conf);
+	path_format_checker(conf_p->east_path, conf_p);
+	path_format_checker(conf_p->north_path, conf_p);
+	path_format_checker(conf_p->south_path, conf_p);
+	path_format_checker(conf_p->west_path, conf_p);
+	conf->east_path = conf_p->east_path;
+	conf->north_path = conf_p->north_path;
+	conf->south_path = conf_p->south_path;
+	conf->west_path = conf_p->west_path;
 }
 
 void	path_format_checker(char *str, t_config_parsing *conf)
@@ -41,29 +45,29 @@ void	path_format_checker(char *str, t_config_parsing *conf)
 	}
 }
 
-void	open_paths(t_config_parsing *conf_p, t_config *conf)
-{
-	conf->east_fd = open(conf_p->east_path, O_RDONLY);
-	if (conf->east_fd == -1)
-		open_error_manager(conf_p, conf, conf_p->east_path, "East");
-	conf->north_fd = open(conf_p->north_path, O_RDONLY);
-	if (conf->north_fd == -1)
-		open_error_manager(conf_p, conf, conf_p->north_path, "North");
-	conf->west_fd = open(conf_p->west_path, O_RDONLY);
-	if (conf->west_fd == -1)
-		open_error_manager(conf_p, conf, conf_p->west_path, "West");
-	conf->south_fd = open(conf_p->south_path, O_RDONLY);
-	if (conf->south_fd == -1)
-		open_error_manager(conf_p, conf, conf_p->south_path, "South");
-}
+// void	open_paths(t_config_parsing *conf_p, t_config *conf)
+// {
+// 	conf->east_fd = open(conf_p->east_path, O_RDONLY);
+// 	if (conf->east_fd == -1)
+// 		open_error_manager(conf_p, conf, conf_p->east_path, "East");
+// 	conf->north_fd = open(conf_p->north_path, O_RDONLY);
+// 	if (conf->north_fd == -1)
+// 		open_error_manager(conf_p, conf, conf_p->north_path, "North");
+// 	conf->west_fd = open(conf_p->west_path, O_RDONLY);
+// 	if (conf->west_fd == -1)
+// 		open_error_manager(conf_p, conf, conf_p->west_path, "West");
+// 	conf->south_fd = open(conf_p->south_path, O_RDONLY);
+// 	if (conf->south_fd == -1)
+// 		open_error_manager(conf_p, conf, conf_p->south_path, "South");
+// }
 
-void	open_error_manager(t_config_parsing *conf_p, t_config *conf,
-char *path, char *name)
-{
-	printf("\033[0;31m"
-		"Error\n%s path: %s: no such file or directory!\n""\033[0m", name,
-		path);
-	free_config_p(conf_p);
-	free_config(conf);
-	exit(1);
-}
+// void	open_error_manager(t_config_parsing *conf_p, t_config *conf,
+// char *path, char *name)
+// {
+// 	printf("\033[0;31m"
+// 		"Error\n%s path: %s: no such file or directory!\n""\033[0m", name,
+// 		path);
+// 	free_config_p(conf_p);
+// 	free_config(conf);
+// 	exit(1);
+// }

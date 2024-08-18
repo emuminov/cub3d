@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/31 11:40:29 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/16 14:54:51 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ t_config	config_init(void)
 {
 	t_config	conf;
 
-	conf.north_fd = -1;
-	conf.east_fd = -1;
-	conf.south_fd = -1;
-	conf.west_fd = -1;
+	conf.north_path = NULL;
+	conf.east_path = NULL;
+	conf.west_path = NULL;
+	conf.south_path = NULL;
 	conf.floor_c = NULL;
 	conf.ceiling_c = NULL;
 	return (conf);
@@ -53,8 +53,7 @@ t_game	game_init(int argc, char **argv)
 	conf_p = config_parsing_init();
 	game.conf = config_init();
 	pre_parsing(fd, &conf_p);
-	paths_errors(&conf_p);
-	open_paths(&conf_p, &game.conf);
+	paths_errors(&conf_p, &game.conf);
 	game.map = ft_split(conf_p.map_1d, '\n');
 	parse_map(game.map);
 	free_config_p(&conf_p);

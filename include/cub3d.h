@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/21 18:16:27 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:21:20 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <stdio.h>
 # define TILE_SIZE 128
 # define RADIAN_TO_DEGREE_SCALING 0.0174533
+# define TEXTURE_HEIGHT 64
+# define TEXTURE_WIDTH 64
 
 typedef enum	e_etiles
 {
@@ -61,6 +63,16 @@ typedef struct s_img
 	t_vectori		dimensions;
 }					t_img;
 
+typedef struct s_img2
+{
+	void			*img;
+	int				*addr;
+	int				bits_per_pixel;
+	int				line_len;
+	int				endian;
+	t_vectori		dimensions;
+}					t_img2;
+
 typedef struct s_config_parsing
 {
 	char			*north_path;
@@ -98,10 +110,10 @@ typedef struct s_player
 
 typedef struct s_config
 {
-	int				north_fd;
-	int				east_fd;
-	int				south_fd;
-	int				west_fd;
+	char			*north_path;
+	char			*east_path;
+	char			*south_path;
+	char			*west_path;
 	int				*floor_c;
 	int				*ceiling_c;
 }					t_config;
@@ -123,6 +135,9 @@ typedef struct s_game
 	t_img			frame;
 	t_player		player;
 	t_dda_params	dp;
+	char			*xpm[5];
+	int				texture[4][TEXTURE_HEIGHT * TEXTURE_WIDTH];
+	t_img2			img[4];
 	char			**map;
 	t_config		conf;
 	t_controls		controls;
@@ -159,7 +174,7 @@ int					error_key(char *gnl, t_config_parsing *conf, int i,
 						int strcmp_value);
 int					key_finish_check(char *gnl, t_config_parsing *conf);
 /*					// PATH MANAGEMENT \\					*/
-void				paths_errors(t_config_parsing *conf);
+void				paths_errors(t_config_parsing *conf_p, t_config *conf);
 void				path_format_checker(char *str, t_config_parsing *conf);
 void				open_paths(t_config_parsing *conf_p, t_config *conf);
 int					error_manager(int argc, char *argv);

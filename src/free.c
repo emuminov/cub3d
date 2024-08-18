@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:07:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/07/28 16:07:46 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/16 14:52:10 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	free_config_p(t_config_parsing *conf)
 {
-	if (conf->north_path != NULL)
-		free(conf->north_path);
-	if (conf->east_path != NULL)
-		free(conf->east_path);
-	if (conf->south_path != NULL)
-		free(conf->south_path);
-	if (conf->west_path != NULL)
-		free(conf->west_path);
+	// if (conf->north_path != NULL)
+	// 	free(conf->north_path);
+	// if (conf->east_path != NULL)
+	// 	free(conf->east_path);
+	// if (conf->south_path != NULL)
+	// 	free(conf->south_path);
+	// if (conf->west_path != NULL)
+	// 	free(conf->west_path);
 	if (conf->floor_c != NULL)
 		free(conf->floor_c);
 	if (conf->ceiling_c != NULL)
@@ -38,14 +38,14 @@ void	free_config(t_config *conf)
 		free(conf->floor_c);
 	if (conf->ceiling_c != NULL)
 		free(conf->ceiling_c);
-	if (conf->east_fd != -1)
-		close(conf->east_fd);
-	if (conf->west_fd != -1)
-		close(conf->west_fd);
-	if (conf->north_fd != -1)
-		close(conf->north_fd);
-	if (conf->south_fd != -1)
-		close(conf->south_fd);
+	if (conf->north_path != NULL)
+		free(conf->north_path);
+	if (conf->east_path != NULL)
+		free(conf->east_path);
+	if (conf->south_path != NULL)
+		free(conf->south_path);
+	if (conf->west_path != NULL)
+		free(conf->west_path);
 }
 
 void	free_tab(char **tab)
