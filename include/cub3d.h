@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/17 01:18:56 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/20 00:56:20 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct s_game
 	t_grid_coordsf	minimap_camera;
 	t_pixel_point	window_size;
 	t_grid_coordsf	rays[30];
+	int				old_mouse_pos;
 }					t_game;
 
 enum				e_direction
@@ -246,6 +247,10 @@ void				update_game_state(t_game *g);
 t_vectorf			check_wall_in_dir(t_game *g, t_dda_params *dp,
 						t_grid_coordsf start, t_vectorf dir,
 						double max_distance);
+
+/*					// MOUSE \\								*/
+/* Handles rotations with mouse. */
+void handle_mouse(t_game *g);
 
 /*					// TESTING 2D PLANE LOOP \\				*/
 /* Loop for purely testing purposes. Renders topdown 2d plane view with

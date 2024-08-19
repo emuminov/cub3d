@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:19:45 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/18 23:47:28 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/20 00:54:34 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,15 @@ int	init_testing_2d_plane_loop(void)
 static void	render_minimap_graphic(t_game *g)
 {
 	draw_minimap(g);
+	handle_mouse(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 }
 
 /* Update and render loop for testing 2d plane */
 static int	testing_2d_plane_loop(t_game *g)
 {
-	if (is_any_key_pressed(g))
-	{
-		update_game_state(g);
-		render_minimap_graphic(g);
-	}
+	update_game_state(g);
+	render_minimap_graphic(g);
 	return (0);
 }
 
