@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:30:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/14 16:48:53 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/18 23:53:10 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,17 +103,17 @@ void	draw_square(t_img *frame, t_pixel_point pos, int size, int color)
 	}
 }
 
-void	draw_tile(t_img *frame, t_grid_coordsi p, int color)
+void	draw_tile(t_img *frame, t_pixel_point p, int color)
 {
 	t_pixel_point	start;
 	t_pixel_point	end;
 
-	start = grid_coordsi_to_pixel_point(p);
-	end.y = start.y + TILE_SIZE;
-	end.x = start.x + TILE_SIZE;
+	start = p;
+	end.x = p.x + TILE_SIZE;
+	end.y = p.y + TILE_SIZE;
 	while (start.y < end.y)
 	{
-		start.x = p.x * TILE_SIZE;
+		start.x = p.x;
 		while (start.x < end.x)
 		{
 			put_pixel_on_img(frame, start, color);
