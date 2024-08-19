@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/21 18:21:20 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:21:58 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <stdio.h>
 # define TILE_SIZE 128
 # define RADIAN_TO_DEGREE_SCALING 0.0174533
-# define TEXTURE_HEIGHT 64
-# define TEXTURE_WIDTH 64
 
 typedef enum	e_etiles
 {
@@ -62,16 +60,6 @@ typedef struct s_img
 	int				endian;
 	t_vectori		dimensions;
 }					t_img;
-
-typedef struct s_img2
-{
-	void			*img;
-	int				*addr;
-	int				bits_per_pixel;
-	int				line_len;
-	int				endian;
-	t_vectori		dimensions;
-}					t_img2;
 
 typedef struct s_config_parsing
 {
@@ -136,8 +124,6 @@ typedef struct s_game
 	t_player		player;
 	t_dda_params	dp;
 	char			*xpm[5];
-	int				texture[4][TEXTURE_HEIGHT * TEXTURE_WIDTH];
-	t_img2			img[4];
 	char			**map;
 	t_config		conf;
 	t_controls		controls;
