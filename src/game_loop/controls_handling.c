@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:12:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/20 20:10:11 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/21 00:14:10 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,4 @@ int	handle_key_release(int keysym, t_game *g)
 	else if (keysym == XK_d)
 		g->controls.move_right_pressed = false;
 	return (0);
-}
-
-t_vectorf	mouse_pos_to_grid_coordsf(t_game *g)
-{
-	int				x;
-	int				y;
-	t_grid_coordsf	mouse_grid_pos;
-
-	mlx_mouse_get_pos(g->mlx, g->win, &x, &y);
-	mouse_grid_pos = pixel_point_to_grid_coordsf((t_pixel_point){.x = x,
-			.y = y});
-	if (mouse_grid_pos.x > g->window_size.x)
-		mouse_grid_pos.x = g->window_size.x;
-	else if (mouse_grid_pos.x < 0)
-		mouse_grid_pos.x = 0;
-	if (mouse_grid_pos.y > g->window_size.y)
-		mouse_grid_pos.y = g->window_size.y;
-	else if (mouse_grid_pos.y < 0)
-		mouse_grid_pos.y = 0;
-	return (mouse_grid_pos);
 }
