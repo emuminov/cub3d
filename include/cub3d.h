@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/20 20:07:30 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/21 00:08:12 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,7 @@ t_vectorf			check_cell_in_dir(t_game *g, t_grid_coordsf start,
 
 /*					// MOUSE \\								*/
 /* Handles rotations with mouse. */
+void				handle_mouse(t_game *g);
 
 /*					// TESTING 2D PLANE LOOP \\				*/
 /* Loop for purely testing purposes. Renders topdown 2d plane view with
