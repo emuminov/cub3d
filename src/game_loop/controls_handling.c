@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:12:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/14 16:02:13 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:10:11 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	handle_key_press(int keysym, t_game *g)
 		g->controls.move_left_pressed = true;
 	else if (keysym == XK_d)
 		g->controls.move_right_pressed = true;
+	else if (keysym == XK_e)
+		toggle_door(g);
 	return (0);
 }
 

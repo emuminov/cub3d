@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:19:45 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/20 00:54:34 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:36:56 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	init_testing_2d_plane_loop(void)
 static void	render_minimap_graphic(t_game *g)
 {
 	draw_minimap(g);
-	handle_mouse(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 }
 
@@ -72,6 +71,8 @@ static void	create_basic_map(t_game *g)
 		y++;
 	}
 	g->map[3][5] = '2';
-	g->map[3][2] = '1';
-	g->map[1][2] = '1';
+	g->map[2][2] = door_closed;
+	g->map[3][2] = wall;
+	g->map[4][3] = wall;
+	g->map[1][2] = wall;
 }

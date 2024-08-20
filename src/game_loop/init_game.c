@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/20 00:47:42 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:13:28 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	init_game(t_game *g, int x, int y)
 	g->mlx = mlx_init();
 	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
 	init_img_data(g->mlx, &g->frame, g->window_size);
-	g->player.pos = (t_vectorf){.x = 5.2, .y = 3.5};
+	g->player.pos = (t_vectorf){.x = 1.5, .y = 1.5};
 	g->player.dir = (t_vectorf){.x = 1, .y = 0};
 	g->map_size = (t_grid_coordsi){.x = 10, .y = 10}; // size of actual map
 	mlx_mouse_get_pos(g->mlx, g->win, &g->old_mouse_pos, &y);

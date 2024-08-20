@@ -14,7 +14,7 @@ HEADERS = ./src/libft/libft.h ./src/libft/ft_printf/ft_printf.h \
 
 # Compilation of functionality without main
 SRCS = main.c utils.c init.c free.c parse_keys_dir.c parse_keys_colors.c paths.c keys_utils.c arg_manager.c parsing.c
-SRCS_GAME_LOOP = $(addprefix game_loop/, controls_handling.c dda.c draw_utils.c init_game.c minimap.c mlx_img_utils.c movement.c testing_2d_plane_loop.c update_game_state.c)
+SRCS_GAME_LOOP = $(addprefix game_loop/, controls_handling.c dda.c draw_utils.c init_game.c minimap.c mlx_img_utils.c movement.c testing_2d_plane_loop.c update_game_state.c doors.c)
 SRCS_MATH_FUNCS = $(addprefix math_funcs/, grid_bounds_checking.c grid_pixel_conversions.c utils.c vectorf1.c vectorf2.c vectori.c)
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 

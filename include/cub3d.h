@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/20 00:56:20 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:07:30 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@
 # include <stdio.h>
 # define TILE_SIZE 128
 # define RADIAN_TO_DEGREE_SCALING 0.0174533
+
+typedef enum	e_etiles
+{
+	empty = '0',
+	wall = '1',
+	door_closed = 'D',
+	door_opened = 'O',
+	player_north = 'N',
+	player_south = 'S',
+	player_east = 'E',
+	player_west = 'W',
+}				t_tiles;
 
 typedef struct s_vectorf
 {
@@ -68,10 +80,11 @@ typedef struct s_dda_params
 	t_grid_coordsf	rate_of_change;
 	t_grid_coordsf	dist_until_grid_side;
 	t_grid_coordsi	inspected_grid;
-	bool			found_wall;
+	bool			found_cell;
 	double			camera;
 	double			distance;
 	double			max_distance;
+	t_tiles			type_of_found_cell;
 }					t_dda_params;
 
 typedef struct s_player
@@ -244,17 +257,18 @@ void				update_game_state(t_game *g);
 
 /*					// DDA \\								*/
 /* Important algorithm for finding walls and collision points. */
-t_vectorf			check_wall_in_dir(t_game *g, t_dda_params *dp,
-						t_grid_coordsf start, t_vectorf dir,
-						double max_distance);
+t_vectorf			check_cell_in_dir(t_game *g, t_grid_coordsf start,
+		t_vectorf dir, double max_distance, char *checked_tiles);
 
 /*					// MOUSE \\								*/
 /* Handles rotations with mouse. */
-void handle_mouse(t_game *g);
 
 /*					// TESTING 2D PLANE LOOP \\				*/
 /* Loop for purely testing purposes. Renders topdown 2d plane view with
  * wall ray and collision rays. */
 int					init_testing_2d_plane_loop(void);
+
+/*					// DOORS \\				*/
+void				toggle_door(t_game *g);
 
 #endif

@@ -6,37 +6,40 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:01 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/14 16:48:01 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:03:47 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-/* DDA algorithm for finding the nearest wall in the certain directions */
+#include <stdio.h>
 
 static void	set_initial_dda_params(t_dda_params *dp, t_grid_coordsf start,
 				t_vectorf dir, double max_distance);
 static void	check_next_grid_cell(t_dda_params *dp);
 
-t_vectorf	check_wall_in_dir(t_game *g, t_dda_params *dp, t_grid_coordsf start,
-		t_vectorf dir, double max_distance)
+/* DDA algorithm for finding the nearest wall in the certain direction */
+t_vectorf	check_cell_in_dir(t_game *g, t_grid_coordsf start,
+		t_vectorf dir, double max_distance, char *checked_tiles)
 {
 	t_vectorf	intersection;
 
-	set_initial_dda_params(dp, start, dir, max_distance);
-	while (!dp->found_wall && dp->distance < dp->max_distance)
+	set_initial_dda_params(&g->dp, start, dir, max_distance);
+	while (!g->dp.found_cell && g->dp.distance < g->dp.max_distance)
 	{
-		check_next_grid_cell(dp);
-		if (is_in_bounds_of_grid(dp->inspected_grid, g->map_size))
+		check_next_grid_cell(&g->dp);
+		if (is_in_bounds_of_grid(g->dp.inspected_grid, g->map_size))
 		{
-			if (g->map[(int)dp->inspected_grid.y][(int)dp->inspected_grid.x] == '1')
-				dp->found_wall = true;
+			if (ft_strchr(checked_tiles, g->map[g->dp.inspected_grid.y][g->dp.inspected_grid.x]))
+			{
+				g->dp.found_cell = true;
+				g->dp.type_of_found_cell = g->map[g->dp.inspected_grid.y][g->dp.inspected_grid.x];
+			}
 		}
 		else
 			break ;
 	}
-	if (dp->found_wall)
-		intersection = vectorf_add(start, vectorf_scale(dir, dp->distance));
+	if (g->dp.found_cell)
+		intersection = vectorf_add(start, vectorf_scale(dir, g->dp.distance));
 	else
 		intersection = (t_grid_coordsf){.x = -1, .y = -1};
 	return (intersection);
@@ -62,7 +65,7 @@ static void	set_initial_dda_params(t_dda_params *dp, t_grid_coordsf start,
 	else
 		dp->dist_until_grid_side.y = ((dp->inspected_grid.y + 1) - start.y)
 			* dp->rate_of_change.y;
-	dp->found_wall = false;
+	dp->found_cell = false;
 	dp->max_distance = max_distance;
 	dp->distance = 0;
 }

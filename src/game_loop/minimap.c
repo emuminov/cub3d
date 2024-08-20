@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:35:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/19 21:45:45 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:03:54 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	draw_minimap(t_game *g)
 	t_grid_coordsi	end;
 	t_grid_coordsf	ray;
 
-	ray = check_wall_in_dir(g, &g->dp, g->player.pos, g->player.dir, 100);
+	ray = check_cell_in_dir(g, g->player.pos, g->player.dir, 100, "1D");
 	top_left_grid = vectorf_sub(g->player.pos, (t_grid_coordsf){.x = 2.5, .y = 2.5});
 	start.x = floor(top_left_grid.x);
 	start.y = floor(top_left_grid.y);
@@ -76,10 +76,14 @@ static void	draw_tiles_around_player(t_game *g, t_pixel_point offset,
 		{
 			if (y < 0 || x < 0 || y > (g->map_size.y - 1) || x > (g->map_size.x - 1))
 				draw_tile(&g->frame, p, 0x000000);
-			else if (g->map[y][x] == '1')
+			else if (g->map[y][x] == wall)
 				draw_tile(&g->frame, p, 0x555555);
-			else if (g->map[y][x] == '0' || g->map[y][x] == '2')
+			else if (g->map[y][x] == empty || g->map[y][x] == '2')
 				draw_tile(&g->frame, p, 0xAAAAAA);
+			else if (g->map[y][x] == door_closed)
+				draw_tile(&g->frame, p, 0x964B00);
+			else if (g->map[y][x] == door_opened)
+				draw_tile(&g->frame, p, 0x903000);
 			p.x += TILE_SIZE;
 		}
 		p.y += TILE_SIZE;
