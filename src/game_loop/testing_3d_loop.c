@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/21 18:27:51 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:54:12 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ static void	render_3d_graphics(t_game *g)
 	int				draw_end;
 	int				draw_start;
 	int				line_height;
+	double			wall_x;
 	int				x;
 	int				y;
+	double			texX;
 
 	// draw_grid(g, &g->frame);
 	// draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 25,
@@ -54,21 +56,29 @@ static void	render_3d_graphics(t_game *g)
 	while (x < g->window_size.x)
 	{
 		check_cell_in_dir(g, g->player.pos, g->player.dir, 100, "1D");
-		// if (g->dp.side == 0)
-		// 	perp_wall_dist = (g->dp.inspected_grid.x - g->dp.ray_step.x);
-		// else
-		// 	perp_wall_dist = (g->dp.inspected_grid.y - g->dp.ray_step.y);
+		if (g->dp.side == 0)
+			wall_x = g->player.pos.y + g->dp.distance * g->dp.inspected_grid.y;
+		else
+			wall_x = g->player.pos.x + g->dp.distance * g->dp.inspected_grid.x;
+		wall_x -= floor(wall_x);
+		texX =(int)(wall_x * (double)g->frame.dimensions.x);
+		if (g->dp.side == 0 && g->dp.inspected_grid.x > 0)
+			texX = g->frame.dimensions.x - texX - 1;
+		if (g->dp.side == 1 && g->dp.inspected_grid.y < 0)
+			texX = g->frame.dimensions.x - texX - 1;
 		line_height = (int)(g->window_size.y / g->dp.distance);
+		
 		draw_start = -line_height / 2 + g->window_size.y / 2;
 		if (draw_start < 0)
 			draw_start = 0;
 		draw_end = line_height / 2 + g->window_size.y / 2;
 		if (draw_end >= g->window_size.y)
 			draw_end = g->window_size.y - 1;
+		
 		y = draw_start;
 		while (y < draw_end)
 		{
-			put_pixel_on_img(&g->frame, (t_pixel_point){x,y}, get_pixel_of_img(g->frame, (t_pixel_point){x, y}));
+			put_pixel_on_img(&g->frame, (t_pixel_point){x,y}, get_pixel_of_img(g->frame, (t_pixel_point){texX, y}));
 			// put_pixel_on_img(&g->frame, (t_pixel_point){x,y}, get_pixel_of_img(g->frame, (t_pixel_point){x, y}));
 			y++;
 		}
