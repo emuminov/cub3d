@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/21 17:46:46 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/21 18:27:51 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	render_3d_graphics(t_game *g)
 	x = 0;
 	while (x < g->window_size.x)
 	{
-		check_wall_in_dir(g, &g->dp, g->player.pos, g->player.dir, 100);
+		check_cell_in_dir(g, g->player.pos, g->player.dir, 100, "1D");
 		// if (g->dp.side == 0)
 		// 	perp_wall_dist = (g->dp.inspected_grid.x - g->dp.ray_step.x);
 		// else

@@ -12,6 +12,6 @@ mkShell {
 	];
 	shellHook =
 	''
-		export LIBX11_PATH="${pkgs.xorg.libX11}"
+		export NIX_LIBX11_PATH="${pkgs.xorg.libX11}"
 	'';
 }
