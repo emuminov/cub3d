@@ -6,19 +6,16 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:26:51 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/19 16:09:29 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/21 18:22:41 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../minilibx-linux/mlx.h"
 
-/* Gets color on certain point on the image. Checks for overflows */
+/* Gets color on certain point on the image */
 unsigned int	get_pixel_of_img(t_img img, t_pixel_point p)
 {
-	// if (p.x < 0 || p.x >= img.dimensions.x || p.y < 0
-	// 	|| p.y >= img.dimensions.y)
-	// 	return (0);
 	return (*(unsigned int *)((img.addr + (p.y * img.line_len) + (p.x
 					* img.bits_per_pixel / 8))));
 }
