@@ -104,8 +104,8 @@ main(){
 	esac
 
 	parse_args "$@"
-	if [ -n $NIX_LIBX11_PATH ]; then
-		xlib_inc=$NIX_LIBX11_PATH
+	if [ -n "$NIX_LIBX11_PATH" ]; then
+		xlib_inc="$NIX_LIBX11_PATH"
 	fi
 	if [ -z "$xlib_inc" ]; then
 		log_error "Can't find a suitable X11 include directory."
