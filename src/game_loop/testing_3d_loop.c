@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/22 18:45:13 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/23 00:53:00 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../minilibx-linux/mlx.h"
 #include <X11/XKBlib.h>
 #include <X11/Xutil.h>
-#include <math.h>
 
 static void	create_basic_map(t_game *g);
 void		mlx_place_pixel(int x, int y, int colour, t_game *g);
@@ -24,7 +23,6 @@ static void	render_3d_graphics(t_game *g)
 	int				draw_end;
 	int				draw_start;
 	int				line_height;
-	double			wall_x;
 	int				x;
 	int				y;
 	// double			texX;
@@ -54,24 +52,16 @@ static void	render_3d_graphics(t_game *g)
 	tests.img = mlx_new_image(g->mlx, tests.dimensions.x, tests.dimensions.y);
 	tests.addr = mlx_get_data_addr(tests.img, &tests.bits_per_pixel, &tests.line_len, &tests.endian);
 	x = 0;
-	t_vectorf	test2;
-	test2 = vectorf_rotate(g->player.dir, -33);
 	while (x < g->window_size.x)
 	{
-		test2 = vectorf_rotate(test2, +0.5);
-		ray = check_cell_in_dir(g, g->player.pos, test2, 100, "1D");
+		double cam_x = 2 * x / (double)640 - 1;
+		t_vectorf ray_dir = vectorf_add(g->player.dir, vectorf_scale(g->player.plane, cam_x));
+		// test2 = vectorf_rotate(test2, ((double)66 / 640));
+		ray = check_cell_in_dir(g, g->player.pos, ray_dir, 100, "1D");
+		printf("%f %f\n", ray.x, ray.y);
 		if (ray.x != -1)
 		{
-			if (g->dp.side == 0)
-				wall_x = g->player.pos.y + g->dp.distance * g->dp.inspected_grid.y;
-			else
-				wall_x = g->player.pos.x + g->dp.distance * g->dp.inspected_grid.x;
-			wall_x -= floor(wall_x);
-			// texX =(int)(wall_x * (double)g->frame.dimensions.x);
-			// if (g->dp.side == 0 && g->dp.inspected_grid.x > 0)
-			// 	texX = g->frame.dimensions.x - texX - 1;
-			// if (g->dp.side == 1 && g->dp.inspected_grid.y < 0)
-			// 	texX = g->frame.dimensions.x - texX - 1;
+			printf("rate of change: %f %f\n", g->dp.rate_of_change.x, g->dp.rate_of_change.y);
 			line_height = (int)(g->window_size.y / g->dp.distance);
 			
 			draw_start = -line_height / 2 + g->window_size.y / 2;
@@ -124,7 +114,7 @@ int	init_testing_3d_loop(void)
 	static t_game	g;
 	int				size;
 
-	init_game(&g, 640, 640);
+	init_game(&g, 768, 640);
 	create_basic_map(&g);
 	g.frame.img = mlx_xpm_file_to_image(g.mlx, "Stephane.xpm", &size, &size);
 	g.frame.addr = mlx_get_data_addr(g.frame.img, &g.frame.bits_per_pixel, &g.frame.line_len, &g.frame.endian);
@@ -160,4 +150,8 @@ static void	create_basic_map(t_game *g)
 		y++;
 	}
 	g->map[2][2] = '2';
+	g->map[2][1] = '1';
+	g->map[2][3] = '1';
+	g->map[2][4] = '1';
+	g->map[3][5] = '1';
 }

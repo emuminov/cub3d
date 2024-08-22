@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:07:41 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/20 19:58:27 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/22 23:28:36 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,15 @@ t_vectorf	get_movement_dir(const t_controls *controls, const t_player *player)
 void	resolve_rotation(t_game *g)
 {
 	if (g->controls.rotate_left_pressed)
+	{
 		g->player.dir = vectorf_rotate(g->player.dir, -0.5);
+		g->player.plane = vectorf_rotate(g->player.plane, -0.5);
+	}
 	else if (g->controls.rotate_right_pressed)
+	{
 		g->player.dir = vectorf_rotate(g->player.dir, 0.5);
+		g->player.plane = vectorf_rotate(g->player.plane, 0.5);
+	}
 }
 
 /* Collision is resolved using DDA which checks one grid in the direction of

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:01 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/22 18:03:32 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/22 19:45:15 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	set_initial_dda_params(t_dda_params *dp, t_grid_coordsf start,
 {
 	dp->rate_of_change.x = abs_f(1 / dir.x);
 	dp->rate_of_change.y = abs_f(1 / dir.y);
-	dp->inspected_grid = (t_grid_coordsi){.x = (int)start.x, .y = start.y};
+	dp->inspected_grid = (t_grid_coordsi){.x = start.x, .y = start.y};
 	dp->ray_step.x = sign_f(dir.x);
 	dp->ray_step.y = sign_f(dir.y);
 	if (dir.x < 0)
