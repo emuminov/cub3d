@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/23 00:53:00 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 00:55:14 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,14 @@ static void	render_3d_graphics(t_game *g)
 	int				line_height;
 	int				x;
 	int				y;
-	// double			texX;
+	double			cam_x;
 	t_grid_coordsf	ray;
 	t_img			tests;
+	t_vectorf		ray_dir;
 
 	// draw_grid(g, &g->frame);
 	// draw_square(&g->frame, grid_coordsf_to_pixel_point(g->player.pos), 25,
 	// 	0xAA00AA);
-
-// out loop goes from -33 to 33
-// we rotate the player direction to the current degree in the iteration
-// we cast rays
-// we draw things depending on what how far away the walls are
-// the distance is: 
-// 
 
 // yx -------------------------
 // |
@@ -54,11 +48,9 @@ static void	render_3d_graphics(t_game *g)
 	x = 0;
 	while (x < g->window_size.x)
 	{
-		double cam_x = 2 * x / (double)640 - 1;
-		t_vectorf ray_dir = vectorf_add(g->player.dir, vectorf_scale(g->player.plane, cam_x));
-		// test2 = vectorf_rotate(test2, ((double)66 / 640));
+		cam_x = 2 * x / (double)640 - 1;
+		ray_dir = vectorf_add(g->player.dir, vectorf_scale(g->player.plane, cam_x));
 		ray = check_cell_in_dir(g, g->player.pos, ray_dir, 100, "1D");
-		printf("%f %f\n", ray.x, ray.y);
 		if (ray.x != -1)
 		{
 			printf("rate of change: %f %f\n", g->dp.rate_of_change.x, g->dp.rate_of_change.y);
