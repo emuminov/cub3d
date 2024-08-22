@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/22 18:03:26 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/22 18:45:13 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,12 @@ static void	render_3d_graphics(t_game *g)
 	tests.img = mlx_new_image(g->mlx, tests.dimensions.x, tests.dimensions.y);
 	tests.addr = mlx_get_data_addr(tests.img, &tests.bits_per_pixel, &tests.line_len, &tests.endian);
 	x = 0;
+	t_vectorf	test2;
+	test2 = vectorf_rotate(g->player.dir, -33);
 	while (x < g->window_size.x)
 	{
-		ray = check_cell_in_dir(g, g->player.pos, g->player.dir, 100, "1D");
+		test2 = vectorf_rotate(test2, +0.5);
+		ray = check_cell_in_dir(g, g->player.pos, test2, 100, "1D");
 		if (ray.x != -1)
 		{
 			if (g->dp.side == 0)
