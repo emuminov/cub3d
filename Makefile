@@ -1,7 +1,7 @@
 NAME = cub3d
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -O0 -Og -fno-eliminate-unused-debug-symbols -fno-eliminate-unused-debug-types #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -O0 -Og #-fsanitize=address
 XFLAGS = -lXext -lX11
 
 OBJS_DIR = .obj/
