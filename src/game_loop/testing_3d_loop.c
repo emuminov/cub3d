@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/23 00:55:14 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 00:56:30 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	render_3d_graphics(t_game *g)
 	x = 0;
 	while (x < g->window_size.x)
 	{
-		cam_x = 2 * x / (double)640 - 1;
+		cam_x = 2 * x / (double)g->window_size.x - 1;
 		ray_dir = vectorf_add(g->player.dir, vectorf_scale(g->player.plane, cam_x));
 		ray = check_cell_in_dir(g, g->player.pos, ray_dir, 100, "1D");
 		if (ray.x != -1)
