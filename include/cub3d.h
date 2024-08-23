@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/23 11:54:05 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/23 19:24:35 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_dda_params
 typedef struct s_player
 {
 	t_grid_coordsf	pos;
-	t_grid_coordsf	collision_point;
+	t_grid_coordsf	size;
 	t_vectorf		dir;
 	t_vectorf		plane;
 }					t_player;
@@ -128,7 +128,7 @@ typedef struct s_game
 	t_config		conf;
 	t_controls		controls;
 	t_grid_coordsi	map_size;
-	t_grid_coordsf	minimap_camera;
+	t_pixel_point	minimap_size;
 	t_pixel_point	window_size;
 	t_grid_coordsf	rays[30];
 	int				old_mouse_pos;
@@ -217,7 +217,7 @@ int					max(int n1, int n2);
  * matrix that represent the game map, wrappers for easier use of
  * the mlx library. */
 /*					// CONTROLS HANDLING \\ 				*/
-bool				is_any_key_pressed(t_game *g);
+bool				is_move_key_pressed(t_game *g);
 int					handle_key_press(int keysym, t_game *g);
 int					handle_key_release(int keysym, t_game *g);
 t_vectorf			mouse_pos_to_grid_coordsf(t_game *g);
@@ -227,12 +227,11 @@ int					exit_hook_cross(t_game *g);
 /* Functions for drawing simple shapes. */
 void				draw_line(t_img *frame, t_pixel_point start,
 						t_pixel_point end, int color);
-void				draw_grid(t_game *g, t_img *frame);
 void				draw_hollow_square(t_img *frame, t_pixel_point pos,
 						int size, int color);
 void				draw_square(t_img *frame, t_pixel_point pos, int size,
 						int color);
-void				draw_tile(t_img *frame, t_grid_coordsi p, int color);
+void				draw_tile(t_img *frame, t_grid_coordsi p, int color, int tile_size);
 
 /*					// INIT GAME \\ 						*/
 /* Initializes mlx, creates new window, initializes game struct */
@@ -241,6 +240,7 @@ int					init_game(t_game *g, int x, int y);
 /*					// MINIMAP \\							*/
 /* TODO: under construction */
 void				draw_minimap(t_game *g);
+void				draw_2d_plane(t_game *g);
 
 /*					// MLX IMG UTILS \\						*/
 unsigned int		get_pixel_of_img(t_img img, t_pixel_point p);

@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:30:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/23 19:22:17 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 19:24:30 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,6 @@ void	draw_line(t_img *frame, t_pixel_point start, t_pixel_point end,
 		next_point.x += inc.x;
 		next_point.y += inc.y;
 		i++;
-	}
-}
-
-void	draw_grid(t_game *g, t_img *frame)
-{
-	t_grid_coordsi			p;
-	const t_grid_coordsi	visible_grid = pixel_point_to_grid_coordsi(frame->dimensions);
-
-	p.y = 0;
-	while (p.y < visible_grid.y)
-	{
-		p.x = 0;
-		while (p.x < visible_grid.x)
-		{
-			if (g->map[p.y][p.x] == '0' || g->map[p.y][p.x] == '2')
-				draw_tile(&g->frame, p, 0xAAAAAA, 128);
-			else if (g->map[p.y][p.x] == '1')
-				draw_tile(&g->frame, p, 0x454545, 128);
-			p.x++;
-		}
-		p.y++;
 	}
 }
 
