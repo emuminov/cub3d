@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/16 14:54:51 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/23 11:53:58 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ t_config	config_init(void)
 	conf.ceiling_c = NULL;
 	return (conf);
 }
-
-void	parse_map(char **map);
 
 t_game	game_init(int argc, char **argv)
 {

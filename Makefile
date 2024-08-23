@@ -23,7 +23,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 SRCS_TESTING_2D_PLANE = _testing_2d_plane_main.c $(SRCS_GAME_LOOP) $(SRCS_MATH_FUNCS)
 OBJS_TESTING_2D_PLANE = $(addprefix $(OBJS_DIR), $(SRCS_TESTING_2D_PLANE:.c=.o))
 
-SCRS_3D_TESTS = testing_3d_main.c $(SRCS_GAME_LOOP) $(SRCS_MATH_FUNCS)
+SCRS_3D_TESTS = testing_3d_main.c init.c free.c $(SRCS_GAME_LOOP) $(SRCS_MATH_FUNCS) $(PARSING)
 OBJS_3D_TESTS = $(addprefix $(OBJS_DIR), $(SCRS_3D_TESTS:.c=.o))
 
 .SILENT :

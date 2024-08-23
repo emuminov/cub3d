@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/21 18:21:58 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:54:05 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ enum				e_direction
 /*					// PARSE \\								*/
 int					parse_line(char *gnl, t_config_parsing *conf);
 void				pre_parsing(int fd, t_config_parsing *conf);
+void				parse_map(char **map);
 /*					// INNIT \\								*/
 t_config_parsing	config_parsing_init(void);
 t_config			config_init(void);
