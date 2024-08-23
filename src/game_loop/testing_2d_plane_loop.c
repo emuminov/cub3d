@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:19:45 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/21 18:17:59 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:04:29 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	init_testing_2d_plane_loop(void)
 
 static void	render_minimap_graphic(t_game *g)
 {
-	draw_minimap(g);
+	draw_2d_plane(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 }
 

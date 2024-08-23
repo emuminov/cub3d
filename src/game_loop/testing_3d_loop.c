@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/23 15:15:04 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/23 18:14:19 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	render_3d_graphics(t_game *g)
 				texX = g->frame.dimensions.x - texX - 1;
 			
 			double step = 1.0 * g->frame.dimensions.y / line_height;
-			double texPos = (draw_start - g->window_size.y / 2 + line_height / 2) * step;
+			double texPos = (draw_start - (double)g->window_size.y / 2 + (double)line_height / 2) * step;
 			y = draw_start;
 			while (y < draw_end)
 			{
@@ -85,6 +85,7 @@ static void	render_3d_graphics(t_game *g)
 		}
 		x++;
 	}
+	draw_minimap(tests.img);
 	mlx_put_image_to_window(g->mlx, g->win, tests.img, 0, 0);
 	mlx_destroy_image(g->mlx, tests.img);
 }

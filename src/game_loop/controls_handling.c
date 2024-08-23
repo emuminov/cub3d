@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:12:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/21 18:17:16 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:48:48 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	exit_hook_cross(t_game *g)
 	exit(0);
 }
 
-bool	is_any_key_pressed(t_game *g)
+bool	is_move_key_pressed(t_game *g)
 {
 	return (g->controls.rotate_right_pressed || g->controls.rotate_left_pressed
 		|| g->controls.move_left_pressed || g->controls.move_right_pressed

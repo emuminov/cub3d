@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:30:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/18 23:53:10 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 19:22:17 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	draw_grid(t_game *g, t_img *frame)
 		while (p.x < visible_grid.x)
 		{
 			if (g->map[p.y][p.x] == '0' || g->map[p.y][p.x] == '2')
-				draw_tile(&g->frame, p, 0xAAAAAA);
+				draw_tile(&g->frame, p, 0xAAAAAA, 128);
 			else if (g->map[p.y][p.x] == '1')
-				draw_tile(&g->frame, p, 0x454545);
+				draw_tile(&g->frame, p, 0x454545, 128);
 			p.x++;
 		}
 		p.y++;
@@ -103,14 +103,14 @@ void	draw_square(t_img *frame, t_pixel_point pos, int size, int color)
 	}
 }
 
-void	draw_tile(t_img *frame, t_pixel_point p, int color)
+void	draw_tile(t_img *frame, t_pixel_point p, int color, int tile_size)
 {
 	t_pixel_point	start;
 	t_pixel_point	end;
 
 	start = p;
-	end.x = p.x + TILE_SIZE;
-	end.y = p.y + TILE_SIZE;
+	end.x = p.x + tile_size;
+	end.y = p.y + tile_size;
 	while (start.y < end.y)
 	{
 		start.x = p.x;

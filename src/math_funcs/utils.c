@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:37:17 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/14 14:45:57 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:30:18 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ double	sign_f(double nbr)
 {
 	if (nbr < 0)
 		return (-1);
-	return (1);
+	else if (nbr > 0)
+		return (1);
+	return (0);
 }
 
 int	max(int n1, int n2)
