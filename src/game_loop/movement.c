@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:07:41 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/22 23:28:36 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:52:07 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,21 @@ void	resolve_movement(t_game *g)
 {
 	const t_grid_coordsf	new_pos = move_player(g->player, &g->controls);
 	const t_grid_coordsf	mdir = get_movement_dir(&g->controls, &g->player);
+	t_grid_coordsf			collision_point;
+	t_grid_coordsf			checked_pos;
 
+	checked_pos = vectorf_add(new_pos,
+			(t_grid_coordsf){.x = g->player.size.x * mdir.x,
+			.y = g->player.size.y * mdir.y});
 	if (g->controls.move_up_pressed)
-		g->player.collision_point = check_cell_in_dir(g, g->player.pos,
-				mdir, 1, "1D");
+		collision_point = check_cell_in_dir(g, g->player.pos, mdir, 1, "1D");
 	else if (g->controls.move_down_pressed)
-		g->player.collision_point = check_cell_in_dir(g, g->player.pos,
-				mdir, 1, "1D");
+		collision_point = check_cell_in_dir(g, g->player.pos, mdir, 1, "1D");
 	else if (g->controls.move_left_pressed)
-		g->player.collision_point = check_cell_in_dir(g, g->player.pos,
-				mdir, 1, "1D");
+		collision_point = check_cell_in_dir(g, g->player.pos, mdir, 1, "1D");
 	else if (g->controls.move_right_pressed)
-		g->player.collision_point = check_cell_in_dir(g, g->player.pos,
-				mdir, 1, "1D");
-	if (g->player.collision_point.x == -1 || !is_beyond(new_pos,
-			g->player.collision_point, mdir))
+		collision_point = check_cell_in_dir(g, g->player.pos, mdir, 1, "1D");
+	if (collision_point.x == -1 || !is_beyond(checked_pos,
+			collision_point, mdir))
 		g->player.pos = new_pos;
 }
