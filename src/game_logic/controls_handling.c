@@ -6,11 +6,12 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:12:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/24 17:35:39 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 00:26:50 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/game_logic.h"
 #include "../minilibx-linux/mlx.h"
 #include <X11/keysym.h>
 

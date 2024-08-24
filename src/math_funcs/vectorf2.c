@@ -6,11 +6,12 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:15:40 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/24 22:41:02 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:29:02 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/math_funcs.h"
 #include "../../include/constants.h"
 #include <math.h>
 

@@ -6,11 +6,12 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:01 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/22 19:45:15 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:27:01 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/math_funcs.h"
 
 static void	set_initial_dda_params(t_dda_params *dp, t_grid_coordsf start,
 				t_vectorf dir, double max_distance);

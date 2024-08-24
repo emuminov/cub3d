@@ -6,11 +6,12 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 00:54:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/24 23:01:34 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:27:13 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/math_funcs.h"
 #include "../minilibx-linux/mlx.h"
 
 // TODO: replace hardcoded values

@@ -6,11 +6,12 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:25:35 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/24 23:28:24 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:27:57 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/game_logic.h"
 
 void	update_game_state(t_game *g)
 {

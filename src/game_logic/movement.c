@@ -6,11 +6,12 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:07:41 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/23 17:52:07 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:27:25 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/math_funcs.h"
 
 t_grid_coordsf	move_player(t_player p, const t_controls *controls)
 {

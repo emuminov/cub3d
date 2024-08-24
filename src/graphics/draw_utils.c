@@ -6,12 +6,13 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:30:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 00:00:04 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:28:11 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/graphics.h"
+#include "../../include/math_funcs.h"
 #include <math.h>
 
 /* DDA line drawing algorithm */
