@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/23 19:24:35 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 23:16:16 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdbool.h>
 # include <stdio.h>
 # define TILE_SIZE 128
+# define MINIMAP_SIZE 160
+# define MINIMAP_TILE_SIZE 32
 # define RADIAN_TO_DEGREE_SCALING 0.0174533
 
 typedef enum	e_etiles
@@ -132,6 +134,7 @@ typedef struct s_game
 	t_pixel_point	window_size;
 	t_grid_coordsf	rays[30];
 	int				old_mouse_pos;
+	t_img			texture;
 }					t_game;
 
 enum				e_direction
@@ -211,6 +214,15 @@ t_vectori			vectori_add(t_vectori v1, t_vectori v2);
 double				abs_f(double n);
 double				sign_f(double nbr);
 int					max(int n1, int n2);
+int					normalize(int value, int min, int max);
+
+/*					// COLOR \\  							*/
+int					rgb_to_int(int r, int g, int b);
+int					get_r(int rgb);
+int					get_g(int rgb);
+int					get_b(int rgb);
+int					get_transparent_color(int transparency, int color,
+		int background);
 
 /*////////////////////GAME LOOP\\\\\\\\\\\\\\\\\\\*/
 /* Functions for handling graphics and controls, operations on game struct,
@@ -232,6 +244,7 @@ void				draw_hollow_square(t_img *frame, t_pixel_point pos,
 void				draw_square(t_img *frame, t_pixel_point pos, int size,
 						int color);
 void				draw_tile(t_img *frame, t_grid_coordsi p, int color, int tile_size);
+void				draw_ceiling_and_floor(t_game *g);
 
 /*					// INIT GAME \\ 						*/
 /* Initializes mlx, creates new window, initializes game struct */
@@ -245,6 +258,8 @@ void				draw_2d_plane(t_game *g);
 /*					// MLX IMG UTILS \\						*/
 unsigned int		get_pixel_of_img(t_img img, t_pixel_point p);
 void				put_pixel_on_img(t_img *img, t_pixel_point p, int color);
+void				put_pixel_on_img_bounds(t_img *img, t_pixel_point p,
+		int color, t_pixel_point bounds);
 int					init_img_data(void *mlx, t_img *img, t_pixel_point p);
 
 /*					// MOVEMENT \\								*/

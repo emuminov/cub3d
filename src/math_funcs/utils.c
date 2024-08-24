@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:37:17 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/23 17:30:18 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 21:53:38 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,12 @@ int	max(int n1, int n2)
 	if (n1 >= n2)
 		return (n1);
 	return (n2);
+}
+
+int	normalize(int value, int min, int max)
+{
+	int	normalized_value;
+
+	normalized_value = (value - min) / (max - min);
+	return normalized_value;
 }

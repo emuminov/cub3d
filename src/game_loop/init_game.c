@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/23 18:09:48 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 19:28:24 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	init_game(t_game *g, int x, int y)
 	g->player.dir = (t_vectorf){.x = 1, .y = 0};
 	g->player.plane = (t_vectorf){.x = 0, .y = 0.66};
 	g->map_size = (t_grid_coordsi){.x = 10, .y = 10}; // size of actual map
-	g->minimap_size = (t_pixel_point){.x = 128, .y = 128};
+	g->minimap_size = (t_pixel_point){.x = 160, .y = 160};
 	mlx_mouse_get_pos(g->mlx, g->win, &g->old_mouse_pos, &y);
 	return (0);
 }

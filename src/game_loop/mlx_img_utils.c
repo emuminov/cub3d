@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:26:51 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/21 18:22:41 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/23 22:27:07 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ void	put_pixel_on_img(t_img *img, t_pixel_point p, int color)
 
 	if (p.x < 0 || p.x >= img->dimensions.x || p.y < 0
 		|| p.y >= img->dimensions.y)
+		return ;
+	dst = img->addr + (p.y * img->line_len + p.x * (img->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
+
+void	put_pixel_on_img_bounds(t_img *img, t_pixel_point p, int color,
+		t_pixel_point bounds)
+{
+	char	*dst;
+
+	if (p.x < 0 || p.x >= bounds.x || p.y < 0
+		|| p.y >= bounds.y)
 		return ;
 	dst = img->addr + (p.y * img->line_len + p.x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
