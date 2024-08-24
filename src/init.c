@@ -6,11 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/24 19:35:30 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:50:03 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include "../include/parsing.h"
+#include <stdio.h>
 
 t_config_parsing	config_parsing_init(void)
 {
@@ -46,6 +48,14 @@ t_game	game_init(int argc, char **argv)
 	int					fd;
 	t_game				game;
 	t_config_parsing	conf_p;
+
+
+	// fd = error_manager(argc, argv[1]);
+	// conf_p = config_parsing_init();
+	// g.conf = config_init();
+	// pre_parsing(fd, &conf_p);
+	// paths_errors(&conf_p, &g.conf);
+
 
 	fd = error_manager(argc, argv[1]);
 	conf_p = config_parsing_init();

@@ -6,11 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:18:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/16 14:53:32 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 00:43:20 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/parsing.h"
+#include <stdio.h>
 
 void	paths_errors(t_config_parsing *conf_p, t_config *conf)
 {

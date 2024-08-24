@@ -6,14 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 00:26:20 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:30:36 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/graphics.h"
 #include "../../include/math_funcs.h"
-#include "../../include/constants.h"
 #include "../minilibx-linux/mlx.h"
 #include <X11/XKBlib.h>
 #include <X11/Xutil.h>

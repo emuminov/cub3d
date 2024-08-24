@@ -6,11 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:31:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/15 13:23:52 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 00:43:18 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/parsing.h"
+#include <stdio.h>
 
 void	pre_parsing(int fd, t_config_parsing *conf)
 {

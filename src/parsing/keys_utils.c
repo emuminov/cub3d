@@ -6,11 +6,12 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:28:00 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/15 13:23:38 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 00:43:12 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include <stdio.h>
 
 int	error_key(char *gnl, t_config_parsing *conf, int i, int strcmp_value)
 {

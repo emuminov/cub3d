@@ -6,11 +6,13 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:25:47 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 00:25:53 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:34:59 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef MATH_FUNCS_H
+# define MATH_FUNCS_H
+# include "cub3d.h"
 
 /*////////////////////MATH FUNCS\\\\\\\\\\\\\\\\\\\*/
 /* Used for pure calculations with no side effects. Operate on ints, doubles and
@@ -56,3 +58,4 @@ int					get_g(int rgb);
 int					get_b(int rgb);
 int					get_transparent_color(int transparency, int color,
 		int background);
+#endif

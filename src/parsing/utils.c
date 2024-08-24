@@ -6,11 +6,12 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:16 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/15 13:23:58 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 00:43:23 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include <stdio.h>
 
 int	charcmp(char *str, char c)
 {

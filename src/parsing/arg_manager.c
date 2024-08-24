@@ -6,11 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:19:59 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/15 13:23:35 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 00:42:50 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../libft/libft.h"
+#include <stdio.h>
+#include <fcntl.h>
 
 int	error_manager(int argc, char *argv)
 {
