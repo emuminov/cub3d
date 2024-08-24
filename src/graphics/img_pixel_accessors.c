@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_img_utils.c                                    :+:      :+:    :+:   */
+/*   img_pixel_accessors.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:26:51 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/24 23:59:35 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:17:23 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-#include "../minilibx-linux/mlx.h"
 
 /* Gets color on certain point on the image */
 unsigned int	get_pixel_of_img(t_img img, t_pixel_point p)

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 00:02:28 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:20:50 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,6 @@ void				open_error_manager(t_config_parsing *conf_p, t_config *conf,
 unsigned char		ft_atoc(const char *str, char *gnl, t_config_parsing *conf);
 int					charcmp(char *str, char c);
 char				*ft_strjoin_free(char *s1, char *s2);
-int					resize_image(t_game *g, t_img *old,
-						int new_width, int new_height);
 /*					// FREE \\								*/
 void				free_config_p(t_config_parsing *conf);
 void				free_config(t_config *conf);

@@ -1,44 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resize_image.c                                     :+:      :+:    :+:   */
+/*   mlx_img_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:44:21 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/24 15:51:45 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 00:17:59 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../minilibx-linux/mlx.h"
 
-static void	nxt_ft_size(t_img *n_bg, t_img *o_bg, int y)
-{
-	int	x;
-	int	k;
-	int	og_x;
-	int	og_y;
+static void	nxt_ft_size(t_img *n_bg, t_img *o_bg, int y);
 
-	while (y < n_bg->dimensions.y)
-	{
-		x = 0;
-		while (x < n_bg->dimensions.x)
-		{
-			og_x = (x * o_bg->dimensions.x) / n_bg->dimensions.x;
-			og_y = (y * o_bg->dimensions.y) / n_bg->dimensions.y;
-			k = 0;
-			while (k < n_bg->bits_per_pixel / 8)
-			{
-				n_bg->addr[y * n_bg->line_len + x * (n_bg->bits_per_pixel / 8) + k] = \
-				o_bg->addr[og_y * o_bg->line_len + og_x
-					* (o_bg->bits_per_pixel / 8) + k];
-				k++;
-			}
-			x++;
-		}
-		y++;
-	}
+/* Allocates new image and initializes parameters of its struct */
+int	init_img_data(void *mlx, t_img *img, t_pixel_point p)
+{
+	img->dimensions = p;
+	img->img = mlx_new_image(mlx, p.x, p.y);
+	if (!img->img)
+		return (-1);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->line_len, &img->endian);
+	return (0);
 }
 
 int	resize_image(t_game *g, t_img *old, int new_width, int new_height)
@@ -68,4 +54,32 @@ int	resize_image(t_game *g, t_img *old, int new_width, int new_height)
 	old->dimensions.y = new_height;
 	free(new);
 	return (0);
+}
+
+static void	nxt_ft_size(t_img *n_bg, t_img *o_bg, int y)
+{
+	int	x;
+	int	k;
+	int	og_x;
+	int	og_y;
+
+	while (y < n_bg->dimensions.y)
+	{
+		x = 0;
+		while (x < n_bg->dimensions.x)
+		{
+			og_x = (x * o_bg->dimensions.x) / n_bg->dimensions.x;
+			og_y = (y * o_bg->dimensions.y) / n_bg->dimensions.y;
+			k = 0;
+			while (k < n_bg->bits_per_pixel / 8)
+			{
+				n_bg->addr[y * n_bg->line_len + x * (n_bg->bits_per_pixel / 8) + k] = \
+				o_bg->addr[og_y * o_bg->line_len + og_x
+					* (o_bg->bits_per_pixel / 8) + k];
+				k++;
+			}
+			x++;
+		}
+		y++;
+	}
 }

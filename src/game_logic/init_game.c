@@ -6,11 +6,12 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/24 23:59:41 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:21:03 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/game_logic.h"
 #include "../../include/constants.h"
 #include "../minilibx-linux/mlx.h"
 #include <X11/XKBlib.h>
@@ -74,17 +75,6 @@ int	init_game_loop(int argc, char **argv)
 }
 
 /* Allocates new image and initializes parameters of its struct */
-int	init_img_data(void *mlx, t_img *img, t_pixel_point p)
-{
-	img->dimensions = p;
-	img->img = mlx_new_image(mlx, p.x, p.y);
-	if (!img->img)
-		return (-1);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-			&img->line_len, &img->endian);
-	return (0);
-}
-
 // TODO: replace hardcoded values with the result from parsing
 // TODO: check for malloc errors
 int	init_game(t_game *g, int x, int y)

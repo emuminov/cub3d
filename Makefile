@@ -14,8 +14,8 @@ HEADERS = ./src/libft/libft.h ./src/libft/ft_printf/ft_printf.h \
 
 # Compilation of functionality without main
 PARSING = $(addprefix parsing/, parse_keys_dir.c parse_keys_colors.c paths.c keys_utils.c arg_manager.c parsing.c utils.c)
-SRCS_GAME_LOGIC = $(addprefix game_logic/, controls_handling.c dda.c doors.c init_game.c mouse.c movement.c update_game_state.c)
-SRCS_GRAPHICS = $(addprefix graphics/, draw_utils.c minimap.c mlx_img_utils.c resize_image.c render_3d_graphics.c)
+SRCS_GAME_LOGIC = $(addprefix game_logic/, controls_handling.c dda.c doors.c init_game.c mouse.c movement.c update_game_state.c mlx_img_utils.c)
+SRCS_GRAPHICS = $(addprefix graphics/, draw_utils.c minimap.c render_3d_graphics.c img_pixel_accessors.c)
 SRCS_MATH_FUNCS = $(addprefix math_funcs/, grid_bounds_checking.c grid_pixel_conversions.c color.c utils.c vectorf1.c vectorf2.c vectori.c)
 SRCS = main.c free.c $(PARSING)
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
