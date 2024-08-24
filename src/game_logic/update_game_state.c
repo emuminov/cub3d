@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _testing_2d_plane_main.c                           :+:      :+:    :+:   */
+/*   update_game_state.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/31 16:12:16 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/14 16:34:58 by emuminov         ###   ########.fr       */
+/*   Created: 2024/08/14 15:25:35 by emuminov          #+#    #+#             */
+/*   Updated: 2024/08/24 23:28:24 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
-int	main(void)
+void	update_game_state(t_game *g)
 {
-	return init_testing_2d_plane_loop();
+	// handle_mouse(g);
+	if (is_move_key_pressed(g))
+	{
+		resolve_rotation(g);
+		resolve_movement(g);
+	}
 }

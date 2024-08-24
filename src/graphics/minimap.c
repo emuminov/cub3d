@@ -6,11 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:35:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/24 17:01:37 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 00:00:41 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/graphics.h"
+#include "../../include/constants.h"
 #include <math.h>
 
 static t_pixel_point	calculate_pixel_offset(t_grid_coordsi start,
@@ -18,31 +20,6 @@ static t_pixel_point	calculate_pixel_offset(t_grid_coordsi start,
 static void	draw_tiles_around_player(t_game *g, t_pixel_point offset,
 		t_grid_coordsi start, t_grid_coordsi end,
 		int tile_size);
-
-void	draw_2d_plane(t_game *g)
-{
-	t_grid_coordsf	top_left_grid;
-	t_grid_coordsi	start;
-	t_grid_coordsi	end;
-	t_grid_coordsf	ray;
-
-	ray = check_cell_in_dir(g, g->player.pos, g->player.dir, 100, "1D");
-	top_left_grid = vectorf_sub(g->player.pos, (t_grid_coordsf){.x = 2.5, .y = 2.5});
-	start.x = floor(top_left_grid.x);
-	start.y = floor(top_left_grid.y);
-	end.x = floor(top_left_grid.x + 5);
-	end.y = floor(top_left_grid.y + 5);
-	draw_tiles_around_player(g, calculate_pixel_offset(start, g->player.pos, TILE_SIZE, g->window_size),
-			start, end, TILE_SIZE);
-	draw_square(&g->frame, (t_pixel_point){.x = 320, .y = 320}, 25, 0xAA00AA);
-	if (ray.x != -1)
-	{
-		draw_line(&g->frame, (t_pixel_point){.x = 320, .y = 320},
-				grid_coordsf_to_pixel_point(vectorf_sub(ray, top_left_grid)), 0xAA00AA);
-		draw_hollow_square(&g->frame, grid_coordsf_to_pixel_point(vectorf_sub(ray, top_left_grid)), 25,
-				0x2AAA2A);
-	}
-}
 
 void	draw_minimap(t_game *g)
 {
@@ -59,6 +36,13 @@ void	draw_minimap(t_game *g)
 			start, end, MINIMAP_TILE_SIZE);
 	draw_square(&g->frame, (t_pixel_point){.x = g->minimap_size.x / 2,
 			.y = g->minimap_size.y / 2}, 25, 0xAA00AA);
+	// if (ray.x != -1)
+	// {
+	// 	draw_line(&g->frame, (t_pixel_point){.x = 320, .y = 320},
+	// 			grid_coordsf_to_pixel_point(vectorf_sub(ray, top_left_grid)), 0xAA00AA);
+	// 	draw_hollow_square(&g->frame, grid_coordsf_to_pixel_point(vectorf_sub(ray, top_left_grid)), 25,
+	// 			0x2AAA2A);
+	// }
 }
 
 /* Calculates the pixel position of the start of visible tile.
@@ -97,26 +81,6 @@ void	draw_transparent_tile(t_img *frame, t_pixel_point p, int color,
 			if (start.x >= 0 && start.y >= 0)
 				put_pixel_on_img_bounds(frame, start, get_transparent_color(200, color,
 						get_pixel_of_img(*frame, start)), bounds);
-			start.x++;
-		}
-		start.y++;
-	}
-}
-
-void	draw_tile_bounds(t_img *frame, t_pixel_point p, int color, int tile_size, t_pixel_point bounds)
-{
-	t_pixel_point	start;
-	t_pixel_point	end;
-
-	start = p;
-	end.x = p.x + tile_size;
-	end.y = p.y + tile_size;
-	while (start.y < end.y)
-	{
-		start.x = p.x;
-		while (start.x < end.x)
-		{
-			put_pixel_on_img_bounds(frame, start, color, bounds);
 			start.x++;
 		}
 		start.y++;

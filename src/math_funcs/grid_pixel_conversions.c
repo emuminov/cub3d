@@ -6,11 +6,12 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:55:39 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/15 16:22:37 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:40:45 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/constants.h"
 #include <math.h>
 
 t_pixel_point	grid_coordsf_to_pixel_point(t_grid_coordsf v)

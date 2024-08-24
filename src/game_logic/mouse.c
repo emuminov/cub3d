@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 00:54:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/24 17:49:47 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/24 23:01:34 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../minilibx-linux/mlx.h"
 
 // TODO: replace hardcoded values
+// TODO: figure out the way for the mouse to work only if the window is focused
 void	handle_mouse(t_game *g)
 {
 	int	x;
@@ -30,4 +31,3 @@ void	handle_mouse(t_game *g)
 	// mlx_mouse_hide(g->mlx, g->win);
 	g->old_mouse_pos = x;
 }
-

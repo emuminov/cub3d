@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/24 15:31:29 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 00:02:28 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <stdio.h>
-# define TILE_SIZE 128
-# define MINIMAP_SIZE 160
-# define MINIMAP_TILE_SIZE 32
-# define RADIAN_TO_DEGREE_SCALING 0.0174533
 
 typedef enum	e_etiles
 {
@@ -90,7 +86,7 @@ typedef struct s_dda_params
 	t_tiles			type_of_found_cell;
 }					t_dda_params;
 
-typedef struct s_player
+typedef struct	s_player
 {
 	t_grid_coordsf	pos;
 	t_grid_coordsf	size;
@@ -98,14 +94,14 @@ typedef struct s_player
 	t_vectorf		plane;
 }					t_player;
 
-typedef struct s_config
+typedef struct	s_config
 {
 	char			*north_path;
 	char			*east_path;
 	char			*south_path;
 	char			*west_path;
-	int				*floor_c;
-	int				*ceiling_c;
+	int				floor_c;
+	int				ceiling_c;
 }					t_config;
 
 typedef struct s_controls
@@ -136,14 +132,6 @@ typedef struct s_game
 	int				old_mouse_pos;
 	t_img			texture;
 }					t_game;
-
-enum				e_direction
-{
-	up,
-	down,
-	left,
-	right
-};
 
 /*					// PARSE \\								*/
 int					parse_line(char *gnl, t_config_parsing *conf);
@@ -237,32 +225,10 @@ int					handle_key_release(int keysym, t_game *g);
 t_vectorf			mouse_pos_to_grid_coordsf(t_game *g);
 int					exit_hook_cross(t_game *g);
 
-/*					// DRAW UTILS \\ 						*/
-/* Functions for drawing simple shapes. */
-void				draw_line(t_img *frame, t_pixel_point start,
-						t_pixel_point end, int color);
-void				draw_hollow_square(t_img *frame, t_pixel_point pos,
-						int size, int color);
-void				draw_square(t_img *frame, t_pixel_point pos, int size,
-						int color);
-void				draw_tile(t_img *frame, t_grid_coordsi p, int color, int tile_size);
-void				draw_ceiling_and_floor(t_game *g);
-
 /*					// INIT GAME \\ 						*/
 /* Initializes mlx, creates new window, initializes game struct */
 int					init_game(t_game *g, int x, int y);
 
-/*					// MINIMAP \\							*/
-/* TODO: under construction */
-void				draw_minimap(t_game *g);
-void				draw_2d_plane(t_game *g);
-
-/*					// MLX IMG UTILS \\						*/
-unsigned int		get_pixel_of_img(t_img img, t_pixel_point p);
-void				put_pixel_on_img(t_img *img, t_pixel_point p, int color);
-void				put_pixel_on_img_bounds(t_img *img, t_pixel_point p,
-		int color, t_pixel_point bounds);
-int					init_img_data(void *mlx, t_img *img, t_pixel_point p);
 
 /*					// MOVEMENT \\								*/
 t_grid_coordsf		move_player(t_player p, const t_controls *controls);
@@ -285,12 +251,33 @@ t_vectorf			check_cell_in_dir(t_game *g, t_grid_coordsf start,
 /* Handles rotations with mouse. */
 void				handle_mouse(t_game *g);
 
-/*					// TESTING 2D PLANE LOOP \\				*/
-/* Loop for purely testing purposes. Renders topdown 2d plane view with
- * wall ray and collision rays. */
-int					init_testing_2d_plane_loop(void);
-
 /*					// DOORS \\				*/
 void				toggle_door(t_game *g);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// GRAPHICS
+void	render_3d_graphics(t_game *g);
+
+// GAME_LOGIC
+int		init_game_loop(int argc, char **argv);
 #endif

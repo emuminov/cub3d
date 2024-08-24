@@ -1,7 +1,7 @@
 NAME = cub3d
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -O0 -Og #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 XFLAGS = -lXext -lX11
 
 OBJS_DIR = .obj/
@@ -14,16 +14,13 @@ HEADERS = ./src/libft/libft.h ./src/libft/ft_printf/ft_printf.h \
 
 # Compilation of functionality without main
 PARSING = $(addprefix parsing/, parse_keys_dir.c parse_keys_colors.c paths.c keys_utils.c arg_manager.c parsing.c utils.c)
-SRCS_GAME_LOOP = $(addprefix game_loop/, controls_handling.c dda.c draw_utils.c init_game.c minimap.c mlx_img_utils.c movement.c testing_2d_plane_loop.c update_game_state.c mouse.c doors.c testing_3d_loop.c resize_image.c)
+SRCS_GAME_LOGIC = $(addprefix game_logic/, controls_handling.c dda.c doors.c init_game.c mouse.c movement.c update_game_state.c)
+SRCS_GRAPHICS = $(addprefix graphics/, draw_utils.c minimap.c mlx_img_utils.c resize_image.c render_3d_graphics.c)
 SRCS_MATH_FUNCS = $(addprefix math_funcs/, grid_bounds_checking.c grid_pixel_conversions.c color.c utils.c vectorf1.c vectorf2.c vectori.c)
 SRCS = main.c free.c $(PARSING)
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
-# Compilation of functionality with testing 2D main
-SRCS_TESTING_2D_PLANE = _testing_2d_plane_main.c init.c free.c $(SRCS_GAME_LOOP) $(SRCS_MATH_FUNCS) $(PARSING)
-OBJS_TESTING_2D_PLANE = $(addprefix $(OBJS_DIR), $(SRCS_TESTING_2D_PLANE:.c=.o))
-
-SCRS_3D_TESTS = testing_3d_main.c init.c free.c $(SRCS_GAME_LOOP) $(SRCS_MATH_FUNCS) $(PARSING)
+SCRS_3D_TESTS = testing_3d_main.c init.c free.c $(SRCS_GAME_LOGIC) $(SRCS_GRAPHICS) $(SRCS_MATH_FUNCS) $(PARSING)
 OBJS_3D_TESTS = $(addprefix $(OBJS_DIR), $(SCRS_3D_TESTS:.c=.o))
 
 .SILENT :
@@ -32,7 +29,8 @@ all : obj libft minilibx $(NAME)
 
 obj :
 	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)/game_loop
+	@mkdir -p $(OBJS_DIR)/game_logic
+	@mkdir -p $(OBJS_DIR)/graphics
 	@mkdir -p $(OBJS_DIR)/math_funcs
 	@mkdir -p $(OBJS_DIR)/parsing
 
@@ -49,9 +47,6 @@ $(NAME) : $(OBJS)
 	@echo -n "$(Red)\rCompilation de cub3d ...${NC}"
 	$(CC) $^  $(XFLAGS) $(CFLAGS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -o $(NAME) && sleep 0.1
 	@echo "$(Green)\r------Compilation de cub3d finie !-------${NC}"
-
-test : obj libft minilibx $(OBJS_TESTING_2D_PLANE)
-	$(CC) $(CFLAGS) $(OBJS_TESTING_2D_PLANE) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -lXext -lX11 -lm -o test
 
 test3d : obj libft minilibx $(OBJS_3D_TESTS)
 	$(CC) $(CFLAGS) $(OBJS_3D_TESTS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -lXext -lX11 -lm -o test3d

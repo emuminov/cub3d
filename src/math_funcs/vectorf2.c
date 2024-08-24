@@ -6,11 +6,12 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:15:40 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/15 13:12:15 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:41:02 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/constants.h"
 #include <math.h>
 
 t_vectorf	vectorf_scale(t_vectorf v, double nbr)

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/23 11:53:58 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/24 19:35:30 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_config	config_init(void)
 	conf.east_path = NULL;
 	conf.west_path = NULL;
 	conf.south_path = NULL;
-	conf.floor_c = NULL;
-	conf.ceiling_c = NULL;
+	conf.floor_c = -1;
+	conf.ceiling_c = -1;
 	return (conf);
 }
 
