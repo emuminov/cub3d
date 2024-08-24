@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:12:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/23 17:48:48 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/24 17:35:39 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@
 
 int	exit_hook_cross(t_game *g)
 {
+	mlx_destroy_image(g->mlx, g->frame.img);
+	mlx_destroy_image(g->mlx, g->texture.img);
 	mlx_destroy_window(g->mlx, g->win);
 	mlx_destroy_display(g->mlx);
 	free(g->mlx);
+	free_config(&g->conf);
+	free_tab(g->map);
 	exit(0);
 }
 

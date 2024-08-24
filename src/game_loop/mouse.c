@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 00:54:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/21 00:10:52 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/24 17:49:47 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	handle_mouse(t_game *g)
 		g->player.dir = vectorf_rotate(g->player.dir, -0.3);
 	if (x < 210 || x > 430 || y < 210 || y > 430)
 		mlx_mouse_move(g->mlx, g->win, 320, 320);
-	mlx_mouse_hide(g->mlx, g->win);
+	// mlx_mouse_hide(g->mlx, g->win);
 	g->old_mouse_pos = x;
 }
 

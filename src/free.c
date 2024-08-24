@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:07:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/16 14:52:10 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/24 17:27:59 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	free_config_p(t_config_parsing *conf)
 	// 	free(conf->south_path);
 	// if (conf->west_path != NULL)
 	// 	free(conf->west_path);
-	if (conf->floor_c != NULL)
-		free(conf->floor_c);
-	if (conf->ceiling_c != NULL)
-		free(conf->ceiling_c);
+	// if (conf->floor_c != NULL)
+	// 	free(conf->floor_c);
+	// if (conf->ceiling_c != NULL)
+	// 	free(conf->ceiling_c);
 	if (conf->map_1d != NULL)
 		free(conf->map_1d);
 	if (conf->map_fd != -1)

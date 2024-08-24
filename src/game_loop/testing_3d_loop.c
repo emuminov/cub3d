@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/23 21:20:15 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/24 17:34:54 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ static void	render_3d_graphics(t_game *g)
 		if (ray.x != -1)
 		{
 			// printf("rate of change: %f %f\n", g->dp.rate_of_change.x, g->dp.rate_of_change.y);
-			double wallX; //where exactly the wall was hit
 			line_height = (int)(g->window_size.y / g->dp.distance);
-			draw_start = -(line_height) / 2 + g->window_size.y / 2;
+			draw_start = -line_height / 2 + g->window_size.y / 2;
 			if (draw_start < 0)
 				draw_start = 0;
 			draw_end = line_height / 2 + g->window_size.y / 2;
 			if (draw_end >= g->window_size.y)
 				draw_end = g->window_size.y - 1;
+			double wallX;
 			if (g->dp.side == 0)
 				wallX = g->player.pos.y + g->dp.distance * ray_dir.y;
 			else
@@ -66,11 +66,11 @@ static void	render_3d_graphics(t_game *g)
 				texX = g->texture.dimensions.x - texX - 1;
 			
 			double step = 1.0 * g->texture.dimensions.y / line_height;
-			double texPos = (draw_start - (double)g->window_size.y / 2 + (double)line_height / 2) * step;
+			double texPos = (draw_start - g->window_size.y / 2 + line_height / 2) * step;
 			y = draw_start;
 			while (y < draw_end)
 			{
-				int texY = (int)texPos & (g->texture.dimensions.y - 1);
+				int texY = (int)texPos; //& (g->texture.dimensions.y - 1);
 				texPos += step;
 				
 				// int	color = get_pixel_of_img(g->frame, (t_pixel_point){texX, texY});
@@ -83,6 +83,7 @@ static void	render_3d_graphics(t_game *g)
 	}
 	draw_minimap(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
+	// mlx_destroy_image(g->mlx, g->frame.img);
 }
 
 static int	testing_3d_loop(t_game *g)
@@ -98,7 +99,7 @@ int	init_testing_3d_loop(int argc, char **argv)
 	int					fd;
 	t_config_parsing	conf_p;
 
-	init_game(&g, 640, 640);
+	init_game(&g, 1920, 1080);
 
 	fd = error_manager(argc, argv[1]);
 	conf_p = config_parsing_init();
@@ -118,10 +119,13 @@ int	init_testing_3d_loop(int argc, char **argv)
 		i++;
 	}
 	g.map_size = (t_grid_coordsi){.x = j, .y = i};
-	g.texture.img = mlx_xpm_file_to_image(g.mlx, "tile1.xpm", &g.texture.dimensions.x, &g.texture.dimensions.y);
+	g.texture.img = mlx_xpm_file_to_image(g.mlx, "oui.xpm", &g.texture.dimensions.x, &g.texture.dimensions.y);
+	if (g.texture.dimensions.x > g.window_size.x || g.texture.dimensions.y > g.window_size.y)
+		resize_image(&g, &g.texture, g.window_size.x, g.window_size.y);
 	g.texture.addr = mlx_get_data_addr(g.texture.img, &g.texture.bits_per_pixel, &g.texture.line_len, &g.texture.endian);
 	printf("%p\n", g.conf.floor_c);
 	printf("%p\n", g.conf.ceiling_c);
+	free_config_p(&conf_p);
 	mlx_hook(g.win, 2, (1L << 0), handle_key_press, &g);
 	mlx_hook(g.win, 3, (1L << 1), handle_key_release, &g);
 	mlx_hook(g.win, DestroyNotify, StructureNotifyMask,
