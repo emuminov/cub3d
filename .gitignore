@@ -1,6 +1,7 @@
 *.o
 *.a
 *.gen
+mlx-test
 oui.cub
 .cache/
 .direnv/

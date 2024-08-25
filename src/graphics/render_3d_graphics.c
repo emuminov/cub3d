@@ -6,11 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/08/25 19:40:23 by emuminov         ###   ########.fr       */
-=======
-/*   Updated: 2024/08/25 19:32:06 by emuminov         ###   ########.fr       */
->>>>>>> 24904b1 (git: updated gitignore for vs stuff, feat: textures now works with the .cub yipee :>)
+/*   Updated: 2024/08/25 19:50:56 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
