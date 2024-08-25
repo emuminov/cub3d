@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 17:52:19 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 18:24:06 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ typedef struct	s_player
 
 typedef struct s_config
 {
-	char		north_fd;
-	int		east_fd;
-	int		south_fd;
-	int		west_fd;
+	char	*paths[4];
+	// char	*east_path;
+	// char	*south_path;
+	// char	*west_path;
 	int		floor_c;
 	int		ceiling_c;
 }	t_config;

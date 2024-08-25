@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:12:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 02:44:38 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:46:27 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@
 
 int	exit_hook_cross(t_game *g)
 {
+	int	i;
+
+	i = -1;
 	mlx_destroy_image(g->mlx, g->frame.img);
-	mlx_destroy_image(g->mlx, g->texture.img);
+	while (++i < 4)
+		mlx_destroy_image(g->mlx, g->texture[i].img);
 	mlx_destroy_window(g->mlx, g->win);
 	mlx_destroy_display(g->mlx);
 	free(g->mlx);

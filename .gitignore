@@ -6,3 +6,4 @@ oui.cub
 .direnv/
 test3d
 compile_commands.json
+.vscode/

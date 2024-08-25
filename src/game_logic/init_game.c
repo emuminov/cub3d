@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 17:38:36 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 18:55:06 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "../../include/game_logic.h"
 #include "../minilibx-linux/mlx.h"
 #include <X11/XKBlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /* Contains functions that contain functions for initialization of graphics */
 
@@ -36,26 +38,45 @@ static void	start_mlx_loop(t_game *g)
 
 static void	init_textures(t_game *g)
 {
-	g->texture[north_tex].img = mlx_xpm_file_to_image(g->mlx, g->conf.
-	, &g->texture[north_tex].dimensions.x, &g->texture[north_tex].dimensions.y);
-	if (g->texture[north_tex].dimensions.x > g->window_size.x 
-	|| g->texture[north_tex].dimensions.y > g->window_size.y)
-		resize_image(g, &g->texture[north_tex]
-		, g->window_size.x, g->window_size.y);
-	g->texture[north_tex].addr = mlx_get_data_addr(g->texture[north_tex].img, &g->texture[north_tex].bits_per_pixel, &g->texture[north_tex].line_len, &g->texture[north_tex].endian);
-	g->texture[south_tex].img = mlx_xpm_file_to_image(g->mlx, "tile1.xpm", &g->texture[south_tex].dimensions.x, &g->texture[south_tex].dimensions.y);
-	if (g->texture[south_tex].dimensions.x > g->window_size.x || g->texture[south_tex].dimensions.y > g->window_size.y)
-		resize_image(g, &g->texture[south_tex], g->window_size.x, g->window_size.y);
-	g->texture[south_tex].addr = mlx_get_data_addr(g->texture[south_tex].img, &g->texture[south_tex].bits_per_pixel, &g->texture[south_tex].line_len, &g->texture[south_tex].endian);
-	g->texture[west_tex].img = mlx_xpm_file_to_image(g->mlx, "tile1.xpm", &g->texture[west_tex].dimensions.x, &g->texture[west_tex].dimensions.y);
-	if (g->texture[west_tex].dimensions.x > g->window_size.x || g->texture[west_tex].dimensions.y > g->window_size.y)
-		resize_image(g, &g->texture[west_tex], g->window_size.x, g->window_size.y);
-	g->texture[west_tex].addr = mlx_get_data_addr(g->texture[west_tex].img, &g->texture[west_tex].bits_per_pixel, &g->texture[west_tex].line_len, &g->texture[west_tex].endian);
-	g->texture[east_tex].img = mlx_xpm_file_to_image(g->mlx, "tile1.xpm", &g->texture[east_tex].dimensions.x, &g->texture[east_tex].dimensions.y);
-	if (g->texture[east_tex].dimensions.x > g->window_size.x || g->texture[east_tex].dimensions.y > g->window_size.y)
-		resize_image(g, &g->texture[east_tex], g->window_size.x, g->window_size.y);
-	g->texture[east_tex].addr = mlx_get_data_addr(g->texture[east_tex].img, &g->texture[east_tex].bits_per_pixel, &g->texture[east_tex].line_len, &g->texture[east_tex].endian);
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		g->texture[i].img = mlx_xpm_file_to_image(g->mlx, g->conf.paths[i]
+		, &g->texture[i].dimensions.x, &g->texture[i].dimensions.y);
+		if (g->texture[i].img == NULL)
+		{
+			while (--i >= 0)
+				mlx_destroy_image(g->mlx, g->texture[i].img);
+			mlx_destroy_display(g->mlx);
+			free(g->mlx);
+			free_config(&g->conf);
+			free_tab(g->map);
+			printf("\033[0;31m""Error\nA xpm file is not valid!\n""\033[0m");
+			exit(1);
+		}
+		if (g->texture[i].dimensions.x > g->window_size.x 
+		|| g->texture[i].dimensions.y > g->window_size.y)
+			resize_image(g, &g->texture[i], g->window_size.x, g->window_size.y);
+		g->texture[i].addr = mlx_get_data_addr(g->texture[i].img
+		, &g->texture[i].bits_per_pixel, &g->texture[i].line_len
+		, &g->texture[i].endian);
+	}
 }
+
+	// g->texture[south_tex].img = mlx_xpm_file_to_image(g->mlx, g->conf.south_path, &g->texture[south_tex].dimensions.x, &g->texture[south_tex].dimensions.y);
+	// if (g->texture[south_tex].dimensions.x > g->window_size.x || g->texture[south_tex].dimensions.y > g->window_size.y)
+	// 	resize_image(g, &g->texture[south_tex], g->window_size.x, g->window_size.y);
+	// g->texture[south_tex].addr = mlx_get_data_addr(g->texture[south_tex].img, &g->texture[south_tex].bits_per_pixel, &g->texture[south_tex].line_len, &g->texture[south_tex].endian);
+	// g->texture[west_tex].img = mlx_xpm_file_to_image(g->mlx, g->conf.west_path, &g->texture[west_tex].dimensions.x, &g->texture[west_tex].dimensions.y);
+	// if (g->texture[west_tex].dimensions.x > g->window_size.x || g->texture[west_tex].dimensions.y > g->window_size.y)
+	// 	resize_image(g, &g->texture[west_tex], g->window_size.x, g->window_size.y);
+	// g->texture[west_tex].addr = mlx_get_data_addr(g->texture[west_tex].img, &g->texture[west_tex].bits_per_pixel, &g->texture[west_tex].line_len, &g->texture[west_tex].endian);
+	// g->texture[east_tex].img = mlx_xpm_file_to_image(g->mlx, g->conf.east_path, &g->texture[east_tex].dimensions.x, &g->texture[east_tex].dimensions.y);
+	// if (g->texture[east_tex].dimensions.x > g->window_size.x || g->texture[east_tex].dimensions.y > g->window_size.y)
+	// 	resize_image(g, &g->texture[east_tex], g->window_size.x, g->window_size.y);
+	// g->texture[east_tex].addr = mlx_get_data_addr(g->texture[east_tex].img, &g->texture[east_tex].bits_per_pixel, &g->texture[east_tex].line_len, &g->texture[east_tex].endian);
 
 /* Allocates new image and initializes parameters of its struct */
 // TODO: replace hardcoded values with the result from parsing
@@ -73,8 +94,8 @@ int	init_game(t_game *g, int x, int y)
 	g->player.plane = (t_vectorf){.x = 0, .y = 0.66};
 	g->minimap_size = (t_pixel_point){.x = 160, .y = 160};
 	g->mlx = mlx_init();
-	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
 	init_textures(g);
+	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
 	
 	init_img_data(g->mlx, &g->frame, g->window_size);
 	mlx_mouse_get_pos(g->mlx, g->win, &g->old_mouse_pos, &y);
