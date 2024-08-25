@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:07:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 16:52:06 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:43:19 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@
 
 void	free_config(t_config *conf)
 {
-	if (conf->east_fd != -1)
-		close(conf->east_fd);
-	if (conf->west_fd != -1)
-		close(conf->west_fd);
-	if (conf->north_fd != -1)
-		close(conf->north_fd);
-	if (conf->south_fd != -1)
-		close(conf->south_fd);
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		if (conf->paths[i] != NULL)
+			free(conf->paths[i]);
 }
 
 void	free_tab(char **tab)

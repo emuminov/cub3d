@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 00:30:36 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:13:58 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	render_3d_graphics(t_game *g)
 	double			cam_x;
 	t_grid_coordsf	ray;
 	t_vectorf		ray_dir;
+	int				texture_dir;
 
 	draw_ceiling_and_floor(&g->frame, g->conf.ceiling_c, g->conf.floor_c);
 	x = 0;
@@ -38,6 +39,20 @@ void	render_3d_graphics(t_game *g)
 		ray = check_cell_in_dir(g, g->player.pos, ray_dir, 100, "1D");
 		if (ray.x != -1)
 		{
+			if (g->dp.side == 0)
+			{
+				if (ray_dir.x < 0)
+					texture_dir = west_tex;
+				else
+					texture_dir = east_tex;
+			}
+			else
+			{
+				if (ray_dir.y > 0)
+					texture_dir = south_tex;
+				else
+					texture_dir = north_tex;
+			}
 			line_height = (int)(g->window_size.y / g->dp.distance);
 			draw_start = -line_height / 2 + g->window_size.y / 2;
 			if (draw_start < 0)
@@ -51,12 +66,12 @@ void	render_3d_graphics(t_game *g)
 			else
 				wallX = g->player.pos.x + g->dp.distance * ray_dir.x;
 			wallX -= floor(wallX);
-			int texX = (int)(wallX * (double)g->texture.dimensions.x);
+			int texX = (int)(wallX * (double)g->texture[texture_dir].dimensions.x);
 			if((g->dp.side == 0 && ray_dir.x > 0) 
 			|| (g->dp.side == 1 && ray_dir.y < 0))
-				texX = g->texture.dimensions.x - texX - 1;
+				texX = g->texture[texture_dir].dimensions.x - texX - 1;
 			
-			double step = 1.0 * g->texture.dimensions.y / line_height;
+			double step = 1.0 * g->texture[texture_dir].dimensions.y / line_height;
 			double texPos = (draw_start - g->window_size.y / 2 + line_height / 2) * step;
 			y = draw_start;
 			while (y < draw_end)
@@ -66,7 +81,7 @@ void	render_3d_graphics(t_game *g)
 				
 				// int	color = get_pixel_of_img(g->frame, (t_pixel_point){texX, texY});
 				// if(g->dp.side == 1) color = (color >> 1) & 8355711; //
-				put_pixel_on_img(&g->frame, (t_pixel_point){x,y}, get_pixel_of_img(g->texture, (t_pixel_point){texX, texY}));
+				put_pixel_on_img(&g->frame, (t_pixel_point){x,y}, get_pixel_of_img(g->texture[texture_dir], (t_pixel_point){texX, texY}));
 
 				y++;
 			}
