@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:12:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 00:26:50 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:44:38 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../include/game_logic.h"
 #include "../minilibx-linux/mlx.h"
 #include <X11/keysym.h>
+#include <stdlib.h>
 
 int	exit_hook_cross(t_game *g)
 {

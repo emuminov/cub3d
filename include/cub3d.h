@@ -6,16 +6,15 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 02:36:37 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:43:52 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../src/libft/ft_printf/ft_printf.h"
-# include "../src/libft/get_next_line/get_next_line.h"
-# include "../src/libft/libft.h"
+// # include "../src/libft/get_next_line/get_next_line.h"
+// # include "../src/libft/libft.h"
 # include <stdbool.h>
 
 typedef enum	e_etiles

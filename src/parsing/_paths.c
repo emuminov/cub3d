@@ -6,12 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:18:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:42:08 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:46:17 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/parsing.h"
+#include "../libft/libft.h"
 #include <fcntl.h>
 #include <stdio.h>
 

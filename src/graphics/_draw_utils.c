@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:30:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 00:28:11 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:45:43 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../include/graphics.h"
 #include "../../include/math_funcs.h"
 #include <math.h>
+#include <stdlib.h>
 
 /* DDA line drawing algorithm */
 void	draw_line(t_img *frame, t_pixel_point start, t_pixel_point end,

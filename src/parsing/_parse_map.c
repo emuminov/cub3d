@@ -6,12 +6,12 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:12 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:54:30 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:46:11 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
 #include "../../include/parsing.h"
+#include "../libft/libft.h"
 #include <stdio.h>
 
 int	parse_map(char **map)

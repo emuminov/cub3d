@@ -6,12 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:12:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:21:12 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:46:04 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/parsing.h"
+#include "../libft/libft.h"
 #include <stdio.h>
 
 //TODO: NEED TO FIX PRE KEY SPACES

@@ -6,14 +6,14 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 02:22:31 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:46:22 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/parsing.h"
 #include "../../include/math_funcs.h"
-#include "../minilibx-linux/mlx.h"
+#include "../libft/libft.h"
 #include <stdio.h>
 
 t_config_parsing	config_parsing_init(void)

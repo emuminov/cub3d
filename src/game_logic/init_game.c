@@ -6,15 +6,12 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 02:38:48 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:43:36 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/game_logic.h"
-#include "../../include/parsing.h"
-#include "../../include/math_funcs.h"
-#include "../../include/constants.h"
 #include "../minilibx-linux/mlx.h"
 #include <X11/XKBlib.h>
 

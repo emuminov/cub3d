@@ -6,11 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:07:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:30:06 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:46:47 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 void	free_config_p(t_config_parsing *conf)
 {

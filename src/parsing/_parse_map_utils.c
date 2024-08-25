@@ -6,11 +6,10 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:54:43 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:43:10 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
 #include "../../include/parsing.h"
 
 size_t	ft_strslen(char **strs)

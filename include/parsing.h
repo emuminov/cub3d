@@ -6,13 +6,14 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:34:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 02:08:05 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:44:22 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 # include "cub3d.h"
+# include <stddef.h>
 typedef struct s_coord
 {
 	int	x;

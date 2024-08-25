@@ -6,12 +6,14 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:44:21 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 00:17:59 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:45:16 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../minilibx-linux/mlx.h"
+# include "../libft/libft.h"
+#include <stdlib.h>
 
 static void	nxt_ft_size(t_img *n_bg, t_img *o_bg, int y);
 
