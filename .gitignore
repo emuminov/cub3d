@@ -2,3 +2,7 @@
 *.a
 *.gen
 oui.cub
+.cache/
+.direnv/
+test3d
+compile_commands.json
