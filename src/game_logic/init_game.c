@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 19:47:16 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:49:46 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,6 @@ static void	init_textures(t_game *g)
 	// if (g->texture[east_tex].dimensions.x > g->window_size.x || g->texture[east_tex].dimensions.y > g->window_size.y)
 	// 	resize_image(g, &g->texture[east_tex], g->window_size.x, g->window_size.y);
 	// g->texture[east_tex].addr = mlx_get_data_addr(g->texture[east_tex].img, &g->texture[east_tex].bits_per_pixel, &g->texture[east_tex].line_len, &g->texture[east_tex].endian);
-
-/* Allocates new image and initializes parameters of its struct */
-// TODO: replace hardcoded values with the result from parsing
-// TODO: check for malloc errors
-
 
 /* Temprorary function that substitutes parsoing with hardcoded values */
 // TODO: delete later, temporary function
