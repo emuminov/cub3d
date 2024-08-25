@@ -13,9 +13,9 @@ HEADERS = ./src/libft/libft.h ./src/libft/ft_printf/ft_printf.h \
 		./src/libft/get_next_line/get_next_line.h include/cub3d.h \
 
 # Compilation of functionality without main
-PARSING = $(addprefix parsing/, parse_keys_dir.c parse_keys_colors.c paths.c keys_utils.c arg_manager.c parsing.c utils.c)
-SRCS_GAME_LOGIC = $(addprefix game_logic/, controls_handling.c dda.c doors.c init_game.c mouse.c movement.c update_game_state.c mlx_img_utils.c)
-SRCS_GRAPHICS = $(addprefix graphics/, draw_utils.c minimap.c render_3d_graphics.c img_pixel_accessors.c)
+PARSING = $(addprefix parsing/, _arg_manager.c _keys_utils.c _parse_keys_colors.c _parse_keys_dir.c _parse_map.c _parse_map_utils.c _parsing.c _paths.c _utils.c parse_cub_map.c)
+SRCS_GAME_LOGIC = $(addprefix game_logic/, _controls_handling.c _doors.c _mlx_img_utils.c _mouse.c _movement.c _update_game_state.c dda.c init_game.c)
+SRCS_GRAPHICS = $(addprefix graphics/, _draw_utils.c _img_pixel_accessors.c _minimap.c render_3d_graphics.c)
 SRCS_MATH_FUNCS = $(addprefix math_funcs/, grid_bounds_checking.c grid_pixel_conversions.c color.c utils.c vectorf1.c vectorf2.c vectori.c)
 SRCS = main.c free.c $(PARSING)
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))

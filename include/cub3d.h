@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:26:02 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:36:37 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,16 @@ typedef struct	s_player
 	t_vectorf		plane;
 }					t_player;
 
-typedef struct	s_config
+typedef struct s_config
 {
-	char			*north_path;
-	char			*east_path;
-	char			*south_path;
-	char			*west_path;
-	int				floor_c;
-	int				ceiling_c;
-}					t_config;
+	int		north_fd;
+	int		east_fd;
+	int		south_fd;
+	int		west_fd;
+	int		floor_c;
+	int		ceiling_c;
+}	t_config;
+
 
 typedef struct s_controls
 {
@@ -121,6 +122,7 @@ typedef struct s_game
 	t_dda_params	dp;
 	char			*xpm[5];
 	char			**map;
+	char			**map_dup;
 	t_config		conf;
 	t_controls		controls;
 	t_grid_coordsi	map_size;
@@ -131,18 +133,22 @@ typedef struct s_game
 	t_img			texture;
 }					t_game;
 
+// PARSING
+int					parse_cub_map(t_game *g, int argc, char **argv);
+
 // GRAPHICS
 void				render_3d_graphics(t_game *g);
 
 // GAME_LOGIC
-int					init_game_loop(int argc, char **argv);
+int					init_game(t_game *g, int x, int y);
 t_vectorf			check_cell_in_dir(t_game *g, t_grid_coordsf start,
 		t_vectorf dir, double max_distance, char *checked_tiles);
 
-// PARSING
-void				free_config_p(t_config_parsing *conf);
+// INIT
+int					init_game_loop(int argc, char **argv);
 
 // FREE
+void				free_config_p(t_config_parsing *conf);
 void				free_config(t_config *conf);
 void				free_tab(char **tab);
 #endif

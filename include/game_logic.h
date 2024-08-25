@@ -6,10 +6,9 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:20:22 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 00:24:11 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:08:00 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef GAME_LOGIC_H
 # define GAME_LOGIC_H

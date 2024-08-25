@@ -6,10 +6,9 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 23:15:32 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/24 23:59:46 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:08:10 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef GRAPHICS_H
 # define GRAPHICS_H
