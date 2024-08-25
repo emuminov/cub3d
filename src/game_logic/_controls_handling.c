@@ -6,11 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:12:31 by emuminov          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/08/25 19:48:18 by emuminov         ###   ########.fr       */
-=======
-/*   Updated: 2024/08/25 19:02:06 by emuminov         ###   ########.fr       */
->>>>>>> 5c60f21 (refactor: made movement and rotation speeds, as well as the minimap alpha value into constants, improved movement logic)
+/*   Updated: 2024/08/25 19:57:06 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
