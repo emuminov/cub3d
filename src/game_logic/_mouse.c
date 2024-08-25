@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 00:54:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 00:27:13 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:32:59 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	handle_mouse(t_game *g)
 
 	(void)y;
 	mlx_mouse_get_pos(g->mlx, g->win, &x, &y);
-	if (x > g->old_mouse_pos)
+	if (x > g->mouse_pos)
 		g->player.dir = vectorf_rotate(g->player.dir, 0.3);
-	else if (x < g->old_mouse_pos)
+	else if (x < g->mouse_pos)
 		g->player.dir = vectorf_rotate(g->player.dir, -0.3);
 	if (x < 210 || x > 430 || y < 210 || y > 430)
 		mlx_mouse_move(g->mlx, g->win, 320, 320);
 	// mlx_mouse_hide(g->mlx, g->win);
-	g->old_mouse_pos = x;
+	g->mouse_pos = x;
 }

@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:20:22 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 02:08:00 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:29:32 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int					exit_hook_cross(t_game *g);
 
 /*					// INIT GAME \\ 						*/
 /* Initializes mlx, creates new window, initializes game struct */
-int					init_game(t_game *g, int x, int y);
+int					_old_start_mlx(t_game *g, int x, int y);
 
 
 /*					// MOVEMENT \\								*/

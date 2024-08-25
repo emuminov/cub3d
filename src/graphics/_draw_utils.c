@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:30:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 02:45:43 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:30:45 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,29 @@ void	draw_line(t_img *frame, t_pixel_point start, t_pixel_point end,
 	}
 }
 
-void	draw_hollow_square(t_img *frame, t_pixel_point pos, int size, int color)
+void	draw_transparent_tile(t_img *frame, t_pixel_point p, int color,
+		int tile_size, t_pixel_point bounds)
 {
-	int				i;
-	t_pixel_point	point;
+	t_pixel_point	start;
+	t_pixel_point	end;
 
-	i = 0;
-	while (i <= size)
+	start = p;
+	end.x = p.x + tile_size;
+	end.y = p.y + tile_size;
+	while (start.y < end.y)
 	{
-		point.x = round((pos.x + i) - (double)size / 2);
-		point.y = round((pos.y) - (double)size / 2);
-		put_pixel_on_img_bounds(frame, point, color, frame->dimensions);
-		point.x = round((pos.x) - (double)size / 2);
-		point.y = round((pos.y + i) - (double)size / 2);
-		put_pixel_on_img_bounds(frame, point, color, frame->dimensions);
-		point.x = round((pos.x + size) - (double)size / 2);
-		point.y = round((pos.y + i) - (double)size / 2);
-		put_pixel_on_img_bounds(frame, point, color, frame->dimensions);
-		point.x = round((pos.x + i) - (double)size / 2);
-		point.y = round((pos.y + size) - (double)size / 2);
-		put_pixel_on_img_bounds(frame, point, color, frame->dimensions);
-		i++;
+		start.x = p.x;
+		while (start.x < end.x)
+		{
+			if (start.x >= 0 && start.y >= 0)
+				put_pixel_on_img_bounds(frame, start, get_transparent_color(200, color,
+						get_pixel_of_img(*frame, start)), bounds);
+			start.x++;
+		}
+		start.y++;
 	}
 }
+
 
 void	draw_square(t_img *frame, t_pixel_point pos, int size, int color)
 {

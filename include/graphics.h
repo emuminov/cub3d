@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 23:15:32 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 16:45:40 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:31:37 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void				put_pixel_on_img_bounds(t_img *img, t_pixel_point p,
 /* Functions for drawing simple shapes. */
 void				draw_line(t_img *frame, t_pixel_point start,
 						t_pixel_point end, int color);
-void				draw_hollow_square(t_img *frame, t_pixel_point pos,
-						int size, int color);
 void				draw_square(t_img *frame, t_pixel_point pos, int size,
 						int color);
 void				draw_tile_bounds(t_img *frame, t_pixel_point p, int color,
 		int tile_size, t_pixel_point bounds);
+void				draw_transparent_tile(t_img *frame, t_pixel_point p,
+		int color, int tile_size, t_pixel_point bounds);
 void				draw_ceiling_and_floor(t_img *frame, int ceiling_color,
 		int floor_color);
 #endif

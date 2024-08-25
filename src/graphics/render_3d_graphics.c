@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 18:13:58 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 19:40:23 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	render_3d_graphics(t_game *g)
 				texX = g->texture[texture_dir].dimensions.x - texX - 1;
 			
 			double step = 1.0 * g->texture[texture_dir].dimensions.y / line_height;
-			double texPos = (draw_start - g->window_size.y / 2 + line_height / 2) * step;
+			double texPos = (draw_start - (double)g->window_size.y / 2 + (double)line_height / 2) * step;
 			y = draw_start;
 			while (y < draw_end)
 			{

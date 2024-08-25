@@ -20,7 +20,7 @@ SRCS_MATH_FUNCS = $(addprefix math_funcs/, grid_bounds_checking.c grid_pixel_con
 SRCS = main.c free.c $(PARSING)
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
-SCRS_3D_TESTS = testing_3d_main.c init.c free.c $(SRCS_GAME_LOGIC) $(SRCS_GRAPHICS) $(SRCS_MATH_FUNCS) $(PARSING)
+SCRS_3D_TESTS = main.c free.c $(SRCS_GAME_LOGIC) $(SRCS_GRAPHICS) $(SRCS_MATH_FUNCS) $(PARSING)
 OBJS_3D_TESTS = $(addprefix $(OBJS_DIR), $(SCRS_3D_TESTS:.c=.o))
 
 .SILENT :

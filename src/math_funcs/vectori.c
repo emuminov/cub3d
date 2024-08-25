@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:03 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/17 01:19:00 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:00:38 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,9 @@ t_vectori	vectori_add(t_vectori v1, t_vectori v2)
 t_vectori	vectorf_to_vectori(t_vectorf v)
 {
 	return ((t_vectori){.x = (int)v.x, .y = (int)v.y});
+}
+
+t_vectori	vectori(int x, int y)
+{
+	return (t_vectori){.x = x, .y = y};
 }

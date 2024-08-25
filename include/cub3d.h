@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 19:18:11 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 19:40:54 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,9 @@ typedef struct s_game
 	t_config		conf;
 	t_controls		controls;
 	t_grid_coordsi	map_size;
-	t_pixel_point	minimap_size;
 	t_pixel_point	window_size;
-	// t_grid_coordsf	rays[30];
-	int				old_mouse_pos;
 	t_img			texture[4];
-	// t_texture_dir	texture_dir;
+	int				mouse_pos;
 }					t_game;
 
 // PARSING
@@ -134,12 +131,15 @@ int					parse_cub_map(t_game *g, int argc, char **argv);
 void				render_3d_graphics(t_game *g);
 
 // GAME_LOGIC
-int					init_game(t_game *g, int x, int y);
+int					_old_start_mlx(t_game *g, int x, int y);
 t_vectorf			check_cell_in_dir(t_game *g, t_grid_coordsf start,
 		t_vectorf dir, double max_distance, char *checked_tiles);
+void				start_game_loop(t_game *g);
+int					create_window(t_game *g);
 
 // INIT
-int					init_game_loop(int argc, char **argv);
+int					_old_start_game(int argc, char **argv);
+int					start_game(int argc, char **argv);
 
 // FREE
 void				free_config(t_config *conf);
