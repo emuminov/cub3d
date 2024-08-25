@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 19:42:40 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:45:07 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,29 @@ static void	init_textures(t_game *g)
 /* Allocates new image and initializes parameters of its struct */
 // TODO: replace hardcoded values with the result from parsing
 // TODO: check for malloc errors
+
+static void	init_textures(t_game *g)
+{
+	g->texture[north_tex].img = mlx_xpm_file_to_image(g->mlx, g->conf.
+	, &g->texture[north_tex].dimensions.x, &g->texture[north_tex].dimensions.y);
+	if (g->texture[north_tex].dimensions.x > g->window_size.x 
+	|| g->texture[north_tex].dimensions.y > g->window_size.y)
+		resize_image(g, &g->texture[north_tex]
+		, g->window_size.x, g->window_size.y);
+	g->texture[north_tex].addr = mlx_get_data_addr(g->texture[north_tex].img, &g->texture[north_tex].bits_per_pixel, &g->texture[north_tex].line_len, &g->texture[north_tex].endian);
+	g->texture[south_tex].img = mlx_xpm_file_to_image(g->mlx, "tile1.xpm", &g->texture[south_tex].dimensions.x, &g->texture[south_tex].dimensions.y);
+	if (g->texture[south_tex].dimensions.x > g->window_size.x || g->texture[south_tex].dimensions.y > g->window_size.y)
+		resize_image(g, &g->texture[south_tex], g->window_size.x, g->window_size.y);
+	g->texture[south_tex].addr = mlx_get_data_addr(g->texture[south_tex].img, &g->texture[south_tex].bits_per_pixel, &g->texture[south_tex].line_len, &g->texture[south_tex].endian);
+	g->texture[west_tex].img = mlx_xpm_file_to_image(g->mlx, "tile1.xpm", &g->texture[west_tex].dimensions.x, &g->texture[west_tex].dimensions.y);
+	if (g->texture[west_tex].dimensions.x > g->window_size.x || g->texture[west_tex].dimensions.y > g->window_size.y)
+		resize_image(g, &g->texture[west_tex], g->window_size.x, g->window_size.y);
+	g->texture[west_tex].addr = mlx_get_data_addr(g->texture[west_tex].img, &g->texture[west_tex].bits_per_pixel, &g->texture[west_tex].line_len, &g->texture[west_tex].endian);
+	g->texture[east_tex].img = mlx_xpm_file_to_image(g->mlx, "tile1.xpm", &g->texture[east_tex].dimensions.x, &g->texture[east_tex].dimensions.y);
+	if (g->texture[east_tex].dimensions.x > g->window_size.x || g->texture[east_tex].dimensions.y > g->window_size.y)
+		resize_image(g, &g->texture[east_tex], g->window_size.x, g->window_size.y);
+	g->texture[east_tex].addr = mlx_get_data_addr(g->texture[east_tex].img, &g->texture[east_tex].bits_per_pixel, &g->texture[east_tex].line_len, &g->texture[east_tex].endian);
+}
 
 /* Temprorary function that substitutes parsoing with hardcoded values */
 // TODO: delete later, temporary function

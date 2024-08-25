@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 19:41:25 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:44:13 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,6 @@ typedef struct	s_player
 typedef struct s_config
 {
 	char	*paths[4];
-	// char	*east_path;
-	// char	*south_path;
-	// char	*west_path;
 	int		floor_c;
 	int		ceiling_c;
 }	t_config;
@@ -121,6 +118,7 @@ typedef struct s_game
 	t_pixel_point	window_size;
 	t_img			texture[4];
 	int				mouse_pos;
+	// t_texture_dir	texture_dir;
 }					t_game;
 
 // PARSING
