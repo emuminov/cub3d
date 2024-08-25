@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:12 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 02:46:11 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:41:15 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	parse_map(char **map)
 {
 	int		*len_tab;
 	int		i;
-	t_coord	start;
+	t_vectori	start;
 
 	start = get_start(map);
 	if (start.y == -1 && start.x == -1)
@@ -42,7 +42,7 @@ int	parse_map(char **map)
 	return (free(len_tab), 0);
 }
 
-int	fill(char **tab, int len_strs, t_coord cur, int *len_tab)
+int	fill(char **tab, int len_strs, t_vectori cur, int *len_tab)
 {
 	t_stack_stats	stack_stats;
 	int				inturn;
@@ -66,7 +66,7 @@ int	fill(char **tab, int len_strs, t_coord cur, int *len_tab)
 	return (free(stack_stats.stack), inturn);
 }
 
-void	manage_inturn_fill(t_stack_stats *stack_s, t_coord cur, int *inturn)
+void	manage_inturn_fill(t_stack_stats *stack_s, t_vectori cur, int *inturn)
 {
 	*inturn |= (cur.y == 0 || cur.y == stack_s->len_strs - 1 || cur.x == 0
 			|| cur.x == stack_s->len_tab[cur.y] - 1);
@@ -76,18 +76,18 @@ void	manage_inturn_fill(t_stack_stats *stack_s, t_coord cur, int *inturn)
 		*inturn = 1;
 }
 
-void	manage_xy_fill(char **tab, t_stack_stats *stack_s, t_coord cur)
+void	manage_xy_fill(char **tab, t_stack_stats *stack_s, t_vectori cur)
 {
 	if (cur.x - 1 >= 0 && tab[cur.y][cur.x - 1] != '1'
 			&& tab[cur.y][cur.x - 1] != 'F')
-		stack_s->stack[stack_s->stack_size++] = (t_coord){cur.x - 1, cur.y};
+		stack_s->stack[stack_s->stack_size++] = (t_vectori){cur.x - 1, cur.y};
 	if (cur.x + 1 < stack_s->len_tab[cur.y] && tab[cur.y][cur.x + 1] != '1'
 			&& tab[cur.y][cur.x + 1] != 'F')
-		stack_s->stack[stack_s->stack_size++] = (t_coord){cur.x + 1, cur.y};
+		stack_s->stack[stack_s->stack_size++] = (t_vectori){cur.x + 1, cur.y};
 	if (cur.y - 1 >= 0 && tab[cur.y - 1][cur.x] != '1'
 			&& tab[cur.y - 1][cur.x] != 'F')
-		stack_s->stack[stack_s->stack_size++] = (t_coord){cur.x, cur.y - 1};
+		stack_s->stack[stack_s->stack_size++] = (t_vectori){cur.x, cur.y - 1};
 	if (cur.y + 1 < stack_s->len_strs && tab[cur.y + 1][cur.x] != '1'
 			&& tab[cur.y + 1][cur.x] != 'F')
-		stack_s->stack[stack_s->stack_size++] = (t_coord){cur.x, cur.y + 1};
+		stack_s->stack[stack_s->stack_size++] = (t_vectori){cur.x, cur.y + 1};
 }

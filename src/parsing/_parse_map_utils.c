@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 02:43:10 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:41:37 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strslen(char **strs)
 	return (i);
 }
 
-int	cur_border_checker(t_coord cur, int *len_tab, int len_strs)
+int	cur_border_checker(t_vectori cur, int *len_tab, int len_strs)
 {
 	return (cur.y == 0 || cur.y == len_strs - 1 || cur.x == 0
 		|| cur.x == len_tab[cur.y] - 1 || (cur.y + 1 < len_strs
@@ -30,9 +30,9 @@ int	cur_border_checker(t_coord cur, int *len_tab, int len_strs)
 			&& cur.x >= len_tab[cur.y - 1]));
 }
 
-t_coord	get_start(char **map)
+t_vectori	get_start(char **map)
 {
-	t_coord	start;
+	t_vectori	start;
 	int		i;
 	int		j;
 
@@ -52,7 +52,7 @@ t_coord	get_start(char **map)
 			}
 			else if ((map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
 				|| map[i][j] == 'E') && (start.y != -1 && start.x != -1))
-				return ((t_coord){-1, -1});
+				return ((t_vectori){-1, -1});
 		}
 	}
 	return (start);

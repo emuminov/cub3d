@@ -6,17 +6,17 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:25:47 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 00:34:59 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:44:32 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATH_FUNCS_H
 # define MATH_FUNCS_H
 # include "cub3d.h"
-
 /*////////////////////MATH FUNCS\\\\\\\\\\\\\\\\\\\*/
 /* Used for pure calculations with no side effects. Operate on ints, doubles and
  * vectors that represent direction, grid coordinates, pixels on window. */
+
 /*                  // VECTORF \\ 							*/
 double				vectorf_len(t_vectorf v);
 t_vectorf			vectorf_norm(t_vectorf v);

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 02:46:22 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:52:16 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,22 @@
 #include "../../include/math_funcs.h"
 #include "../libft/libft.h"
 #include <stdio.h>
+
+void	free_config_p(t_config_parsing *conf)
+{
+	if (conf->north_path != NULL)
+		free(conf->north_path);
+	if (conf->east_path != NULL)
+		free(conf->east_path);
+	if (conf->south_path != NULL)
+		free(conf->south_path);
+	if (conf->west_path != NULL)
+		free(conf->west_path);
+	if (conf->map_1d != NULL)
+		free(conf->map_1d);
+	if (conf->map_fd != -1)
+		close(conf->map_fd);
+}
 
 t_config_parsing	config_parsing_init(void)
 {
@@ -50,11 +66,11 @@ t_config	config_init(void)
 }
 
 int	stack_stats_init(t_stack_stats *stack_stats, int len_strs
-, int *len_tab, t_coord cur)
+, int *len_tab, t_vectori cur)
 {
 	stack_stats->len_strs = len_strs;
 	stack_stats->len_tab = len_tab;
-	stack_stats->stack = malloc(sizeof(t_coord) * len_strs * len_tab[0]);
+	stack_stats->stack = malloc(sizeof(t_vectori) * len_strs * len_tab[0]);
 	if (stack_stats->stack == NULL)
 		return (1);
 	stack_stats->stack_size = 0;

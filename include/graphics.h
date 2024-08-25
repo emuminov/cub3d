@@ -6,13 +6,17 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 23:15:32 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 02:08:10 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:45:40 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GRAPHICS_H
 # define GRAPHICS_H
 # include "cub3d.h"
+/*////////////////////GRAPHICS\\\\\\\\\\\\\\\\\\\*/
+/* Helful frocedures for displaying things on the screen, contains the main
+ * rendering logic. */
+
 /*					// MINIMAP \\							*/
 void				draw_minimap(t_game *g);
 

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 02:43:52 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:50:47 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,6 @@ typedef struct s_img
 	int				endian;
 	t_vectori		dimensions;
 }					t_img;
-
-typedef struct s_config_parsing
-{
-	char	*north_path;
-	char	*east_path;
-	char	*south_path;
-	char	*west_path;
-	int		map_fd;
-	int		floor_c[3];
-	int		ceiling_c[3];
-	char	*map_1d;
-	int		keys_finish;
-}	t_config_parsing;
 
 typedef struct s_dda_params
 {
@@ -147,7 +134,6 @@ t_vectorf			check_cell_in_dir(t_game *g, t_grid_coordsf start,
 int					init_game_loop(int argc, char **argv);
 
 // FREE
-void				free_config_p(t_config_parsing *conf);
 void				free_config(t_config *conf);
 void				free_tab(char **tab);
 #endif
