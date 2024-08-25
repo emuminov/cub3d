@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 17:38:36 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/25 17:46:01 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	start_mlx_loop(t_game *g)
 
 static void	init_textures(t_game *g)
 {
-	g->texture[north_tex].img = mlx_xpm_file_to_image(g->mlx, g->conf.
+	g->texture[north_tex].img = mlx_xpm_file_to_image(g->mlx, "tile1.xpm"
 	, &g->texture[north_tex].dimensions.x, &g->texture[north_tex].dimensions.y);
 	if (g->texture[north_tex].dimensions.x > g->window_size.x 
 	|| g->texture[north_tex].dimensions.y > g->window_size.y)
