@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 16:50:47 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:50:05 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ typedef enum	e_etiles
 	player_east = 'E',
 	player_west = 'W',
 }				t_tiles;
+
+typedef enum	e_texture_dir
+{
+	north_tex ,
+	south_tex ,
+	east_tex ,
+	west_tex ,
+}				t_texture_dir;
 
 typedef struct s_vectorf
 {
@@ -80,7 +88,7 @@ typedef struct	s_player
 
 typedef struct s_config
 {
-	int		north_fd;
+	char		north_fd;
 	int		east_fd;
 	int		south_fd;
 	int		west_fd;
@@ -106,7 +114,6 @@ typedef struct s_game
 	t_img			frame;
 	t_player		player;
 	t_dda_params	dp;
-	char			*xpm[5];
 	char			**map;
 	char			**map_dup;
 	t_config		conf;
@@ -114,9 +121,10 @@ typedef struct s_game
 	t_grid_coordsi	map_size;
 	t_pixel_point	minimap_size;
 	t_pixel_point	window_size;
-	t_grid_coordsf	rays[30];
+	// t_grid_coordsf	rays[30];
 	int				old_mouse_pos;
-	t_img			texture;
+	t_img			texture[4];
+	// t_texture_dir	texture_dir;
 }					t_game;
 
 // PARSING
@@ -136,4 +144,5 @@ int					init_game_loop(int argc, char **argv);
 // FREE
 void				free_config(t_config *conf);
 void				free_tab(char **tab);
+
 #endif
