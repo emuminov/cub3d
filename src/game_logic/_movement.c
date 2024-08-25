@@ -6,25 +6,26 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:07:41 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 00:27:25 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:02:35 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/math_funcs.h"
+#include "../../include/constants.h"
 
 t_grid_coordsf	move_player(t_player p, const t_controls *controls)
 {
 	if (controls->move_up_pressed)
-		p.pos = vectorf_add(p.pos, vectorf_scale(p.dir, 0.02));
+		p.pos = vectorf_add(p.pos, vectorf_scale(p.dir, MOVEMENT_SPEED));
 	else if (controls->move_down_pressed)
-		p.pos = vectorf_sub(p.pos, vectorf_scale(p.dir, 0.02));
-	else if (controls->move_left_pressed)
+		p.pos = vectorf_sub(p.pos, vectorf_scale(p.dir, MOVEMENT_SPEED));
+	if (controls->move_left_pressed)
 		p.pos = vectorf_add(p.pos, vectorf_scale(vectorf_rotate(p.dir, -90),
-					0.02));
+					MOVEMENT_SPEED));
 	else if (controls->move_right_pressed)
 		p.pos = vectorf_add(p.pos, vectorf_scale(vectorf_rotate(p.dir, 90),
-					0.02));
+					MOVEMENT_SPEED));
 	return (p.pos);
 }
 
@@ -49,13 +50,13 @@ void	resolve_rotation(t_game *g)
 {
 	if (g->controls.rotate_left_pressed)
 	{
-		g->player.dir = vectorf_rotate(g->player.dir, -0.5);
-		g->player.plane = vectorf_rotate(g->player.plane, -0.5);
+		g->player.dir = vectorf_rotate(g->player.dir, -ROTATION_SPEED);
+		g->player.plane = vectorf_rotate(g->player.plane, -ROTATION_SPEED);
 	}
 	else if (g->controls.rotate_right_pressed)
 	{
-		g->player.dir = vectorf_rotate(g->player.dir, 0.5);
-		g->player.plane = vectorf_rotate(g->player.plane, 0.5);
+		g->player.dir = vectorf_rotate(g->player.dir, ROTATION_SPEED);
+		g->player.plane = vectorf_rotate(g->player.plane, ROTATION_SPEED);
 	}
 }
 
@@ -69,8 +70,8 @@ void	resolve_movement(t_game *g)
 	t_grid_coordsf			checked_pos;
 
 	checked_pos = vectorf_add(new_pos,
-			(t_grid_coordsf){.x = g->player.size.x * mdir.x,
-			.y = g->player.size.y * mdir.y});
+			(t_grid_coordsf){.x = PLAYER_SIZE * mdir.x,
+			.y = PLAYER_SIZE * mdir.y});
 	if (g->controls.move_up_pressed)
 		collision_point = check_cell_in_dir(g, g->player.pos, mdir, 1, "1D");
 	else if (g->controls.move_down_pressed)

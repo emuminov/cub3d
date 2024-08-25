@@ -6,11 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/08/25 19:18:19 by eandre           ###   ########.fr       */
-=======
-/*   Updated: 2024/08/25 18:15:08 by emuminov         ###   ########.fr       */
->>>>>>> 9dd63b6 (refactor: removed minimap_size on the game struct, partially normalized the minimap code, fixed wobbling on the walls drawing, merged main.c with init.c)
+/*   Updated: 2024/08/25 19:42:40 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +45,6 @@ void	start_game_loop(t_game *g)
 	mlx_loop(g->mlx);
 }
 
-<<<<<<< HEAD
 static void	init_textures(t_game *g)
 {
 	int	i;
@@ -95,12 +90,10 @@ static void	init_textures(t_game *g)
 /* Allocates new image and initializes parameters of its struct */
 // TODO: replace hardcoded values with the result from parsing
 // TODO: check for malloc errors
-int	init_game(t_game *g, int x, int y)
-=======
+
 /* Temprorary function that substitutes parsoing with hardcoded values */
 // TODO: delete later, temporary function
 int	_old_start_mlx(t_game *g, int x, int y)
->>>>>>> 9dd63b6 (refactor: removed minimap_size on the game struct, partially normalized the minimap code, fixed wobbling on the walls drawing, merged main.c with init.c)
 {
 	int	dummy_mouse_pos_y;
 
@@ -108,20 +101,11 @@ int	_old_start_mlx(t_game *g, int x, int y)
 	g->window_size.x = x;
 	g->window_size.y = y;
 	g->player.pos = (t_grid_coordsf){.x = 1.5, .y = 1.5};
-	g->player.size = (t_grid_coordsf){.x = 0.1, .y = 0.1};
 	g->player.dir = (t_vectorf){.x = 1, .y = 0};
 	g->player.plane = (t_vectorf){.x = 0, .y = 0.66};
 	g->mlx = mlx_init();
-<<<<<<< HEAD
 	init_textures(g);
 	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
-	
-=======
-	g->texture.img = mlx_xpm_file_to_image(g->mlx, "tile1.xpm", &g->texture.dimensions.x, &g->texture.dimensions.y);
-	if (g->texture.dimensions.x > g->window_size.x || g->texture.dimensions.y > g->window_size.y)
-		resize_image(g, &g->texture, g->window_size.x, g->window_size.y);
-	g->texture.addr = mlx_get_data_addr(g->texture.img, &g->texture.bits_per_pixel, &g->texture.line_len, &g->texture.endian);
->>>>>>> 9dd63b6 (refactor: removed minimap_size on the game struct, partially normalized the minimap code, fixed wobbling on the walls drawing, merged main.c with init.c)
 	init_img_data(g->mlx, &g->frame, g->window_size);
 	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
 	mlx_mouse_get_pos(g->mlx, g->win, &g->mouse_pos, &y);

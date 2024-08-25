@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:37:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/24 22:51:59 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:04:03 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,8 @@
 # define MINIMAP_TILE_SIZE 32
 # define TILE_SIZE 128
 # define RADIAN_TO_DEGREE_SCALING 0.0174533
+# define MOVEMENT_SPEED 0.02
+# define ROTATION_SPEED 0.5
+# define PLAYER_SIZE 0.1
+# define ALPHA_VALUE 200
 #endif

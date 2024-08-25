@@ -6,13 +6,14 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:30:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 18:30:45 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:04:10 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/graphics.h"
 #include "../../include/math_funcs.h"
+#include "../../include/constants.h"
 #include <math.h>
 #include <stdlib.h>
 
@@ -55,7 +56,7 @@ void	draw_transparent_tile(t_img *frame, t_pixel_point p, int color,
 		while (start.x < end.x)
 		{
 			if (start.x >= 0 && start.y >= 0)
-				put_pixel_on_img_bounds(frame, start, get_transparent_color(200, color,
+				put_pixel_on_img_bounds(frame, start, get_transparent_color(ALPHA_VALUE, color,
 						get_pixel_of_img(*frame, start)), bounds);
 			start.x++;
 		}

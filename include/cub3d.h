@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 19:40:54 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:41:25 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_dda_params
 typedef struct	s_player
 {
 	t_grid_coordsf	pos;
-	t_grid_coordsf	size;
 	t_vectorf		dir;
 	t_vectorf		plane;
 }					t_player;
