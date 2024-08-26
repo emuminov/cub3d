@@ -45,7 +45,7 @@ $(NAME) : $(OBJS)
 	@#norminette $(SRC_DIR) $(HEADERS)
 	@echo -n "$(Red)Compilation de cub3d ..${NC}" && sleep 0.2
 	@echo -n "$(Red)\rCompilation de cub3d ...${NC}"
-	$(CC) $^ $(XFLAGS) $(CFLAGS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -lm -o $(NAME) && sleep 0.1
+	$(CC) $^ $(CFLAGS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -lm $(XFLAGS) -o $(NAME) && sleep 0.1
 	@echo "$(Green)\r------Compilation de cub3d finie !-------${NC}"
 
 $(OBJS_DIR)%.o : $(SRC_DIR)%.c Makefile $(HEADERS)
