@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:12 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 16:41:15 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:28:47 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 int	parse_map(char **map)
 {
-	int		*len_tab;
-	int		i;
+	int			*len_tab;
+	int			i;
 	t_vectori	start;
 
 	start = get_start(map);

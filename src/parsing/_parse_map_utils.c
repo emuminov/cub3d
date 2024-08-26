@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 16:41:37 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:28:56 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	cur_border_checker(t_vectori cur, int *len_tab, int len_strs)
 t_vectori	get_start(char **map)
 {
 	t_vectori	start;
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 
 	i = -1;
 	start.x = -1;
