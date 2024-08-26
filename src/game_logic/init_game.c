@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 15:16:51 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:24:58 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	start_game_loop(t_game *g)
 	mlx_hook(g->win, 2, (1L << 0), handle_key_press, g);
 	mlx_hook(g->win, 3, (1L << 1), handle_key_release, g);
 	mlx_hook(g->win, DestroyNotify, StructureNotifyMask,
-			exit_hook_cross, g);
+			exit_game, g);
 	mlx_loop_hook(g->mlx, game_loop, g);
 	mlx_loop(g->mlx);
 }
