@@ -11,19 +11,19 @@ MLBX_DIR = $(SRC_DIR)minilibx-linux/
 
 HEADERS = ./src/libft/libft.h ./src/libft/ft_printf/ft_printf.h \
 		./src/libft/get_next_line/get_next_line.h include/cub3d.h \
+		include/game_logic.h include/graphics.h include/math_funcs.h \
+		include/parsing.h include/constants.h
 
 # Compilation of functionality without main
-PARSING = $(addprefix parsing/, _arg_manager.c _keys_utils.c _parse_keys_colors.c _parse_keys_dir.c _parse_map.c _parse_map_utils.c _parsing.c _paths.c _utils.c parse_cub_map.c)
+SRCS_PARSING = $(addprefix parsing/, _arg_manager.c _keys_utils.c _parse_keys_colors.c _parse_keys_dir.c _parse_map.c _parse_map_utils.c _parsing.c _paths.c _utils.c parse_cub_map.c)
 SRCS_GAME_LOGIC = $(addprefix game_logic/, _controls_handling.c _doors.c _mlx_img_utils.c _mouse.c _movement.c _update_game_state.c dda.c init_game.c)
 SRCS_GRAPHICS = $(addprefix graphics/, _draw_utils.c _img_pixel_accessors.c _minimap.c render_3d_graphics.c)
 SRCS_MATH_FUNCS = $(addprefix math_funcs/, grid_bounds_checking.c grid_pixel_conversions.c color.c utils.c vectorf1.c vectorf2.c vectori.c)
-SRCS = main.c free.c $(PARSING)
-OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
-SCRS_3D_TESTS = main.c free.c $(SRCS_GAME_LOGIC) $(SRCS_GRAPHICS) $(SRCS_MATH_FUNCS) $(PARSING)
-OBJS_3D_TESTS = $(addprefix $(OBJS_DIR), $(SCRS_3D_TESTS:.c=.o))
+SRCS =  main.c free.c $(SRCS_GAME_LOGIC) $(SRCS_GRAPHICS) $(SRCS_MATH_FUNCS) $(SRCS_PARSING)
+OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o)) 
 
-.SILENT :
+.SILENT:
 
 all : obj libft minilibx $(NAME)
 
@@ -41,15 +41,12 @@ libft :
 	@make --no-print-directory -C $(LIBFT_DIR)
 
 $(NAME) : $(OBJS)
-	@echo "$(Red)Check de la norme :${NC}"
-	#@norminette $(SRC_DIR) $(HEADERS)
+	@#echo "$(Red)Check de la norme :${NC}"
+	@#norminette $(SRC_DIR) $(HEADERS)
 	@echo -n "$(Red)Compilation de cub3d ..${NC}" && sleep 0.2
 	@echo -n "$(Red)\rCompilation de cub3d ...${NC}"
-	$(CC) $^  $(XFLAGS) $(CFLAGS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -o $(NAME) && sleep 0.1
+	$(CC) $^ $(XFLAGS) $(CFLAGS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -lm -o $(NAME) && sleep 0.1
 	@echo "$(Green)\r------Compilation de cub3d finie !-------${NC}"
-
-test3d : obj libft minilibx $(OBJS_3D_TESTS)
-	$(CC) $(CFLAGS) $(OBJS_3D_TESTS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -lXext -lX11 -lm -o test3d
 
 $(OBJS_DIR)%.o : $(SRC_DIR)%.c Makefile $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@

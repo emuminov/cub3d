@@ -6,15 +6,15 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:37:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 19:04:03 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:15:17 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 768
+# define WINDOW_HEIGHT 640
 # define MINIMAP_SIZE 160
 # define MINIMAP_TILE_SIZE 32
 # define TILE_SIZE 128
