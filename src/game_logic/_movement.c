@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/constants.h"
 #include "../../include/cub3d.h"
 #include "../../include/math_funcs.h"
-#include "../../include/constants.h"
 
 t_grid_coordsf	move_player(t_player p, const t_controls *controls)
 {
@@ -89,11 +89,10 @@ void	resolve_movement(t_game *g)
 	t_grid_coordsf			collision_point;
 	t_grid_coordsf			checked_pos;
 
-	checked_pos = vectorf_add(new_pos,
-			(t_grid_coordsf){.x = PLAYER_SIZE * mdir.x,
-			.y = PLAYER_SIZE * mdir.y});
+	checked_pos = vectorf_add(new_pos, (t_grid_coordsf){.x = PLAYER_SIZE
+			* mdir.x, .y = PLAYER_SIZE * mdir.y});
 	collision_point = check_cell_in_dir(g, g->player.pos, mdir, 1, "1D");
-	if (collision_point.x == -1 || !is_beyond(checked_pos,
-			collision_point, mdir))
+	if (collision_point.x == -1 || !is_beyond(checked_pos, collision_point,
+			mdir))
 		g->player.pos = new_pos;
 }

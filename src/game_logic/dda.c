@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:01 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 02:48:29 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:29:55 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	set_initial_dda_params(t_dda_params *dp, t_grid_coordsf start,
 static void	check_next_grid_cell(t_dda_params *dp);
 
 /* DDA algorithm for finding the nearest wall in the certain direction */
-t_vectorf	check_cell_in_dir(t_game *g, t_grid_coordsf start,
-		t_vectorf dir, double max_distance, char *checked_tiles)
+t_vectorf	check_cell_in_dir(t_game *g, t_grid_coordsf start, t_vectorf dir,
+		double max_distance, char *checked_tiles)
 {
 	t_vectorf	intersection;
 
@@ -30,10 +30,12 @@ t_vectorf	check_cell_in_dir(t_game *g, t_grid_coordsf start,
 		check_next_grid_cell(&g->dp);
 		if (is_in_bounds_of_grid(g->dp.inspected_grid, g->map_size))
 		{
-			if (ft_strchr(checked_tiles, g->map[g->dp.inspected_grid.y][g->dp.inspected_grid.x]))
+			if (ft_strchr(checked_tiles,
+					g->map[g->dp.inspected_grid.y][g->dp.inspected_grid.x]))
 			{
 				g->dp.found_cell = true;
-				g->dp.type_of_found_cell = g->map[g->dp.inspected_grid.y][g->dp.inspected_grid.x];
+				g->dp.type_of_found_cell = g->map[g->dp.inspected_grid.y]
+				[g->dp.inspected_grid.x];
 			}
 		}
 		else
