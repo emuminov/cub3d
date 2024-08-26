@@ -6,14 +6,13 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:07:41 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 15:46:53 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:01:51 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/math_funcs.h"
 #include "../../include/constants.h"
-#include <stdio.h>
 
 t_grid_coordsf	move_player(t_player p, const t_controls *controls)
 {
@@ -94,7 +93,6 @@ void	resolve_movement(t_game *g)
 			(t_grid_coordsf){.x = PLAYER_SIZE * mdir.x,
 			.y = PLAYER_SIZE * mdir.y});
 	collision_point = check_cell_in_dir(g, g->player.pos, mdir, 1, "1D");
-	printf("%f %f\n", collision_point.x, collision_point.y);
 	if (collision_point.x == -1 || !is_beyond(checked_pos,
 			collision_point, mdir))
 		g->player.pos = new_pos;
