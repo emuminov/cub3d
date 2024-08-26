@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 18:42:18 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 14:44:34 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@
 
 void	free_config_p(t_config_parsing *conf)
 {
-	// if (conf->north_path != NULL)
-	// 	free(conf->north_path);
-	// if (conf->east_path != NULL)
-	// 	free(conf->east_path);
-	// if (conf->south_path != NULL)
-	// 	free(conf->south_path);
-	// if (conf->west_path != NULL)
-	// 	free(conf->west_path);
 	if (conf->map_1d != NULL)
 		free(conf->map_1d);
 	if (conf->map_fd != -1)
@@ -35,17 +27,17 @@ void	free_config_p(t_config_parsing *conf)
 t_config_parsing	config_parsing_init(void)
 {
 	t_config_parsing	conf;
+	int					i;
 
-	conf.north_path = NULL;
-	conf.east_path = NULL;
-	conf.west_path = NULL;
-	conf.south_path = NULL;
-	conf.floor_c[0] = -1;
-	conf.floor_c[1] = -1;
-	conf.floor_c[2] = -1;
-	conf.ceiling_c[0] = -1;
-	conf.ceiling_c[1] = -1;
-	conf.ceiling_c[2] = -1;
+	i = -1;
+	while (++i < 4)
+		conf.paths[i] = NULL;
+	i = -1;
+	while (++i < 3)
+	{
+		conf.floor_c[i] = -1;
+		conf.ceiling_c[i] = -1;
+	}
 	conf.map_1d = NULL;
 	conf.keys_finish = 0;
 	conf.map_fd = -1;
@@ -55,11 +47,11 @@ t_config_parsing	config_parsing_init(void)
 t_config	config_init(void)
 {
 	t_config	conf;
+	int			i;
 
-	// conf.paths = NULL;
-	// conf.east_path = NULL;
-	// conf.south_path = NULL;
-	// conf.west_path = NULL;
+	i = -1;
+	while (++i < 4)
+		conf.paths[i] = NULL;
 	conf.floor_c = -1;
 	conf.ceiling_c = -1;
 	return (conf);
@@ -83,25 +75,32 @@ int	rgb_arr_to_int(int *rgb_arr)
 	return (rgb_to_int(rgb_arr[0], rgb_arr[1], rgb_arr[2]));
 }
 
+void	init_conf(t_game *g, t_config_parsing conf_p)
+{
+	int	i;
+
+	g->conf.ceiling_c = rgb_arr_to_int(conf_p.ceiling_c);
+	g->conf.floor_c = rgb_arr_to_int(conf_p.floor_c);
+	i = -1;
+	while (++i < 4)
+		g->conf.paths[i] = conf_p.paths[i];
+}
+
 int	parse_cub_map(t_game *g, int argc, char **argv)
 {
 	int					fd;
 	t_config_parsing	conf_p;
+	int					i;
+	int					j;
 
 	fd = error_manager(argc, argv[1]);
 	conf_p = config_parsing_init();
 	g->conf = config_init();
 	pre_parsing(fd, &conf_p);
 	paths_errors(&conf_p);
-	// open_paths(&conf_p, &g->conf);
 	g->map_dup = ft_split(conf_p.map_1d, '\n');
 	g->map = ft_split(conf_p.map_1d, '\n');
-	g->conf.ceiling_c = rgb_arr_to_int(conf_p.ceiling_c);
-	g->conf.floor_c = rgb_arr_to_int(conf_p.floor_c);
-	g->conf.paths[north_tex] = conf_p.north_path;
-	g->conf.paths[south_tex] = conf_p.south_path;
-	g->conf.paths[west_tex] = conf_p.west_path;
-	g->conf.paths[east_tex] = conf_p.east_path;
+	init_conf(g, conf_p);
 	if (g->map == NULL || g->map_dup == NULL
 		|| parse_map(g->map_dup) == 1)
 	{
@@ -112,14 +111,11 @@ int	parse_cub_map(t_game *g, int argc, char **argv)
 		exit (1);
 	}
 	free_tab(g->map_dup);
-	int	i = 0;
-	int	j = 0;
-	while (g->map[i])
-	{
+	i = -1;
+	j = 0;
+	while (g->map[++i])
 		if ((int)ft_strlen(g->map[i]) > j)
 			j = (int)ft_strlen(g->map[i]);
-		i++;
-	}
 	g->map_size = (t_grid_coordsi){.x = j, .y = i};
 	free_config_p(&conf_p);
 	return (0);

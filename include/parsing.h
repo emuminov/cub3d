@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:34:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 16:51:00 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:19:12 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@
 
 typedef struct s_config_parsing
 {
-	char	*north_path;
-	char	*east_path;
-	char	*south_path;
-	char	*west_path;
 	int		map_fd;
+	char	*paths[4];
 	int		floor_c[3];
 	int		ceiling_c[3];
 	char	*map_1d;
