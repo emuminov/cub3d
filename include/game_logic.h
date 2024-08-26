@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:20:22 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 18:24:09 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:29:55 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ void				resolve_movement(t_game *g);
 
 /*					// EXIT \\								*/
 int					exit_game(t_game *g);
-
-/*					// ULDATE GAME STATE \\					*/
-/* Everything that updates the state during runtime. For now it's a simple
- * function that includes resolution of movement and rotations. */
-void				update_game_state(t_game *g);
-
 
 /*					// MOUSE \\								*/
 /* Handles rotations with mouse. */
