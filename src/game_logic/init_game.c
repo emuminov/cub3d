@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 19:56:15 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:16:51 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	_old_start_mlx(t_game *g, int x, int y)
 	init_textures(g);
 	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
 	init_img_data(g->mlx, &g->frame, g->window_size);
-	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
 	mlx_mouse_get_pos(g->mlx, g->win, &g->mouse_pos, &y);
 	start_game_loop(g);
 	return (0);
@@ -111,7 +110,12 @@ int	_old_start_mlx(t_game *g, int x, int y)
 
 static int	game_loop(t_game *g)
 {
-	update_game_state(g);
+	// handle_mouse(g);
+	if (is_move_key_pressed(g))
+	{
+		resolve_rotation(g);
+		resolve_movement(g);
+	}
 	render_3d_graphics(g);
 	return (0);
 }
