@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:18:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 14:56:01 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 14:57:38 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,19 @@ void	paths_errors(t_config_parsing *conf)
 	if (!conf->paths[north_tex] || !conf->paths[south_tex]
 		|| !conf->paths[west_tex] || !conf->paths[east_tex]
 		|| conf->floor_c[0] == -1 || conf->ceiling_c[0] == -1)
+	int	i;
+
+	if (!conf->paths[north_tex] || !conf->paths[south_tex]
+		|| !conf->paths[west_tex] || !conf->paths[east_tex]
+		|| conf->floor_c[0] == -1 || conf->ceiling_c[0] == -1)
 	{
 		printf("\033[0;31m""Error\nA key is missing!\n""\033[0m");
 		free_config_p(conf);
 		exit (1);
 	}
+	i = -1;
+	while (++i < 4)
+		path_format_checker(conf->paths[i], conf);
 	i = -1;
 	while (++i < 4)
 		path_format_checker(conf->paths[i], conf);
