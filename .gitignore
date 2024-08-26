@@ -1,10 +1,11 @@
 *.o
 *.a
 *.gen
-mlx-test
 oui.cub
 .cache/
 .direnv/
+mlx-test
 test3d
+cub3D
 compile_commands.json
 .vscode/
