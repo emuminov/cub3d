@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:31:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 14:57:25 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 15:15:18 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,14 @@ int	map_manager(char *gnl, t_config_parsing *conf)
 	int	i;
 
 	i = -1;
-	if ((!conf->paths[north_tex] || !conf->paths[south_tex]
-			|| !conf->paths[west_tex] || !conf->paths[east_tex]
-			|| conf->floor_c[0] == -1 || conf->ceiling_c[0] == -1)
-		|| key_finish_check(gnl, conf))
-	if ((!conf->paths[north_tex] || !conf->paths[south_tex]
-			|| !conf->paths[west_tex] || !conf->paths[east_tex]
+	if ((!conf->paths[north_tex][0] || !conf->paths[south_tex][0]
+			|| !conf->paths[west_tex][0] || !conf->paths[east_tex][0]
 			|| conf->floor_c[0] == -1 || conf->ceiling_c[0] == -1)
 		|| key_finish_check(gnl, conf))
 		return (0);
 	while (gnl[++i])
 	{
 		if (ft_strchr(" 01NESW\n", gnl[i]) == NULL)
-			return (printf("\033[0;31m"
-					"Error\nUnrecognized character in map!\n""\033[0m")
-				, get_next_line(-1), free_config_p(conf), free(gnl)
-				, exit(1), 0);
 			return (printf("\033[0;31m"
 					"Error\nUnrecognized character in map!\n""\033[0m")
 				, get_next_line(-1), free_config_p(conf), free(gnl)

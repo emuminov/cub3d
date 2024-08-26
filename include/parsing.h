@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:34:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 14:19:12 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 15:07:14 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 typedef struct s_config_parsing
 {
 	int		map_fd;
-	char	*paths[4];
+	char	paths[4][PATH_MAX];
 	int		floor_c[3];
 	int		ceiling_c[3];
 	char	*map_1d;

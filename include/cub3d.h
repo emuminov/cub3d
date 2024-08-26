@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 14:57:02 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 15:05:25 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // # include "../src/libft/get_next_line/get_next_line.h"
 // # include "../src/libft/libft.h"
 # include <stdbool.h>
+#include <linux/limits.h>
 
 typedef enum	e_etiles
 {
@@ -87,7 +88,7 @@ typedef struct	s_player
 
 typedef struct s_config
 {
-	char	*paths[4];
+	char	paths[4][PATH_MAX];
 	int		floor_c;
 	int		ceiling_c;
 }	t_config;
