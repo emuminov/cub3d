@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 15:05:25 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 18:44:23 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ typedef struct s_game
 	t_pixel_point	window_size;
 	t_img			texture[4];
 	int				mouse_pos;
-	// t_texture_dir	texture_dir;
 }					t_game;
 
 // PARSING

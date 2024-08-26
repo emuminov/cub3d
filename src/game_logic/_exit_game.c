@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   constants.h                                        :+:      :+:    :+:   */
+/*   _exit_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 22:37:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 15:05:42 by emuminov         ###   ########.fr       */
+/*   Created: 2024/08/26 15:51:03 by emuminov          #+#    #+#             */
+/*   Updated: 2024/08/26 15:51:52 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/cub3d.h"
+#include "../minilibx-linux/mlx.h"
+#include <stdlib.h>
 
-#ifndef CONSTANTS_H
-# define CONSTANTS_H
-# define WINDOW_WIDTH 896
-# define WINDOW_HEIGHT 768 
-# define MINIMAP_SIZE 320
-# define MINIMAP_TILE_SIZE 64
-# define TILE_SIZE 128
-# define RADIAN_TO_DEGREE_SCALING 0.0174533
-# define MOVEMENT_SPEED 0.08
-# define ROTATION_SPEED 2.0
-# define PLAYER_SIZE 0.1
-# define ALPHA_VALUE 200
-#endif
+int	exit_game(t_game *g)
+{
+	int	i;
+
+	i = -1;
+	mlx_destroy_image(g->mlx, g->frame.img);
+	while (++i < 4)
+		mlx_destroy_image(g->mlx, g->texture[i].img);
+	mlx_destroy_window(g->mlx, g->win);
+	mlx_destroy_display(g->mlx);
+	free(g->mlx);
+	free_config(&g->conf);
+	free_tab(g->map);
+	exit(0);
+}
