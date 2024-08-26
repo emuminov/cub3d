@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 15:43:09 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 18:30:11 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,12 @@ t_config_parsing	config_parsing_init(void)
 	i = -1;
 	while (++i < 4)
 		conf.paths[i][0] = '\0';
-	// i = -1;
-	// while (++i < 3)
-	// {
-	conf.floor_c[0] = -1;
-	conf.floor_c[1] = -1;
-	conf.floor_c[2] = -1;
-	conf.ceiling_c[0] = -1;
-	conf.ceiling_c[1] = -1;
-	conf.ceiling_c[2] = -1;
-	// }
+	i = -1;
+	while (++i < 3)
+	{
+		conf.floor_c[i] = -1;
+		conf.ceiling_c[i] = -1;
+	}
 	conf.map_1d = NULL;
 	conf.keys_finish = 0;
 	conf.map_fd = -1;
@@ -88,7 +84,7 @@ void	init_conf(t_game *g, t_config_parsing conf_p)
 	i = -1;
 	while (++i < 4)
 		ft_strlcpy(g->conf.paths[i], conf_p.paths[i],
-		ft_strlen(conf_p.paths[i]));
+		ft_strlen(conf_p.paths[i]) + 1);
 }
 
 int	parse_cub_map(t_game *g, int argc, char **argv)
