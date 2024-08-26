@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 18:44:23 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 21:02:33 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ int					_old_start_game(int argc, char **argv);
 int					start_game(int argc, char **argv);
 
 // FREE
-void				free_config(t_config *conf);
 void				free_tab(char **tab);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 18:29:29 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:24:24 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static void	init_textures(t_game *g)
 				mlx_destroy_image(g->mlx, g->texture[i].img);
 			mlx_destroy_display(g->mlx);
 			free(g->mlx);
-			free_config(&g->conf);
 			free_tab(g->map);
 			printf("\033[0;31m"
 				"Error\nA xpm file is not valid!\n"

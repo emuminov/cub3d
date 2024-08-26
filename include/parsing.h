@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:34:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 15:07:14 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 21:02:36 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ size_t				ft_strslen(char **strs);
 
 /*					// FREE \\					*/
 void				free_config_p(t_config_parsing *conf);
-void				free_config(t_config *conf);
 void				free_tab(char **tab);
 #endif

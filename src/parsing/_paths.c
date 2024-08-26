@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:18:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 16:41:59 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 21:02:44 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,3 @@ void	path_format_checker(char *str, t_config_parsing *conf)
 		exit(1);
 	}
 }
-
-// void	open_paths(t_config_parsing *conf_p, t_config *conf)
-// {
-// 	conf->east_fd = open(conf_p->east_path, O_RDONLY);
-// 	if (conf->east_fd == -1)
-// 		open_error_manager(conf_p, conf, conf_p->east_path, "East");
-// 	conf->north_fd = open(conf_p->north_path, O_RDONLY);
-// 	if (conf->north_fd == -1)
-// 		open_error_manager(conf_p, conf, conf_p->north_path, "North");
-// 	conf->west_fd = open(conf_p->west_path, O_RDONLY);
-// 	if (conf->west_fd == -1)
-// 		open_error_manager(conf_p, conf, conf_p->west_path, "West");
-// 	conf->south_fd = open(conf_p->south_path, O_RDONLY);
-// 	if (conf->south_fd == -1)
-// 		open_error_manager(conf_p, conf, conf_p->south_path, "South");
-// }
-
-// void	open_error_manager(t_config_parsing *conf_p, t_config *conf,
-// char *path, char *name)
-// {
-// 	printf("\033[0;31m"
-// 		"Error\n%s path: %s: no such file or directory!\n""\033[0m", name,
-// 		path);
-// 	free_config_p(conf_p);
-// 	free_config(conf);
-// 	exit(1);
-// }

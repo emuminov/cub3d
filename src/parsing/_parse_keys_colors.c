@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:12:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 16:51:31 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:23:09 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ceiling_key_manager(char *gnl, t_config_parsing *conf)
 	if (conf->ceiling_c[0] != -1)
 		return (printf("\033[0;31m"
 				"Error\nDouble keys are not allowed!\n""\033[0m")
-			, get_next_line(-1), free(gnl), free_config_p(conf), exit(1), 0);
+			, get_next_line(-1), free(gnl), exit(1), 0);
 	i += 1;
 	while (gnl[i] == ' ')
 		i++;
@@ -39,7 +39,7 @@ int	ceiling_key_manager(char *gnl, t_config_parsing *conf)
 	}
 	if (charcmp(gnl, ',') != 2)
 		return (printf("\033[0;31m""Error\nColors needs 3 numbers!\n""\033[0m")
-			, get_next_line(-1), free(gnl), free_config_p(conf), exit(1), 0);
+			, get_next_line(-1), free(gnl), exit(1), 0);
 	return (1);
 }
 
@@ -55,7 +55,7 @@ int	floor_key_manager(char *gnl, t_config_parsing *conf)
 	if (conf->floor_c[0] != -1)
 		return (printf("\033[0;31m"
 				"Error\nDouble keys are not allowed!\n""\033[0m")
-			, get_next_line(-1), free(gnl), free_config_p(conf), exit(1), 0);
+			, get_next_line(-1), free(gnl), exit(1), 0);
 	i += 1;
 	while (gnl[i] == ' ')
 		i++;
@@ -67,6 +67,6 @@ int	floor_key_manager(char *gnl, t_config_parsing *conf)
 	}
 	if (charcmp(gnl, ',') != 2)
 		return (printf("\033[0;31m""Error\nColors needs 3 numbers!\n""\033[0m")
-			, get_next_line(-1), free(gnl), free_config_p(conf), exit(1), 0);
+			, get_next_line(-1), free(gnl), exit(1), 0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 18:30:11 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 21:04:51 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	init_conf(t_game *g, t_config_parsing conf_p)
 	i = -1;
 	while (++i < 4)
 		ft_strlcpy(g->conf.paths[i], conf_p.paths[i],
-		ft_strlen(conf_p.paths[i]) + 1);
+			ft_strlen(conf_p.paths[i]) + 1);
 }
 
 int	parse_cub_map(t_game *g, int argc, char **argv)
@@ -106,7 +106,6 @@ int	parse_cub_map(t_game *g, int argc, char **argv)
 		|| parse_map(g->map_dup) == 1)
 	{
 		free_config_p(&conf_p);
-		free_config(&g->conf);
 		free_tab(g->map_dup);
 		free_tab(g->map);
 		exit (1);

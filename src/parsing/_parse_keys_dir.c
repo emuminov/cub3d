@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:10:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 16:53:50 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/26 21:03:54 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,14 @@ int	north_key_manager(char *gnl, t_config_parsing *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config_p(conf), exit(1), 0);
+		return (free(gnl), exit(1), 0);
 	}
 	i += 2;
 	while (gnl[i] == ' ')
 		i++;
 	ft_strlcpy(conf->paths[north_tex], &gnl[i], ft_strlen(&gnl[i]));
-	// if (gnl[ft_strlen(gnl) - 1] == '\n')
-	// 	conf->paths[north_tex][ft_strlen(conf->paths[north_tex])] = '\0';
 	return (1);
 }
-	// if (conf->paths[north_tex] == NULL)
-	// 	return (get_next_line(-1), free(gnl), free_config_p(conf), exit(1), 0);
 
 int	east_key_manager(char *gnl, t_config_parsing *conf)
 {
@@ -53,7 +49,7 @@ int	east_key_manager(char *gnl, t_config_parsing *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config_p(conf), exit(1), 0);
+		return (free(gnl), exit(1), 0);
 	}
 	i += 2;
 	while (gnl[i] == ' ')
@@ -75,7 +71,7 @@ int	west_key_manager(char *gnl, t_config_parsing *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config_p(conf), exit(1), 0);
+		return (free(gnl), exit(1), 0);
 	}
 	i += 2;
 	while (gnl[i] == ' ')
@@ -97,7 +93,7 @@ int	south_key_manager(char *gnl, t_config_parsing *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(gnl), free_config_p(conf), exit(1), 0);
+		return (free(gnl), exit(1), 0);
 	}
 	i += 2;
 	while (gnl[i] == ' ')

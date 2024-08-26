@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _exit_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:51:03 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 15:51:52 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:24:28 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	exit_game(t_game *g)
 	mlx_destroy_window(g->mlx, g->win);
 	mlx_destroy_display(g->mlx);
 	free(g->mlx);
-	free_config(&g->conf);
 	free_tab(g->map);
 	exit(0);
 }
