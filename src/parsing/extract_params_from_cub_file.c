@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 19:17:26 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:05:26 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,33 @@ void	config_init(t_game *g, t_config_parsing conf_p)
 	g->conf.map_size = (t_grid_coordsi){.x = j, .y = i};
 }
 
+static void	set_initial_player_params(t_game *g)
+{
+	const t_grid_coordsi	start = get_start(g->map);
+
+	if (g->map[start.y][start.x] == player_north)
+	{
+		g->player.dir = vectorf(0, -1);
+		g->player.plane = vectorf(0.66, 0);
+	}
+	else if (g->map[start.y][start.x] == player_south)
+	{
+		g->player.dir = vectorf(0, 1);
+		g->player.plane = vectorf(-0.66, 0);
+	}
+	else if (g->map[start.y][start.x] == player_east)
+	{
+		g->player.dir = vectorf(1, 0);
+		g->player.plane = vectorf(0, 0.66);
+	}
+	else if (g->map[start.y][start.x] == player_west)
+	{
+		g->player.dir = vectorf(-1, 0);
+		g->player.plane = vectorf(0, -0.66);
+	}
+	g->player.pos = vectorf(start.x + 0.5, start.y + 0.5);
+}
+
 int	extract_params_from_cub_file(t_game *g, int argc, char **argv)
 {
 	int					fd;
@@ -99,6 +126,7 @@ int	extract_params_from_cub_file(t_game *g, int argc, char **argv)
 		exit (1);
 	}
 	config_init(g, conf_p);
+	set_initial_player_params(g);
 	free_tab(map_dup);
 	free_config_p(&conf_p);
 	return (0);

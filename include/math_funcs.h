@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:25:47 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 14:36:01 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 19:52:28 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
  * vectors that represent direction, grid coordinates, pixels on window. */
 
 /*                  // VECTORF \\ 							*/
+t_vectorf		vectorf(double x, double y);
 double			vectorf_len(t_vectorf v);
 t_vectorf		vectorf_norm(t_vectorf v);
 t_vectorf		vectorf_sub(t_vectorf v1, t_vectorf v2);
 t_vectorf		vectorf_add(t_vectorf v1, t_vectorf v2);
 t_vectorf		vectorf_dir(t_vectorf start, t_vectorf end);
 t_vectorf		vectorf_scale(t_vectorf v, double nbr);
-t_vectorf		vectorf_abs(t_vectorf v);
 t_vectorf		vectorf_rotate(t_vectorf dir, double theta);
 t_vectorf		vectorf_round(t_vectorf v);
 t_vectorf		vectorf_epsilon(t_vectorf dir);

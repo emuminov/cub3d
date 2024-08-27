@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:27:35 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:04:23 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,6 @@ int	_old_start_mlx(t_game *g, int x, int y)
 	(void)dummy_mouse_pos_y;
 	g->window_size.x = x;
 	g->window_size.y = y;
-	g->player.pos = (t_grid_coordsf){.x = 1.5, .y = 1.5};
-	g->player.dir = (t_vectorf){.x = 1, .y = 0};
-	g->player.plane = (t_vectorf){.x = 0, .y = 0.66};
 	g->mlx = mlx_init();
 	init_textures(g);
 	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");

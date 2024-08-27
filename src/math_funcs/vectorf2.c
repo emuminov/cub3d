@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:15:40 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 00:29:02 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:52:12 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include "../../include/constants.h"
 #include <math.h>
 
+t_vectorf	vectorf(double x, double y)
+{
+	return ((t_vectorf){.x = x, .y = y});
+}
+
 t_vectorf	vectorf_scale(t_vectorf v, double nbr)
 {
 	return ((t_vectorf){.x = v.x * nbr, .y = v.y * nbr});
-}
-
-t_vectorf	vectorf_abs(t_vectorf v)
-{
-	return ((t_vectorf){.x = abs_f(v.x), .y = abs_f(v.y)});
 }
 
 // TODO: store the rotation constants somewhere
