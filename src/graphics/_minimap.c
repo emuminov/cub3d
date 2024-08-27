@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:35:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 14:50:06 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 16:21:53 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void				draw_tiles_around_player(t_game *g,
 		t_pixel_point offset, t_grid_coordsi start, t_grid_coordsi end);
 static void				draw_tile_based_on_map(t_game *g, t_grid_coordsi c,
 		t_pixel_point p, t_pixel_point bounds);
+static bool 			is_floor(t_game *g, t_grid_coordsi c);
 
 void	draw_minimap(t_game *g)
 {
@@ -65,6 +66,13 @@ static t_pixel_point	calculate_pixel_offset(t_grid_coordsi start,
 	return (offset);
 }
 
+static bool 	is_floor(t_game *g, t_grid_coordsi c)
+{
+	return (g->map[c.y][c.x] == '0' || g->map[c.y][c.x] == 'E' ||
+			g->map[c.y][c.x] == 'W' || g->map[c.y][c.x] == 'N' ||
+			g->map[c.y][c.x] == 'S');
+}
+
 static void	draw_tile_based_on_map(t_game *g, t_grid_coordsi c,
 		t_pixel_point p, t_pixel_point bounds)
 {
@@ -78,8 +86,11 @@ static void	draw_tile_based_on_map(t_game *g, t_grid_coordsi c,
 		draw_tile_bounds(&g->frame, p, 0x964B00, MINIMAP_TILE_SIZE, bounds);
 	else if (g->map[c.y][c.x] == door_opened)
 		draw_tile_bounds(&g->frame, p, 0x903000, MINIMAP_TILE_SIZE, bounds);
-	else
+	else if (is_floor(g, c))
 		draw_transparent_tile(&g->frame, p, 0xAAAAAA, MINIMAP_TILE_SIZE,
+				bounds);
+	else
+		draw_transparent_tile(&g->frame, p, 0x252525, MINIMAP_TILE_SIZE,
 				bounds);
 }
 
