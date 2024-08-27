@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:18:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 17:29:01 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:04:55 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	validate_keys(t_config_parsing *conf)
 
 	if (!conf->paths[north_tex][0] || !conf->paths[south_tex][0]
 		|| !conf->paths[west_tex][0] || !conf->paths[east_tex][0]
-		|| conf->floor_c[0] == -1 || conf->ceiling_c[0] == -1)
+		|| conf->floor_c[0] == -1 || conf->ceil_c[0] == -1)
 	{
 		printf("\033[0;31m""Error\nA key is missing!\n""\033[0m");
 		free_config_p(conf);
@@ -29,10 +29,10 @@ void	validate_keys(t_config_parsing *conf)
 	}
 	i = -1;
 	while (++i < 4)
-		path_format_checker(conf->paths[i], conf);
+		check_path_format(conf->paths[i], conf);
 }
 
-void	path_format_checker(char *str, t_config_parsing *conf)
+void	check_path_format(char *str, t_config_parsing *conf)
 {
 	char	*check;
 

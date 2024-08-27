@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_cub_map.c                                    :+:      :+:    :+:   */
+/*   extract_params_from_cub_file.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 17:29:07 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:17:26 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_config_parsing	config_parsing_init(int fd)
 	while (++i < 3)
 	{
 		conf.floor_c[i] = -1;
-		conf.ceiling_c[i] = -1;
+		conf.ceil_c[i] = -1;
 	}
 	conf.map_1d = NULL;
 	conf.are_keys_validated = 0;
@@ -57,18 +57,15 @@ int	stack_stats_init(t_stack_stats *stack_stats, int len_strs
 	return (0);
 }
 
-int	rgb_arr_to_int(int *rgb_arr)
-{
-	return (rgb_to_int(rgb_arr[0], rgb_arr[1], rgb_arr[2]));
-}
-
 void	config_init(t_game *g, t_config_parsing conf_p)
 {
 	int	i;
 	int	j;
 
-	g->conf.ceiling_c = rgb_arr_to_int(conf_p.ceiling_c);
-	g->conf.floor_c = rgb_arr_to_int(conf_p.floor_c);
+	g->conf.ceil_c = rgb_to_int(conf_p.ceil_c[0], conf_p.ceil_c[1],
+			conf_p.ceil_c[2]);
+	g->conf.floor_c = rgb_to_int(conf_p.floor_c[0], conf_p.floor_c[1],
+			conf_p.floor_c[2]);
 	i = -1;
 	while (++i < 4)
 		ft_strlcpy(g->conf.paths[i], conf_p.paths[i],
@@ -81,7 +78,7 @@ void	config_init(t_game *g, t_config_parsing conf_p)
 	g->conf.map_size = (t_grid_coordsi){.x = j, .y = i};
 }
 
-int	parse_cub_map(t_game *g, int argc, char **argv)
+int	extract_params_from_cub_file(t_game *g, int argc, char **argv)
 {
 	int					fd;
 	t_config_parsing	conf_p;

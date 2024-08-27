@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:28:00 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 17:28:07 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:04:36 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,29 @@
 #include "../libft/libft.h"
 #include <stdio.h>
 
-int	error_key(char *gnl, t_config_parsing *conf, int i, int strcmp_value)
+int	check_errors_keys(char *line, t_config_parsing *conf_p, int i,
+		int strcmp_value)
 {
-	if (gnl[i] != '\0' && gnl[i] != '\n' && ft_isspace(gnl[i]) == 0)
+	if (line[i] != '\0' && line[i] != '\n' && ft_isspace(line[i]) == 0)
 		return (1);
-	else if (gnl[i] == '\0' || gnl[i] == '\n')
+	else if (line[i] == '\0' || line[i] == '\n')
 		printf("\033[0;31m"
 			"Error\nOne of the value of a key is empty!\n""\033[0m");
 	else
 	{
-		while (gnl[i] == ' ')
+		while (line[i] == ' ')
 			i++;
-		if (ft_isspace(gnl[i]) == 1 && gnl[i] != '\n')
+		if (ft_isspace(line[i]) == 1 && line[i] != '\n')
 			printf("\033[0;31m"
 				"Error\nOnly spaces are accepted\n""\033[0m");
-		else if (gnl[i] == '\n' || gnl[i] == '\0')
+		else if (line[i] == '\n' || line[i] == '\0')
 			printf("\033[0;31m"
 				"Error\nOne of the value of a key is empty!\n""\033[0m");
 		else if (strcmp_value == 1)
 			return (0);
 	}
 	get_next_line(-1);
-	return (free(gnl), free_config_p(conf), exit(1), 1);
+	return (free(line), free_config_p(conf_p), exit(1), 1);
 }
 
 int	key_finish_check(char *line, t_config_parsing *conf)

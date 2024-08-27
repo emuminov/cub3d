@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:12:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 16:46:30 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:05:12 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,58 +15,58 @@
 #include <stdio.h>
 
 //TODO: NEED TO FIX PRE KEY SPACES
-int	parse_ceiling_key(char *gnl, t_config_parsing *conf)
+int	parse_ceiling_key(char *line, t_config_parsing *conf)
 {
 	int	i;
 
 	i = 0;
-	while (gnl[i] == ' ')
+	while (line[i] == ' ')
 		i++;
-	if (ft_strncmp(&gnl[i], "C", 1) != 0 || error_key(&gnl[i], conf, 1, 1) == 1)
+	if (ft_strncmp(&line[i], "C", 1) || check_errors_keys(&line[i], conf, 1, 1))
 		return (0);
-	if (conf->ceiling_c[0] != -1)
+	if (conf->ceil_c[0] != -1)
 		return (printf("\033[0;31m"
 				"Error\nDouble keys are not allowed!\n""\033[0m")
-			, get_next_line(-1), free(gnl), exit(1), 0);
+			, get_next_line(-1), free(line), exit(1), 0);
 	i += 1;
-	while (gnl[i] == ' ')
+	while (line[i] == ' ')
 		i++;
-	if (ft_strchr(&gnl[i], ',') != NULL && ft_strrchr(gnl, ',') != NULL)
+	if (ft_strchr(&line[i], ',') != NULL && ft_strrchr(line, ',') != NULL)
 	{
-		conf->ceiling_c[0] = ft_atoc(&gnl[i], gnl, conf);
-		conf->ceiling_c[1] = ft_atoc(ft_strchr(&gnl[i], ',') + 1, gnl, conf);
-		conf->ceiling_c[2] = ft_atoc(ft_strrchr(gnl, ',') + 1, gnl, conf);
+		conf->ceil_c[0] = check_rgb(&line[i], line, conf);
+		conf->ceil_c[1] = check_rgb(ft_strchr(&line[i], ',') + 1, line, conf);
+		conf->ceil_c[2] = check_rgb(ft_strrchr(line, ',') + 1, line, conf);
 	}
-	if (charcmp(gnl, ',') != 2)
+	if (charcmp(line, ',') != 2)
 		return (printf("\033[0;31m""Error\nColors needs 3 numbers!\n""\033[0m")
-			, get_next_line(-1), free(gnl), exit(1), 0);
+			, get_next_line(-1), free(line), exit(1), 0);
 	return (1);
 }
 
-int	parse_floor_key(char *gnl, t_config_parsing *conf)
+int	parse_floor_key(char *line, t_config_parsing *conf)
 {
 	int	i;
 
 	i = 0;
-	while (gnl[i] == ' ')
+	while (line[i] == ' ')
 		i++;
-	if (ft_strncmp(&gnl[i], "F", 1) != 0 || error_key(&gnl[i], conf, 1, 1) == 1)
+	if (ft_strncmp(&line[i], "F", 1) || check_errors_keys(&line[i], conf, 1, 1))
 		return (0);
 	if (conf->floor_c[0] != -1)
 		return (printf("\033[0;31m"
 				"Error\nDouble keys are not allowed!\n""\033[0m")
-			, get_next_line(-1), free(gnl), exit(1), 0);
+			, get_next_line(-1), free(line), exit(1), 0);
 	i += 1;
-	while (gnl[i] == ' ')
+	while (line[i] == ' ')
 		i++;
-	if (ft_strchr(&gnl[i], ',') != NULL && ft_strrchr(gnl, ',') != NULL)
+	if (ft_strchr(&line[i], ',') != NULL && ft_strrchr(line, ',') != NULL)
 	{
-		conf->floor_c[0] = ft_atoc(&gnl[i], gnl, conf);
-		conf->floor_c[1] = ft_atoc(ft_strchr(&gnl[i], ',') + 1, gnl, conf);
-		conf->floor_c[2] = ft_atoc(ft_strrchr(gnl, ',') + 1, gnl, conf);
+		conf->floor_c[0] = check_rgb(&line[i], line, conf);
+		conf->floor_c[1] = check_rgb(ft_strchr(&line[i], ',') + 1, line, conf);
+		conf->floor_c[2] = check_rgb(ft_strrchr(line, ',') + 1, line, conf);
 	}
-	if (charcmp(gnl, ',') != 2)
+	if (charcmp(line, ',') != 2)
 		return (printf("\033[0;31m""Error\nColors needs 3 numbers!\n""\033[0m")
-			, get_next_line(-1), free(gnl), exit(1), 0);
+			, get_next_line(-1), free(line), exit(1), 0);
 	return (1);
 }

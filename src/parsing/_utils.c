@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:16 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 16:51:18 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:08:24 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	space_checker(int i, const char *str)
 	return (0);
 }
 
-int	ft_atoc(const char *str, char *gnl, t_config_parsing *conf)
+int	check_rgb(const char *str, char *line, t_config_parsing *conf)
 {
 	int		result;
 	size_t	i;
@@ -57,17 +57,17 @@ int	ft_atoc(const char *str, char *gnl, t_config_parsing *conf)
 		i++;
 	if (ft_isspace(str[i]) == 1 && str[i] != '\n')
 		return (printf("\033[0;31m""Error\nOnly spaces are accepted\n""\033[0m")
-			, get_next_line(-1), free(gnl), free_config_p(conf), exit(1), -1);
+			, get_next_line(-1), free(line), free_config_p(conf), exit(1), 1);
 	if (str[i] != '\0' && str[i] != ',' && str[i] != '\n')
 		while (str[i] && ft_isdigit(str[i]))
 			result = (result * 10) + (str[i++] - '0');
 	else
 	{
 		printf("\033[0;31m""Error\nColors needs 3 numbers!\n""\033[0m");
-		return (get_next_line(-1), free(gnl), free_config_p(conf), exit(1), -1);
+		return (get_next_line(-1), free(line), free_config_p(conf), exit(1), 1);
 	}
 	if (space_checker(i, str) == 1)
-		return (get_next_line(-1), free(gnl), free_config_p(conf), exit(1), -1);
+		return (get_next_line(-1), free(line), free_config_p(conf), exit(1), 1);
 	return (result);
 }
 

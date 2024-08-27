@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:12 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 17:27:47 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:48:01 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	validate_map_walls(char **map)
 	i = -1;
 	while (map[++i])
 		len_tab[i] = (int)ft_strlen(map[i]);
-	i = fill(map, (int)ft_strslen(map), start, len_tab);
+	i = check_holes(map, (int)ft_strslen(map), start, len_tab);
 	if (i == 1)
 	{
 		printf("\033[0;31m""Error\nThe map is not closed!\n""\033[0m");
@@ -42,7 +42,7 @@ int	validate_map_walls(char **map)
 	return (free(len_tab), 0);
 }
 
-int	fill(char **tab, int len_strs, t_vectori cur, int *len_tab)
+int	check_holes(char **tab, int len_strs, t_vectori cur, int *len_tab)
 {
 	t_stack_stats	stack_stats;
 	int				inturn;
