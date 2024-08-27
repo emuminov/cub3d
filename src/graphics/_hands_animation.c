@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
 #include "../../include/constants.h"
+#include "../../include/cub3d.h"
 
 // void	render_hands(t_game *g)
 // {

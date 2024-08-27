@@ -13,7 +13,7 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 # define WINDOW_WIDTH 896
-# define WINDOW_HEIGHT 768 
+# define WINDOW_HEIGHT 768
 # define MINIMAP_SIZE 320
 # define MINIMAP_TILE_SIZE 64
 # define TILE_SIZE 128

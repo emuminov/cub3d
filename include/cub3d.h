@@ -13,8 +13,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <stdbool.h>
 # include <linux/limits.h>
+# include <stdbool.h>
 
 typedef enum e_etiles
 {
@@ -26,15 +26,15 @@ typedef enum e_etiles
 	player_south = 'S',
 	player_east = 'E',
 	player_west = 'W',
-}				t_tiles;
+}					t_tiles;
 
 typedef enum e_texture_dir
 {
-	north_tex ,
-	south_tex ,
-	east_tex ,
-	west_tex ,
-}				t_texture_dir;
+	north_tex,
+	south_tex,
+	east_tex,
+	west_tex,
+}					t_texture_dir;
 
 typedef struct s_vectorf
 {
@@ -91,7 +91,7 @@ typedef struct s_config
 	int				floor_c;
 	int				ceil_c;
 	t_grid_coordsi	map_size;
-}	t_config;
+}					t_config;
 
 typedef struct s_controls
 {
@@ -120,7 +120,8 @@ typedef struct s_game
 }					t_game;
 
 // PARSING
-int					extract_params_from_cub_file(t_game *g, int argc, char **argv);
+int					extract_params_from_cub_file(t_game *g, int argc,
+						char **argv);
 
 // GRAPHICS
 void				render_3d_graphics(t_game *g);
@@ -128,7 +129,7 @@ void				render_3d_graphics(t_game *g);
 // GAME_LOGIC
 int					_old_start_mlx(t_game *g, int x, int y);
 t_vectorf			check_cell_in_dir(t_game *g, t_vectorf dir,
-		double max_distance, char *checked_tiles);
+						double max_distance, char *checked_tiles);
 void				start_game_loop(t_game *g);
 int					create_window(t_game *g);
 

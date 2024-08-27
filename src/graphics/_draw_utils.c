@@ -6,14 +6,14 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:30:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 19:57:18 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:32:00 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/constants.h"
 #include "../../include/cub3d.h"
 #include "../../include/graphics.h"
 #include "../../include/math_funcs.h"
-#include "../../include/constants.h"
 #include <math.h>
 #include <stdlib.h>
 
@@ -42,28 +42,28 @@ void	draw_line(t_img *frame, t_pixel_point start, t_pixel_point end,
 }
 
 void	draw_transparent_tile(t_img *frame, t_pixel_point p, int color,
-		int tile_size, t_pixel_point bounds)
+		t_pixel_point bounds)
 {
 	t_pixel_point	start;
 	t_pixel_point	end;
 
 	start = p;
-	end.x = p.x + tile_size;
-	end.y = p.y + tile_size;
+	end.x = p.x + MINIMAP_TILE_SIZE;
+	end.y = p.y + MINIMAP_TILE_SIZE;
 	while (start.y < end.y)
 	{
 		start.x = p.x;
 		while (start.x < end.x)
 		{
 			if (start.x >= 0 && start.y >= 0)
-				put_pixel_on_img_bounds(frame, start, get_transparent_color(ALPHA_VALUE, color,
+				put_pixel_on_img_bounds(frame, start,
+					get_transparent_color(ALPHA_VALUE, color,
 						get_pixel_of_img(*frame, start)), bounds);
 			start.x++;
 		}
 		start.y++;
 	}
 }
-
 
 void	draw_square(t_img *frame, t_pixel_point pos, int size, int color)
 {
@@ -86,15 +86,15 @@ void	draw_square(t_img *frame, t_pixel_point pos, int size, int color)
 	}
 }
 
-void	draw_tile_bounds(t_img *frame, t_pixel_point p, int color, int
-		tile_size, t_pixel_point bounds)
+void	draw_tile_bounds(t_img *frame, t_pixel_point p, int color,
+		t_pixel_point bounds)
 {
 	t_pixel_point	start;
 	t_pixel_point	end;
 
 	start = p;
-	end.x = p.x + tile_size;
-	end.y = p.y + tile_size;
+	end.x = p.x + MINIMAP_TILE_SIZE;
+	end.y = p.y + MINIMAP_TILE_SIZE;
 	while (start.y < end.y)
 	{
 		start.x = p.x;

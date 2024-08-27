@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:11:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 19:56:48 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:45:12 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	_old_start_game(int argc, char **argv)
 {
 	static t_game		g;
 
-	parse_cub_map(&g, argc, argv);
+	extract_params_from_cub_file(&g, argc, argv);
 	_old_start_mlx(&g, WINDOW_WIDTH, WINDOW_HEIGHT);
 	return (0);
 }

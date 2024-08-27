@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 19:16:51 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:39:23 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,20 @@ void	render_3d_graphics(t_game *g)
 	t_grid_coordsf	ray;
 	t_vectorf		ray_dir;
 	int				texture_dir;
+			double wallX;
+	int				texX;
+	double			step;
+	double			texPos;
+	int				texY;
 
 	draw_ceiling_and_floor(&g->frame, g->conf.ceil_c, g->conf.floor_c);
 	x = 0;
 	while (x < g->window_size.x)
 	{
 		cam_x = 2 * x / (double)g->window_size.x - 1;
-		ray_dir = vectorf_add(g->player.dir, vectorf_scale(g->player.plane, cam_x));
-		ray = check_cell_in_dir(g, g->player.pos, ray_dir, 100, "1D");
+		ray_dir = vectorf_add(g->player.dir, vectorf_scale(g->player.plane,
+					cam_x));
+		ray = check_cell_in_dir(g, ray_dir, 100, "1D");
 		if (ray.x != -1)
 		{
 			if (g->dp.side == 0)
@@ -60,29 +66,29 @@ void	render_3d_graphics(t_game *g)
 			draw_end = line_height / 2 + g->window_size.y / 2;
 			if (draw_end >= g->window_size.y)
 				draw_end = g->window_size.y - 1;
-			double wallX;
 			if (g->dp.side == 0)
 				wallX = g->player.pos.y + g->dp.distance * ray_dir.y;
 			else
 				wallX = g->player.pos.x + g->dp.distance * ray_dir.x;
 			wallX -= floor(wallX);
-			int texX = (int)(wallX * (double)g->texture[texture_dir].dimensions.x);
-			if((g->dp.side == 0 && ray_dir.x > 0) 
-			|| (g->dp.side == 1 && ray_dir.y < 0))
+			texX = (int)(wallX * (double)g->texture[texture_dir].dimensions.x);
+			if ((g->dp.side == 0 && ray_dir.x > 0) || (g->dp.side == 1
+					&& ray_dir.y < 0))
 				texX = g->texture[texture_dir].dimensions.x - texX - 1;
-			
-			double step = 1.0 * g->texture[texture_dir].dimensions.y / line_height;
-			double texPos = (draw_start - (double)g->window_size.y / 2 + (double)line_height / 2) * step;
+			step = 1.0 * g->texture[texture_dir].dimensions.y / line_height;
+			texPos = (draw_start - (double)g->window_size.y / 2
+					+ (double)line_height / 2) * step;
 			y = draw_start;
 			while (y < draw_end)
 			{
-				int texY = (int)texPos; //& (g->texture.dimensions.y - 1);
+				texY = (int)texPos; //& (g->texture.dimensions.y - 1);
 				texPos += step;
-				
-				// int	color = get_pixel_of_img(g->frame, (t_pixel_point){texX, texY});
+				// int	color = get_pixel_of_img(g->frame, (t_pixel_point){texX,
+				//			texY});
 				// if(g->dp.side == 1) color = (color >> 1) & 8355711; //
-				put_pixel_on_img(&g->frame, (t_pixel_point){x,y}, get_pixel_of_img(g->texture[texture_dir], (t_pixel_point){texX, texY}));
-
+				put_pixel_on_img(&g->frame, (t_pixel_point){x, y},
+					get_pixel_of_img(g->texture[texture_dir],
+						(t_pixel_point){texX, texY}));
 				y++;
 			}
 		}
@@ -90,5 +96,5 @@ void	render_3d_graphics(t_game *g)
 	}
 	draw_minimap(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
-// mlx_destroy_image(g->mlx, g->frame.img);
+	// mlx_destroy_image(g->mlx, g->frame.img);
 }
