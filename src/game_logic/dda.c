@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:01 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 14:49:38 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 19:25:53 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static void	set_initial_dda_params(t_dda_params *dp, t_grid_coordsf start,
 static void	check_next_grid_cell(t_dda_params *dp);
 
 /* DDA algorithm for finding the nearest wall in the certain direction */
-t_vectorf	check_cell_in_dir(t_game *g, t_grid_coordsf start, t_vectorf dir,
-		double max_distance, char *checked_tiles)
+t_vectorf	check_cell_in_dir(t_game *g, t_vectorf dir, double max_distance,
+		char *checked_tiles)
 {
 	t_vectorf	intersection;
 
-	set_initial_dda_params(&g->dp, start, dir, max_distance);
+	set_initial_dda_params(&g->dp, g->player.pos, dir, max_distance);
 	while (!g->dp.found_cell && g->dp.distance < g->dp.max_distance)
 	{
 		check_next_grid_cell(&g->dp);
@@ -42,7 +42,8 @@ t_vectorf	check_cell_in_dir(t_game *g, t_grid_coordsf start, t_vectorf dir,
 			break ;
 	}
 	if (g->dp.found_cell)
-		intersection = vectorf_add(start, vectorf_scale(dir, g->dp.distance));
+		intersection = vectorf_add(g->player.pos,
+				vectorf_scale(dir, g->dp.distance));
 	else
 		intersection = (t_grid_coordsf){.x = -1, .y = -1};
 	return (intersection);

@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:07:41 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 17:59:10 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:25:31 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	resolve_movement(t_game *g)
 
 	checked_pos = vectorf_add(new_pos, (t_grid_coordsf){.x = PLAYER_SIZE
 			* mdir.x, .y = PLAYER_SIZE * mdir.y});
-	collision_point = check_cell_in_dir(g, g->player.pos, mdir, 1, "1D");
+	collision_point = check_cell_in_dir(g, mdir, 1, "1D");
 	if (collision_point.x == -1 || !is_beyond(checked_pos, collision_point,
 			mdir))
 		g->player.pos = new_pos;

@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:06:07 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 17:59:08 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:25:59 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	toggle_door(t_game *g)
 	if (g->map[(int)g->player.pos.y][(int)g->player.pos.x] == door_opened
 		|| g->map[(int)g->player.pos.y][(int)g->player.pos.x] == door_closed)
 		return ;
-	ray = check_cell_in_dir(g, g->player.pos, g->player.dir, 1, "DO");
+	ray = check_cell_in_dir(g, g->player.dir, 1, "DO");
 	(void)ray;
 	if (g->dp.distance > 0.75 || g->dp.type_of_found_cell == wall)
 		return ;

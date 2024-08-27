@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 19:16:54 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:23:56 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,8 @@ void				render_3d_graphics(t_game *g);
 
 // GAME_LOGIC
 int					_old_start_mlx(t_game *g, int x, int y);
-t_vectorf			check_cell_in_dir(t_game *g, t_grid_coordsf start,
-						t_vectorf dir, double max_distance,
-						char *checked_tiles);
+t_vectorf			check_cell_in_dir(t_game *g, t_vectorf dir,
+		double max_distance, char *checked_tiles);
 void				start_game_loop(t_game *g);
 int					create_window(t_game *g);
 

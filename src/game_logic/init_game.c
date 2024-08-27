@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 20:24:24 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 19:27:35 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,7 @@ static void	init_textures(t_game *g)
 			mlx_destroy_display(g->mlx);
 			free(g->mlx);
 			free_tab(g->map);
-			printf("\033[0;31m"
-				"Error\nA xpm file is not valid!\n"
-				"\033[0m");
+			printf("\033[0;31m""Error\nA xpm file is not valid!\n""\033[0m");
 			exit(1);
 		}
 		if (g->texture[i].dimensions.x > g->window_size.x
