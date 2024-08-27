@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:28:00 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 21:03:07 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 17:28:07 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,22 @@ int	error_key(char *gnl, t_config_parsing *conf, int i, int strcmp_value)
 	return (free(gnl), free_config_p(conf), exit(1), 1);
 }
 
-int	key_finish_check(char *gnl, t_config_parsing *conf)
+int	key_finish_check(char *line, t_config_parsing *conf)
 {
-	if (((ft_strncmp(gnl, "SO", 2) == 0 \
-		&& (gnl[2] == '\0' || gnl[2] == '\n' || gnl[2] == ' ')) \
-		|| (ft_strncmp(gnl, "NO", 2) == 0 \
-		&& (gnl[2] == '\0' || gnl[2] == '\n' || gnl[2] == ' ')) \
-		|| (ft_strncmp(gnl, "EA", 2) == 0 \
-		&& (gnl[2] == '\0' || gnl[2] == '\n' || gnl[2] == ' ')) \
-		|| (ft_strncmp(gnl, "WE", 2) == 0 \
-		&& (gnl[2] == '\0' || gnl[2] == '\n' || gnl[2] == ' ')) \
-		|| (ft_strncmp(gnl, "C", 1) == 0 \
-		&& (gnl[1] == '\0' || gnl[1] == '\n' || gnl[1] == ' ')) \
-		|| (ft_strncmp(gnl, "F", 1) == 0 \
-		&& (gnl[1] == '\0' || gnl[1] == '\n' || gnl[1] == ' ')) \
-		|| ft_strcmp(gnl, "\n") == 0) \
-		&& conf->keys_finish == 0)
+	if (((ft_strncmp(line, "SO", 2) == 0 \
+		&& (line[2] == '\0' || line[2] == '\n' || line[2] == ' ')) \
+		|| (ft_strncmp(line, "NO", 2) == 0 \
+		&& (line[2] == '\0' || line[2] == '\n' || line[2] == ' ')) \
+		|| (ft_strncmp(line, "EA", 2) == 0 \
+		&& (line[2] == '\0' || line[2] == '\n' || line[2] == ' ')) \
+		|| (ft_strncmp(line, "WE", 2) == 0 \
+		&& (line[2] == '\0' || line[2] == '\n' || line[2] == ' ')) \
+		|| (ft_strncmp(line, "C", 1) == 0 \
+		&& (line[1] == '\0' || line[1] == '\n' || line[1] == ' ')) \
+		|| (ft_strncmp(line, "F", 1) == 0 \
+		&& (line[1] == '\0' || line[1] == '\n' || line[1] == ' ')) \
+		|| ft_strcmp(line, "\n") == 0) \
+		&& conf->are_keys_validated == 0)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 16:29:57 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 17:59:00 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_player
 	t_grid_coordsf	pos;
 	t_vectorf		dir;
 	t_vectorf		plane;
+	bool			should_punch;
 }					t_player;
 
 typedef struct s_config
@@ -100,6 +101,7 @@ typedef struct s_controls
 	bool			move_down_pressed;
 	bool			move_left_pressed;
 	bool			move_right_pressed;
+	bool			punch_key_pressed;
 }					t_controls;
 
 typedef struct s_game

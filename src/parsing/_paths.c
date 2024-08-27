@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:18:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 21:02:44 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 17:29:01 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-void	paths_errors(t_config_parsing *conf)
+void	validate_keys(t_config_parsing *conf)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:34:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 16:46:21 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:29:04 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_config_parsing
 	int		floor_c[3];
 	int		ceiling_c[3];
 	char	*map_1d;
-	int		keys_finish;
+	int		are_keys_validated;
 }	t_config_parsing;
 
 typedef struct s_stack_stats
@@ -35,8 +35,8 @@ typedef struct s_stack_stats
 
 /*					// PARSE \\					*/
 int					parse_line(char *gnl, t_config_parsing *conf);
-void				pre_parsing(t_config_parsing *conf);
-int					parse_map(char **map);
+void				parse(t_config_parsing *conf);
+int					validate_map_walls(char **map);
 
 /*					// INNIT \\					*/
 t_config_parsing	config_parsing_init(int fd);
@@ -65,7 +65,7 @@ int					cur_border_checker(t_vectori cur,
 int					fill(char **tab, int len_strs, t_vectori cur, int *len_tab);
 
 /*					// PATH MANAGEMENT \\					*/
-void				paths_errors(t_config_parsing *conf);
+void				validate_keys(t_config_parsing *conf);
 void				path_format_checker(char *str, t_config_parsing *conf);
 void				open_paths(t_config_parsing *conf_p, t_config *conf);
 int					open_and_check_arg_errors(int argc, char *argv);

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:12 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 14:28:47 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 17:27:47 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../libft/libft.h"
 #include <stdio.h>
 
-int	parse_map(char **map)
+int	validate_map_walls(char **map)
 {
 	int			*len_tab;
 	int			i;

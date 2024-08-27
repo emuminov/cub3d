@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 16:34:29 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 17:29:07 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_config_parsing	config_parsing_init(int fd)
 		conf.ceiling_c[i] = -1;
 	}
 	conf.map_1d = NULL;
-	conf.keys_finish = 0;
+	conf.are_keys_validated = 0;
 	conf.map_fd = fd;
 	return (conf);
 }
@@ -89,12 +89,12 @@ int	parse_cub_map(t_game *g, int argc, char **argv)
 
 	fd = open_and_check_arg_errors(argc, argv[1]);
 	conf_p = config_parsing_init(fd);
-	pre_parsing(&conf_p);
-	paths_errors(&conf_p);
+	parse(&conf_p);
+	validate_keys(&conf_p);
 	map_dup = ft_split(conf_p.map_1d, '\n');
 	g->map = ft_split(conf_p.map_1d, '\n');
 	if (g->map == NULL || map_dup == NULL
-		|| parse_map(map_dup) == 1)
+		|| validate_map_walls(map_dup) == 1)
 	{
 		free_config_p(&conf_p);
 		free_tab(map_dup);

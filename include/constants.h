@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:37:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 14:30:51 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 18:39:46 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,6 @@
 # define ROTATION_SPEED 2.0
 # define PLAYER_SIZE 0.1
 # define ALPHA_VALUE 200
+# define LAST_PUNCH_FRAME 10
+# define LAST_IDLE_FRAME 10
 #endif
