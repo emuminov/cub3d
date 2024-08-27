@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 19:55:06 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:16:51 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	render_3d_graphics(t_game *g)
 	t_vectorf		ray_dir;
 	int				texture_dir;
 
-	draw_ceiling_and_floor(&g->frame, g->conf.ceiling_c, g->conf.floor_c);
+	draw_ceiling_and_floor(&g->frame, g->conf.ceil_c, g->conf.floor_c);
 	x = 0;
 	while (x < g->window_size.x)
 	{

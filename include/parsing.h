@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:34:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 17:29:04 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:04:02 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_config_parsing
 	int		map_fd;
 	char	paths[4][PATH_MAX];
 	int		floor_c[3];
-	int		ceiling_c[3];
+	int		ceil_c[3];
 	char	*map_1d;
 	int		are_keys_validated;
 }	t_config_parsing;
@@ -51,7 +51,7 @@ int					parse_west_key(char *gnl, t_config_parsing *conf);
 int					parse_south_key(char *gnl, t_config_parsing *conf);
 int					parse_ceiling_key(char *gnl, t_config_parsing *conf);
 int					parse_floor_key(char *gnl, t_config_parsing *conf);
-int					error_key(char *gnl, t_config_parsing *conf,
+int					check_errors_keys(char *gnl, t_config_parsing *conf,
 						int i, int strcmp_value);
 int					key_finish_check(char *gnl, t_config_parsing *conf);
 
@@ -62,18 +62,18 @@ void				manage_xy_fill(char **tab, t_stack_stats *stack_s,
 						t_vectori cur);
 int					cur_border_checker(t_vectori cur,
 						int *len_tab, int len_strs);
-int					fill(char **tab, int len_strs, t_vectori cur, int *len_tab);
+int					check_holes(char **tab, int len_strs, t_vectori cur, int *len_tab);
 
 /*					// PATH MANAGEMENT \\					*/
 void				validate_keys(t_config_parsing *conf);
-void				path_format_checker(char *str, t_config_parsing *conf);
+void				check_path_format(char *str, t_config_parsing *conf);
 void				open_paths(t_config_parsing *conf_p, t_config *conf);
 int					open_and_check_arg_errors(int argc, char *argv);
 void				open_error_manager(t_config_parsing *conf_p, t_config *conf,
 						char *path, char *name);
 
 /*					// UTILS \\					*/
-int					ft_atoc(const char *str, char *gnl, t_config_parsing *conf);
+int					check_rgb(const char *str, char *gnl, t_config_parsing *conf);
 int					charcmp(char *str, char c);
 char				*ft_strjoin_free(char *s1, char *s2);
 t_vectori			get_start(char **map);

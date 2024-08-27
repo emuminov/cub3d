@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 17:59:00 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:16:54 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct s_config
 {
 	char			paths[4][PATH_MAX];
 	int				floor_c;
-	int				ceiling_c;
+	int				ceil_c;
 	t_grid_coordsi	map_size;
 }	t_config;
 
@@ -120,7 +120,7 @@ typedef struct s_game
 }					t_game;
 
 // PARSING
-int					parse_cub_map(t_game *g, int argc, char **argv);
+int					extract_params_from_cub_file(t_game *g, int argc, char **argv);
 
 // GRAPHICS
 void				render_3d_graphics(t_game *g);
