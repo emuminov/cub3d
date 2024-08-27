@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:30:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:32:00 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 01:55:19 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,28 @@
 #include <math.h>
 #include <stdlib.h>
 
-/* DDA line drawing algorithm */
-void	draw_line(t_img *frame, t_pixel_point start, t_pixel_point end,
+/* Uses DDA line drawing algorithm. delta variable is reused after as
+ * a placeholder for the rounded vector, to reduce the number of variables. */
+void	draw_mininmap_line(t_img *frame, t_pixel_point start, t_pixel_point end,
 		int color)
 {
-	const t_pixel_point	delta = vectori_sub(end, start);
-	const int			steps = max(abs(delta.x), abs(delta.y));
+	t_pixel_point		delta;
 	t_vectorf			next_point;
 	t_vectorf			inc;
+	int					steps;
 	int					i;
 
-	next_point = (t_vectorf){.x = start.x, .y = start.y};
-	inc = (t_vectorf){.x = (double)delta.x / steps, .y = (double)delta.y
-		/ steps};
+	delta = vectori_sub(end, start);
+	next_point = vectorf(start.x, start.y);
+	steps = max(abs(delta.x), abs(delta.y));
+	inc = vectorf((double)delta.x / steps, (double)delta.y / steps);
 	i = 0;
 	while (i < steps)
 	{
-		put_pixel_on_img_bounds(frame, (t_pixel_point){.x = round(next_point.x),
-			.y = round(next_point.y)}, color, frame->dimensions);
+		delta = vectori(round(next_point.x), round(next_point.y));
+		put_pixel_on_img_bounds(frame, delta, get_transparent_color(10, color,
+				get_pixel_of_img_bounds(*frame, delta, frame->dimensions)),
+				vectori(MINIMAP_SIZE, MINIMAP_SIZE));
 		next_point.x += inc.x;
 		next_point.y += inc.y;
 		i++;

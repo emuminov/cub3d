@@ -6,13 +6,14 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 19:54:09 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 01:23:31 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include "constants.h"
 # include <linux/limits.h>
 # include <stdbool.h>
 
@@ -68,8 +69,9 @@ typedef struct s_dda_params
 	t_grid_coordsf	ray_step;
 	t_grid_coordsf	rate_of_change;
 	t_grid_coordsf	dist_until_grid_side;
+	t_grid_coordsf	last_cell;
 	t_grid_coordsi	inspected_grid;
-	bool			found_cell;
+	bool			is_cell_found;
 	int				side;
 	double			camera;
 	double			distance;
@@ -117,6 +119,7 @@ typedef struct s_game
 	t_controls		controls;
 	t_pixel_point	window_size;
 	int				mouse_pos;
+	t_grid_coordsf	rays[WINDOW_WIDTH];
 }					t_game;
 
 // PARSING
@@ -128,7 +131,7 @@ void				render_3d_graphics(t_game *g);
 
 // GAME_LOGIC
 int					_old_start_mlx(t_game *g, int x, int y);
-t_vectorf			check_cell_in_dir(t_game *g, t_vectorf dir,
+bool				check_cell_in_dir(t_game *g, t_vectorf dir,
 						double max_distance, char *checked_tiles);
 void				start_game_loop(t_game *g);
 int					create_window(t_game *g);

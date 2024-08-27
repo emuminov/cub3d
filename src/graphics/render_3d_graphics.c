@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 19:39:23 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 01:25:05 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	render_3d_graphics(t_game *g)
 	int				x;
 	int				y;
 	double			cam_x;
-	t_grid_coordsf	ray;
 	t_vectorf		ray_dir;
 	int				texture_dir;
 			double wallX;
@@ -42,8 +41,9 @@ void	render_3d_graphics(t_game *g)
 		cam_x = 2 * x / (double)g->window_size.x - 1;
 		ray_dir = vectorf_add(g->player.dir, vectorf_scale(g->player.plane,
 					cam_x));
-		ray = check_cell_in_dir(g, ray_dir, 100, "1D");
-		if (ray.x != -1)
+		check_cell_in_dir(g, ray_dir, 100, "1D");
+		g->rays[x] = g->dp.last_cell;
+		if (g->dp.is_cell_found)
 		{
 			if (g->dp.side == 0)
 			{

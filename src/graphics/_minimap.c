@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:35:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:37:13 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 01:52:33 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	draw_minimap(t_game *g)
 	t_grid_coordsf	top_left_grid;
 	t_grid_coordsi	start;
 	t_grid_coordsi	end;
+	int				x;
 
+	check_cell_in_dir(g, g->player.dir, 100, "1D");
 	top_left_grid = vectorf_sub(g->player.pos, (t_grid_coordsf){.x = 2.5,
 			.y = 2.5});
 	start.x = floor(top_left_grid.x);
@@ -39,18 +41,18 @@ void	draw_minimap(t_game *g)
 	end.y = floor(top_left_grid.y + 5);
 	draw_tiles_around_player(g, calculate_pixel_offset(start, g->player.pos),
 		start, end);
+	x = 0;
+	while (x < WINDOW_WIDTH)
+	{
+		draw_mininmap_line(&g->frame, vectori(MINIMAP_SIZE / 2,
+					MINIMAP_SIZE / 2), grid_coordsf_to_pixel_point(
+						vectorf_sub(g->rays[x], top_left_grid),
+					MINIMAP_TILE_SIZE), 0xFFD700);
+		x++;
+	}
 	draw_square(&g->frame, vectori(MINIMAP_SIZE / 2, MINIMAP_SIZE / 2), 25,
 		0xAA00AA);
 }
-// if (ray.x != -1)
-// {
-// 	draw_line(&g->frame, (t_pixel_point){.x = 320, .y = 320},
-// 			grid_coordsf_to_pixel_point(vectorf_sub(ray, top_left_grid)),
-//			0xAA00AA);
-// 	draw_hollow_square(&g->frame,
-//		grid_coordsf_to_pixel_point(vectorf_sub(ray, top_left_grid)), 25,
-// 			0x2AAA2A);
-// }
 
 /* Calculates the pixel position of the start of visible tile.
  * It will be [0 0] if tile is fully visible, or one of the values will be

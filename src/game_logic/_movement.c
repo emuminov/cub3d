@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:07:41 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:59:38 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 01:21:38 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,11 @@ void	resolve_movement(t_game *g)
 {
 	const t_grid_coordsf	new_pos = move_player(g->player, &g->controls);
 	const t_grid_coordsf	mdir = get_movement_dir(&g->controls, &g->player);
-	t_grid_coordsf			collision_point;
-	t_grid_coordsf			checked_pos;
+	const t_grid_coordsf	checked_pos = vectorf_add(new_pos,
+			vectorf(PLAYER_SIZE * mdir.x, PLAYER_SIZE * mdir.y));
 
-	checked_pos = vectorf_add(new_pos, (t_grid_coordsf){.x = PLAYER_SIZE
-			* mdir.x, .y = PLAYER_SIZE * mdir.y});
-	collision_point = check_cell_in_dir(g, mdir, 1, "1D");
-	if (collision_point.x == -1 || !is_beyond(checked_pos, collision_point,
-			mdir))
+	check_cell_in_dir(g, mdir, 1, "1D");
+	if (!g->dp.is_cell_found || !is_beyond(checked_pos, g->dp.last_cell,
+				mdir))
 		g->player.pos = new_pos;
 }

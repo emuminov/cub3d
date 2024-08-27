@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:26:51 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:39:05 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 01:46:57 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 /* Gets color on certain point on the image */
 unsigned int	get_pixel_of_img(t_img img, t_pixel_point p)
 {
+	return (*(unsigned int *)((img.addr + (p.y * img.line_len)
+			+ (p.x * img.bits_per_pixel / 8))));
+}
+
+unsigned int	get_pixel_of_img_bounds(t_img img, t_pixel_point p,
+		t_pixel_point bounds)
+{
+	if (p.x < 0 || p.x >= bounds.x || p.y < 0 || p.y >= bounds.y)
+		return (0);
 	return (*(unsigned int *)((img.addr + (p.y * img.line_len)
 			+ (p.x * img.bits_per_pixel / 8))));
 }

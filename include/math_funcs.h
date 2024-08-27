@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:25:47 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:52:28 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 00:31:52 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ t_vectorf		vectorf_round(t_vectorf v);
 t_vectorf		vectorf_epsilon(t_vectorf dir);
 
 /*					// GRID PIXEL CONVERSIONS \\ 			*/
-t_pixel_point	grid_coordsf_to_pixel_point(t_grid_coordsf v);
-t_pixel_point	grid_coordsi_to_pixel_point(t_grid_coordsi v);
-t_grid_coordsf	pixel_point_to_grid_coordsf(t_pixel_point v);
-t_grid_coordsi	pixel_point_to_grid_coordsi(t_pixel_point v);
+t_pixel_point	grid_coordsf_to_pixel_point(t_grid_coordsf v, int tile_size);
+t_pixel_point	grid_coordsi_to_pixel_point(t_grid_coordsi v, int tile_size);
+t_grid_coordsf	pixel_point_to_grid_coordsf(t_pixel_point v, int tile_size);
+t_grid_coordsi	pixel_point_to_grid_coordsi(t_pixel_point v, int tile_size);
 
 /*					// GRID BOUNDS CHECKING \\ 				*/
 bool			is_in_bounds_of_grid(t_grid_coordsi v, t_grid_coordsi map_size);
