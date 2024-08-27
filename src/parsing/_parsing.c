@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:31:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 16:42:52 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 16:46:16 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ int	parse_line(char *line, t_config_parsing *conf_p)
 		return (0);
 	if (conf_p->keys_finish == 0)
 	{
-		key_rv += north_key_manager(line, conf_p);
-		key_rv += south_key_manager(line, conf_p);
-		key_rv += east_key_manager(line, conf_p);
-		key_rv += west_key_manager(line, conf_p);
-		key_rv += floor_key_manager(line, conf_p);
-		key_rv += ceiling_key_manager(line, conf_p);
+		key_rv += parse_north_key(line, conf_p);
+		key_rv += parse_south_key(line, conf_p);
+		key_rv += parse_east_key(line, conf_p);
+		key_rv += parse_west_key(line, conf_p);
+		key_rv += parse_floor_key(line, conf_p);
+		key_rv += parse_ceiling_key(line, conf_p);
 	}
 	conf_p->keys_finish += map_manager(line, conf_p);
 	if (key_rv != 1 && (ft_strcmp(line, "\n") != 0) && conf_p->keys_finish == 0)

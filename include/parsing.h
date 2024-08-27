@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:34:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 16:43:17 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 16:46:21 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ int					stack_stats_init(t_stack_stats *stack_stats, int len_strs,
 						int *len_tab, t_vectori cur);
 
 /*					// KEY MANAGEMENT \\					*/
-int					north_key_manager(char *gnl, t_config_parsing *conf);
-int					east_key_manager(char *gnl, t_config_parsing *conf);
-int					west_key_manager(char *gnl, t_config_parsing *conf);
-int					south_key_manager(char *gnl, t_config_parsing *conf);
-int					ceiling_key_manager(char *gnl, t_config_parsing *conf);
-int					floor_key_manager(char *gnl, t_config_parsing *conf);
+int					parse_north_key(char *gnl, t_config_parsing *conf);
+int					parse_east_key(char *gnl, t_config_parsing *conf);
+int					parse_west_key(char *gnl, t_config_parsing *conf);
+int					parse_south_key(char *gnl, t_config_parsing *conf);
+int					parse_ceiling_key(char *gnl, t_config_parsing *conf);
+int					parse_floor_key(char *gnl, t_config_parsing *conf);
 int					error_key(char *gnl, t_config_parsing *conf,
 						int i, int strcmp_value);
 int					key_finish_check(char *gnl, t_config_parsing *conf);

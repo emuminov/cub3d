@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:12:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 16:43:31 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 16:46:30 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 
 //TODO: NEED TO FIX PRE KEY SPACES
-int	ceiling_key_manager(char *gnl, t_config_parsing *conf)
+int	parse_ceiling_key(char *gnl, t_config_parsing *conf)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ int	ceiling_key_manager(char *gnl, t_config_parsing *conf)
 	return (1);
 }
 
-int	floor_key_manager(char *gnl, t_config_parsing *conf)
+int	parse_floor_key(char *gnl, t_config_parsing *conf)
 {
 	int	i;
 

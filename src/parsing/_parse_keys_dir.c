@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:10:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 16:43:32 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 16:45:48 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../libft/libft.h"
 #include <stdio.h>
 
-int	north_key_manager(char *gnl, t_config_parsing *conf)
+int	parse_north_key(char *gnl, t_config_parsing *conf)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ int	north_key_manager(char *gnl, t_config_parsing *conf)
 	return (1);
 }
 
-int	east_key_manager(char *gnl, t_config_parsing *conf)
+int	parse_east_key(char *gnl, t_config_parsing *conf)
 {
 	int	i;
 
@@ -58,7 +58,7 @@ int	east_key_manager(char *gnl, t_config_parsing *conf)
 	return (1);
 }
 
-int	west_key_manager(char *gnl, t_config_parsing *conf)
+int	parse_west_key(char *gnl, t_config_parsing *conf)
 {
 	int	i;
 
@@ -80,7 +80,7 @@ int	west_key_manager(char *gnl, t_config_parsing *conf)
 	return (1);
 }
 
-int	south_key_manager(char *gnl, t_config_parsing *conf)
+int	parse_south_key(char *gnl, t_config_parsing *conf)
 {
 	int	i;
 
