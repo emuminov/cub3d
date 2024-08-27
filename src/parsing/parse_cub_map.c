@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 14:54:30 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 16:34:29 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_config_p(t_config_parsing *conf)
 		close(conf->map_fd);
 }
 
-t_config_parsing	config_parsing_init(void)
+t_config_parsing	config_parsing_init(int fd)
 {
 	t_config_parsing	conf;
 	int					i;
@@ -40,7 +40,7 @@ t_config_parsing	config_parsing_init(void)
 	}
 	conf.map_1d = NULL;
 	conf.keys_finish = 0;
-	conf.map_fd = -1;
+	conf.map_fd = fd;
 	return (conf);
 }
 
@@ -85,23 +85,24 @@ int	parse_cub_map(t_game *g, int argc, char **argv)
 {
 	int					fd;
 	t_config_parsing	conf_p;
+	char				**map_dup;
 
-	fd = error_manager(argc, argv[1]);
-	conf_p = config_parsing_init();
-	pre_parsing(fd, &conf_p);
+	fd = open_and_check_arg_errors(argc, argv[1]);
+	conf_p = config_parsing_init(fd);
+	pre_parsing(&conf_p);
 	paths_errors(&conf_p);
-	g->map_dup = ft_split(conf_p.map_1d, '\n');
+	map_dup = ft_split(conf_p.map_1d, '\n');
 	g->map = ft_split(conf_p.map_1d, '\n');
-	if (g->map == NULL || g->map_dup == NULL
-		|| parse_map(g->map_dup) == 1)
+	if (g->map == NULL || map_dup == NULL
+		|| parse_map(map_dup) == 1)
 	{
 		free_config_p(&conf_p);
-		free_tab(g->map_dup);
+		free_tab(map_dup);
 		free_tab(g->map);
 		exit (1);
 	}
 	config_init(g, conf_p);
-	free_tab(g->map_dup);
+	free_tab(map_dup);
 	free_config_p(&conf_p);
 	return (0);
 }

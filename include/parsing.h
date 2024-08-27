@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:34:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 14:52:29 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 16:43:17 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ typedef struct s_stack_stats
 
 /*					// PARSE \\					*/
 int					parse_line(char *gnl, t_config_parsing *conf);
-void				pre_parsing(int fd, t_config_parsing *conf);
+void				pre_parsing(t_config_parsing *conf);
 int					parse_map(char **map);
 
 /*					// INNIT \\					*/
-t_config_parsing	config_parsing_init(void);
+t_config_parsing	config_parsing_init(int fd);
 t_game				game_init(int argc, char **argv);
 int					stack_stats_init(t_stack_stats *stack_stats, int len_strs,
 						int *len_tab, t_vectori cur);
@@ -68,7 +68,7 @@ int					fill(char **tab, int len_strs, t_vectori cur, int *len_tab);
 void				paths_errors(t_config_parsing *conf);
 void				path_format_checker(char *str, t_config_parsing *conf);
 void				open_paths(t_config_parsing *conf_p, t_config *conf);
-int					error_manager(int argc, char *argv);
+int					open_and_check_arg_errors(int argc, char *argv);
 void				open_error_manager(t_config_parsing *conf_p, t_config *conf,
 						char *path, char *name);
 

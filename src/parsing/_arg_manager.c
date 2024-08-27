@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:19:59 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 01:12:02 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:32:04 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-int	error_manager(int argc, char *argv)
+int	open_and_check_arg_errors(int argc, char *argv)
 {
 	char	*check;
 	int		fd;

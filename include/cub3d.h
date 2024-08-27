@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 14:49:08 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 16:29:57 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,13 @@ typedef struct s_game
 	void			*mlx;
 	void			*win;
 	t_img			frame;
+	t_img			texture[4];
 	t_player		player;
 	t_dda_params	dp;
 	char			**map;
-	char			**map_dup;
 	t_config		conf;
 	t_controls		controls;
 	t_pixel_point	window_size;
-	t_img			texture[4];
 	int				mouse_pos;
 }					t_game;
 
