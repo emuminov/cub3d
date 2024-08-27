@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_funcs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:25:47 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 18:00:56 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:36:01 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ int					get_r(int rgb);
 int					get_g(int rgb);
 int					get_b(int rgb);
 int					get_transparent_color(int transparency, int color,
-		int background);
+						int background);
 #endif

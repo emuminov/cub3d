@@ -6,19 +6,17 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/26 21:02:33 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 14:49:08 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-// # include "../src/libft/get_next_line/get_next_line.h"
-// # include "../src/libft/libft.h"
 # include <stdbool.h>
-#include <linux/limits.h>
+# include <linux/limits.h>
 
-typedef enum	e_etiles
+typedef enum e_etiles
 {
 	empty = '0',
 	wall = '1',
@@ -30,7 +28,7 @@ typedef enum	e_etiles
 	player_west = 'W',
 }				t_tiles;
 
-typedef enum	e_texture_dir
+typedef enum e_texture_dir
 {
 	north_tex ,
 	south_tex ,
@@ -79,7 +77,7 @@ typedef struct s_dda_params
 	t_tiles			type_of_found_cell;
 }					t_dda_params;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	t_grid_coordsf	pos;
 	t_vectorf		dir;
@@ -88,11 +86,11 @@ typedef struct	s_player
 
 typedef struct s_config
 {
-	char	paths[4][PATH_MAX];
-	int		floor_c;
-	int		ceiling_c;
+	char			paths[4][PATH_MAX];
+	int				floor_c;
+	int				ceiling_c;
+	t_grid_coordsi	map_size;
 }	t_config;
-
 
 typedef struct s_controls
 {
@@ -115,7 +113,6 @@ typedef struct s_game
 	char			**map_dup;
 	t_config		conf;
 	t_controls		controls;
-	t_grid_coordsi	map_size;
 	t_pixel_point	window_size;
 	t_img			texture[4];
 	int				mouse_pos;
@@ -130,7 +127,8 @@ void				render_3d_graphics(t_game *g);
 // GAME_LOGIC
 int					_old_start_mlx(t_game *g, int x, int y);
 t_vectorf			check_cell_in_dir(t_game *g, t_grid_coordsf start,
-		t_vectorf dir, double max_distance, char *checked_tiles);
+						t_vectorf dir, double max_distance,
+						char *checked_tiles);
 void				start_game_loop(t_game *g);
 int					create_window(t_game *g);
 

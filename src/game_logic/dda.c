@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:01 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 18:29:55 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:49:38 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_vectorf	check_cell_in_dir(t_game *g, t_grid_coordsf start, t_vectorf dir,
 	while (!g->dp.found_cell && g->dp.distance < g->dp.max_distance)
 	{
 		check_next_grid_cell(&g->dp);
-		if (is_in_bounds_of_grid(g->dp.inspected_grid, g->map_size))
+		if (is_in_bounds_of_grid(g->dp.inspected_grid, g->conf.map_size))
 		{
 			if (ft_strchr(checked_tiles,
 					g->map[g->dp.inspected_grid.y][g->dp.inspected_grid.x]))

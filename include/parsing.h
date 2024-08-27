@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:34:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 21:02:36 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/27 14:52:29 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ typedef struct s_config_parsing
 
 typedef struct s_stack_stats
 {
-	int		stack_size;
-	int		len_strs;
-	int		*len_tab;
+	int			stack_size;
+	int			len_strs;
+	int			*len_tab;
 	t_vectori	*stack;
 }	t_stack_stats;
 
@@ -40,10 +40,9 @@ int					parse_map(char **map);
 
 /*					// INNIT \\					*/
 t_config_parsing	config_parsing_init(void);
-t_config			config_init(void);
 t_game				game_init(int argc, char **argv);
 int					stack_stats_init(t_stack_stats *stack_stats, int len_strs,
-					int *len_tab, t_vectori cur);
+						int *len_tab, t_vectori cur);
 
 /*					// KEY MANAGEMENT \\					*/
 int					north_key_manager(char *gnl, t_config_parsing *conf);
@@ -58,10 +57,11 @@ int					key_finish_check(char *gnl, t_config_parsing *conf);
 
 /*					// MAP MANAGEMENT \\					*/
 void				manage_inturn_fill(t_stack_stats *stack_s,
-					t_vectori cur, int *inturn);
+						t_vectori cur, int *inturn);
 void				manage_xy_fill(char **tab, t_stack_stats *stack_s,
-					t_vectori cur);
-int					cur_border_checker(t_vectori cur, int *len_tab, int len_strs);
+						t_vectori cur);
+int					cur_border_checker(t_vectori cur,
+						int *len_tab, int len_strs);
 int					fill(char **tab, int len_strs, t_vectori cur, int *len_tab);
 
 /*					// PATH MANAGEMENT \\					*/
@@ -76,7 +76,7 @@ void				open_error_manager(t_config_parsing *conf_p, t_config *conf,
 int					ft_atoc(const char *str, char *gnl, t_config_parsing *conf);
 int					charcmp(char *str, char c);
 char				*ft_strjoin_free(char *s1, char *s2);
-t_vectori				get_start(char **map);
+t_vectori			get_start(char **map);
 size_t				ft_strslen(char **strs);
 
 /*					// FREE \\					*/
