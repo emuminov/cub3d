@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 00:54:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 16:05:43 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:42:46 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ void	toggle_mouse(t_game *g)
 		mlx_mouse_get_pos(g->mlx, g->win,
 			&g->old_mouse_pos.x, &g->old_mouse_pos.y);
 		g->mouse_enabled = true;
-		mlx_mouse_hide(g->mlx, g->win);
 		mlx_mouse_move(g->mlx, g->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+		if (SHOULD_HIDE_MOUSE)
+			mlx_mouse_hide(g->mlx, g->win);
 	}
 	else
 	{
-		mlx_mouse_show(g->mlx, g->win);
 		mlx_mouse_move(g->mlx, g->win, g->old_mouse_pos.x, g->old_mouse_pos.y);
 		g->mouse_enabled = false;
+		if (SHOULD_HIDE_MOUSE)
+			mlx_mouse_show(g->mlx, g->win);
 	}
 }
 

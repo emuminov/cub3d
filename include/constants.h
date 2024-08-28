@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:37:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 16:06:21 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:46:58 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,9 @@
 # define MINIMAP_FOV_ALPHA 5
 # define LAST_PUNCH_FRAME 10
 # define LAST_IDLE_FRAME 10
+# ifdef HIDE_MOUSE
+#  define SHOULD_HIDE_MOUSE 1
+# else 
+#  define SHOULD_HIDE_MOUSE 0
+# endif
 #endif
