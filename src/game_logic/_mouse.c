@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 00:54:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/26 18:28:23 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:05:43 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,45 @@
 #include "../../include/math_funcs.h"
 #include "../minilibx-linux/mlx.h"
 
-// TODO: replace hardcoded values
-// TODO: figure out the way for the mouse to work only if the window is focused
-void	handle_mouse(t_game *g)
+void	toggle_mouse(t_game *g)
 {
-	int	x;
-	int	y;
+	if (!g->mouse_enabled)
+	{
+		mlx_mouse_get_pos(g->mlx, g->win,
+			&g->old_mouse_pos.x, &g->old_mouse_pos.y);
+		g->mouse_enabled = true;
+		mlx_mouse_hide(g->mlx, g->win);
+		mlx_mouse_move(g->mlx, g->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+	}
+	else
+	{
+		mlx_mouse_show(g->mlx, g->win);
+		mlx_mouse_move(g->mlx, g->win, g->old_mouse_pos.x, g->old_mouse_pos.y);
+		g->mouse_enabled = false;
+	}
+}
 
+int	handle_mouse(int x, int y, t_game *g)
+{
+	const t_pixel_point	center = vectori((WINDOW_WIDTH / 2),
+			(WINDOW_HEIGHT / 2));
+	int					delta;
+
+	if (!g->mouse_enabled)
+		return (1);
 	(void)y;
-	mlx_mouse_get_pos(g->mlx, g->win, &x, &y);
-	if (x > g->mouse_pos)
-		g->player.dir = vectorf_rotate(g->player.dir, 0.3);
-	else if (x < g->mouse_pos)
-		g->player.dir = vectorf_rotate(g->player.dir, -0.3);
-	if (x < 210 || x > 430 || y < 210 || y > 430)
-		mlx_mouse_move(g->mlx, g->win, 320, 320);
-	mlx_mouse_hide(g->mlx, g->win);
-	g->mouse_pos = x;
+	delta = x - center.x;
+	if (delta > 0)
+	{
+		g->player.dir = vectorf_rotate(g->player.dir, MOUSE_ROTATION_SPEED);
+		g->player.plane = vectorf_rotate(g->player.plane, MOUSE_ROTATION_SPEED);
+	}
+	else if (delta < 0)
+	{
+		g->player.dir = vectorf_rotate(g->player.dir, -MOUSE_ROTATION_SPEED);
+		g->player.plane = vectorf_rotate(g->player.plane,
+				-MOUSE_ROTATION_SPEED);
+	}
+	mlx_mouse_move(g->mlx, g->win, center.x, center.y);
+	return (0);
 }

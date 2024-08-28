@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 20:04:23 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:57:37 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,18 @@ static int	game_loop(t_game *g);
 
 int	create_window(t_game *g)
 {
-	int	dummy_mouse_pos_y;
-
-	(void)dummy_mouse_pos_y;
 	g->window_size = vectori(WINDOW_WIDTH, WINDOW_HEIGHT);
 	init_img_data(g->mlx, &g->frame, g->window_size);
 	g->win = mlx_new_window(g->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d");
-	mlx_mouse_get_pos(g->mlx, g->win, &g->mouse_pos, &dummy_mouse_pos_y);
 	return (0);
 }
 
 void	start_game_loop(t_game *g)
 {
+	mlx_mouse_get_pos(g->mlx, g->win, &g->old_mouse_pos.x, &g->old_mouse_pos.y);
 	mlx_hook(g->win, 2, (1L << 0), handle_key_press, g);
 	mlx_hook(g->win, 3, (1L << 1), handle_key_release, g);
+	mlx_hook(g->win, 6, (1L << 6), handle_mouse, g);
 	mlx_hook(g->win, DestroyNotify, StructureNotifyMask, exit_game, g);
 	mlx_loop_hook(g->mlx, game_loop, g);
 	mlx_loop(g->mlx);
@@ -76,16 +74,12 @@ static void	init_textures(t_game *g)
 // TODO: delete later, temporary function
 int	_old_start_mlx(t_game *g, int x, int y)
 {
-	int	dummy_mouse_pos_y;
-
-	(void)dummy_mouse_pos_y;
 	g->window_size.x = x;
 	g->window_size.y = y;
 	g->mlx = mlx_init();
 	init_textures(g);
 	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
 	init_img_data(g->mlx, &g->frame, g->window_size);
-	mlx_mouse_get_pos(g->mlx, g->win, &g->mouse_pos, &y);
 	start_game_loop(g);
 	return (0);
 }

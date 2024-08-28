@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/28 01:23:31 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:53:19 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ typedef struct s_game
 	t_config		conf;
 	t_controls		controls;
 	t_pixel_point	window_size;
-	int				mouse_pos;
+	t_pixel_point	old_mouse_pos;
+	bool			mouse_enabled;
 	t_grid_coordsf	rays[WINDOW_WIDTH];
 }					t_game;
 

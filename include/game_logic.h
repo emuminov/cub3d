@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:20:22 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 14:34:16 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:57:19 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int				exit_game(t_game *g);
 
 /*					// MOUSE \\								*/
 /* Handles rotations with mouse. */
-void			handle_mouse(t_game *g);
+int				handle_mouse(int x, int y, t_game *g);
+void			toggle_mouse(t_game *g);
 
 /*					// DOORS \\				*/
 void			toggle_door(t_game *g);

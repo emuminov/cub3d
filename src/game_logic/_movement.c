@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:07:41 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 13:55:58 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:05:21 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ void	resolve_movement(t_game *g)
 
 	check_cell_in_dir(g, mdir, 1, "1D");
 	if (!g->dp.is_cell_found || !is_beyond(checked_pos, g->dp.last_cell,
-				mdir))
+			mdir))
 		g->player.pos = new_pos;
 }

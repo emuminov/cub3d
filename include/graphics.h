@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 23:15:32 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 01:47:20 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:07:15 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void			draw_minimap(t_game *g);
 /*					// MLX IMG UTILS \\						*/
 unsigned int	get_pixel_of_img(t_img img, t_pixel_point p);
 unsigned int	get_pixel_of_img_bounds(t_img img, t_pixel_point p,
-		t_pixel_point bounds);
+					t_pixel_point bounds);
 void			put_pixel_on_img(t_img *img, t_pixel_point p, int color);
 void			put_pixel_on_img_bounds(t_img *img, t_pixel_point p, int color,
 					t_pixel_point bounds);
 
 /*					// DRAW UTILS \\ 						*/
 /* Functions for drawing simple shapes. */
-void			draw_mininmap_line(t_img *frame, t_pixel_point start, t_pixel_point end,
-					int color);
+void			draw_mininmap_line(t_img *frame, t_pixel_point start,
+					t_pixel_point end, int color);
 void			draw_square(t_img *frame, t_pixel_point pos, int size,
 					int color);
 void			draw_tile_bounds(t_img *frame, t_pixel_point p, int color,

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:12:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 18:41:15 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:02:59 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	handle_key_press(int keysym, t_game *g)
 	}
 	else if (keysym == XK_e)
 		toggle_door(g);
+	else if (keysym == XK_q)
+		toggle_mouse(g);
 	else if (keysym == XK_Escape)
 		exit_game(g);
 	return (0);
