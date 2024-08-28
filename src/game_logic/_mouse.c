@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 00:54:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 19:02:49 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 23:11:15 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	handle_mouse(int x, int y, t_game *g)
 {
 	const t_pixel_point	center = vectori((WINDOW_WIDTH / 2),
 			(WINDOW_HEIGHT / 2));
-	int					delta;
+	int									delta;
 
+	(void)y;
 	if (!g->mouse_enabled)
 		return (1);
-	(void)y;
 	delta = x - center.x;
 	if (delta > 0)
 	{
@@ -55,6 +55,7 @@ int	handle_mouse(int x, int y, t_game *g)
 		g->player.plane = vectorf_rotate(g->player.plane,
 				-MOUSE_ROTATION_SPEED);
 	}
-	mlx_mouse_move(g->mlx, g->win, center.x, center.y);
+	if (x != center.x && y != center.y)
+		mlx_mouse_move(g->mlx, g->win, center.x, center.y);
 	return (0);
 }
