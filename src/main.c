@@ -6,13 +6,14 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:11:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 18:45:12 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:50:15 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include "../include/constants.h"
 #include "./minilibx-linux/mlx.h"
+#include <stddef.h>
 
 int	_old_start_game(int argc, char **argv)
 {
@@ -31,10 +32,13 @@ int	start_game(int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
-	//1. Do parsing
+	extract_params_from_cub_file(&g, argc, argv);
 	g.mlx = mlx_init();
-	//2. Init textures
-	create_window(&g);
+	if (g.mlx == NULL)
+		return (1); // TODO: cleanup the memory
+	init_textures(&g);
+	if (create_window(&g) == 1)
+		return (1); // TODO: cleanup the memory
 	start_game_loop(&g);
 	return (0);
 }

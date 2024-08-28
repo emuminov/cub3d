@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/28 15:53:19 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:28:33 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ bool				check_cell_in_dir(t_game *g, t_vectorf dir,
 						double max_distance, char *checked_tiles);
 void				start_game_loop(t_game *g);
 int					create_window(t_game *g);
+void				init_textures(t_game *g);
 
 // INIT
 int					_old_start_game(int argc, char **argv);

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 19:03:27 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:28:12 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ static int	game_loop(t_game *g);
 int	create_window(t_game *g)
 {
 	g->window_size = vectori(WINDOW_WIDTH, WINDOW_HEIGHT);
-	init_img_data(g->mlx, &g->frame, g->window_size);
+	if (init_img_data(g->mlx, &g->frame, g->window_size) == 1)
+		return (1);
 	g->win = mlx_new_window(g->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d");
+	if (g->win == NULL)
+		return (1);
 	return (0);
 }
 
@@ -42,7 +45,7 @@ void	start_game_loop(t_game *g)
 	mlx_loop(g->mlx);
 }
 
-static void	init_textures(t_game *g)
+void	init_textures(t_game *g)
 {
 	int	i;
 

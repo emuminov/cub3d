@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:44:21 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/25 02:45:16 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:06:10 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	init_img_data(void *mlx, t_img *img, t_pixel_point p)
 	img->dimensions = p;
 	img->img = mlx_new_image(mlx, p.x, p.y);
 	if (!img->img)
-		return (-1);
+		return (1);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_len, &img->endian);
 	return (0);
