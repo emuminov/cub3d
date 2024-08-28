@@ -6,14 +6,13 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:07:41 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 01:21:38 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:55:58 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/constants.h"
 #include "../../include/cub3d.h"
 #include "../../include/math_funcs.h"
-#include <stdio.h>
 
 t_grid_coordsf	move_player(t_player p, const t_controls *controls)
 {
@@ -73,13 +72,11 @@ void	resolve_rotation(t_game *g)
 	{
 		g->player.dir = vectorf_rotate(g->player.dir, -ROTATION_SPEED);
 		g->player.plane = vectorf_rotate(g->player.plane, -ROTATION_SPEED);
-		printf("%f %f\n", g->player.plane.x, g->player.plane.y);
 	}
 	else if (g->controls.rotate_right_pressed)
 	{
 		g->player.dir = vectorf_rotate(g->player.dir, ROTATION_SPEED);
 		g->player.plane = vectorf_rotate(g->player.plane, ROTATION_SPEED);
-		printf("%f %f\n", g->player.plane.x, g->player.plane.y);
 	}
 }
 
