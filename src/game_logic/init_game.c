@@ -6,11 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/08/28 19:02:03 by emuminov         ###   ########.fr       */
-=======
-/*   Updated: 2024/08/28 19:00:14 by emuminov         ###   ########.fr       */
->>>>>>> d689def (feat: implemented controls for toggling mouse and it's logic style: normalized include/ and the game_logic/)
+/*   Updated: 2024/08/28 19:03:27 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
