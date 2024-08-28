@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/28 01:25:05 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:21:22 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,88 @@
 #include <X11/Xutil.h>
 #include <math.h>
 
-void	render_3d_graphics(t_game *g)
+typedef struct s_graphics
 {
 	int				draw_end;
 	int				draw_start;
+	int				texture_direction;
 	int				line_height;
-	int				x;
+	double			wall_x_point;
+	t_pixel_point	tex_point;
+}	t_graphics;
+
+void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
+{
 	int				y;
+	double			texture_pos;
+	double			step;
+
+	y = graph->draw_start;
+	graph->tex_point.x = (int)(graph->wall_x_point
+			* (double)g->texture[graph->texture_direction].dimensions.x);
+	if ((g->dp.side == 0 && ray_dir->x > 0) || (g->dp.side == 1
+			&& ray_dir->y < 0))
+		graph->tex_point.x = g->texture[graph->texture_direction].dimensions.x
+			- graph->tex_point.x - 1;
+	step = 1.0 * g->texture[graph->texture_direction].dimensions.y
+		/ graph->line_height;
+	texture_pos = (graph->draw_start - (double)g->window_size.y / 2
+			+ (double)graph->line_height / 2) * step;
+	while (y < graph->draw_end)
+	{
+		graph->tex_point.y = (int)texture_pos;
+		texture_pos += step;
+		put_pixel_on_img(&g->frame, (t_pixel_point){x, y},
+			get_pixel_of_img(g->texture[graph->texture_direction],
+				graph->tex_point));
+		y++;
+	}
+}
+//& (g->texture[graph->texture_direction].dimensions.y - 1);//EYEBROWS DIMENSION
+// int	color = get_pixel_of_img(g->frame, (t_pixel_point){texX,//COLOR CHANGE
+//			texY});//COLOR CHANGE
+// if(g->dp.side == 1) color = (color >> 1) & 8355711;//COLOR CHANGE
+
+void	get_texture_direction(t_game *g, t_graphics *graph, t_vectorf *ray_dir)
+{
+	if (g->dp.side == 0)
+	{
+		if (ray_dir->x < 0)
+			graph->texture_direction = west_tex;
+		else
+			graph->texture_direction = east_tex;
+	}
+	else
+	{
+		if (ray_dir->y > 0)
+			graph->texture_direction = south_tex;
+		else
+			graph->texture_direction = north_tex;
+	}
+}
+
+void	calcul_drawing_values(t_game *g, t_graphics *graph, t_vectorf *ray_dir)
+{
+	graph->line_height = (int)(g->window_size.y / g->dp.distance);
+	graph->draw_start = -graph->line_height / 2 + g->window_size.y / 2;
+	if (graph->draw_start < 0)
+		graph->draw_start = 0;
+	graph->draw_end = graph->line_height / 2 + g->window_size.y / 2;
+	if (graph->draw_end >= g->window_size.y)
+		graph->draw_end = g->window_size.y - 1;
+	if (g->dp.side == 0)
+		graph->wall_x_point = g->player.pos.y + g->dp.distance * ray_dir->y;
+	else
+		graph->wall_x_point = g->player.pos.x + g->dp.distance * ray_dir->x;
+	graph->wall_x_point -= floor(graph->wall_x_point);
+}
+
+void	render_3d_graphics(t_game *g)
+{
+	t_graphics		graph;
+	int				x;
 	double			cam_x;
 	t_vectorf		ray_dir;
-	int				texture_dir;
-			double wallX;
-	int				texX;
-	double			step;
-	double			texPos;
-	int				texY;
 
 	draw_ceiling_and_floor(&g->frame, g->conf.ceil_c, g->conf.floor_c);
 	x = 0;
@@ -45,56 +112,12 @@ void	render_3d_graphics(t_game *g)
 		g->rays[x] = g->dp.last_cell;
 		if (g->dp.is_cell_found)
 		{
-			if (g->dp.side == 0)
-			{
-				if (ray_dir.x < 0)
-					texture_dir = west_tex;
-				else
-					texture_dir = east_tex;
-			}
-			else
-			{
-				if (ray_dir.y > 0)
-					texture_dir = south_tex;
-				else
-					texture_dir = north_tex;
-			}
-			line_height = (int)(g->window_size.y / g->dp.distance);
-			draw_start = -line_height / 2 + g->window_size.y / 2;
-			if (draw_start < 0)
-				draw_start = 0;
-			draw_end = line_height / 2 + g->window_size.y / 2;
-			if (draw_end >= g->window_size.y)
-				draw_end = g->window_size.y - 1;
-			if (g->dp.side == 0)
-				wallX = g->player.pos.y + g->dp.distance * ray_dir.y;
-			else
-				wallX = g->player.pos.x + g->dp.distance * ray_dir.x;
-			wallX -= floor(wallX);
-			texX = (int)(wallX * (double)g->texture[texture_dir].dimensions.x);
-			if ((g->dp.side == 0 && ray_dir.x > 0) || (g->dp.side == 1
-					&& ray_dir.y < 0))
-				texX = g->texture[texture_dir].dimensions.x - texX - 1;
-			step = 1.0 * g->texture[texture_dir].dimensions.y / line_height;
-			texPos = (draw_start - (double)g->window_size.y / 2
-					+ (double)line_height / 2) * step;
-			y = draw_start;
-			while (y < draw_end)
-			{
-				texY = (int)texPos; //& (g->texture.dimensions.y - 1);
-				texPos += step;
-				// int	color = get_pixel_of_img(g->frame, (t_pixel_point){texX,
-				//			texY});
-				// if(g->dp.side == 1) color = (color >> 1) & 8355711; //
-				put_pixel_on_img(&g->frame, (t_pixel_point){x, y},
-					get_pixel_of_img(g->texture[texture_dir],
-						(t_pixel_point){texX, texY}));
-				y++;
-			}
+			get_texture_direction(g, &graph, &ray_dir);
+			calcul_drawing_values(g, &graph, &ray_dir);
+			draw_walls(g, &graph, x, &ray_dir);
 		}
 		x++;
 	}
 	draw_minimap(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
-	// mlx_destroy_image(g->mlx, g->frame.img);
 }
