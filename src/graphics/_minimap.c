@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:35:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 01:52:33 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:00:22 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	draw_minimap(t_game *g)
 	while (x < WINDOW_WIDTH)
 	{
 		draw_mininmap_line(&g->frame, vectori(MINIMAP_SIZE / 2,
-					MINIMAP_SIZE / 2), grid_coordsf_to_pixel_point(
-						vectorf_sub(g->rays[x], top_left_grid),
-					MINIMAP_TILE_SIZE), 0xFFD700);
+				MINIMAP_SIZE / 2), grid_coordsf_to_pixel_point(
+				vectorf_sub(g->rays[x], top_left_grid),
+				MINIMAP_TILE_SIZE), 0xFFD700);
 		x++;
 	}
 	draw_square(&g->frame, vectori(MINIMAP_SIZE / 2, MINIMAP_SIZE / 2), 25,

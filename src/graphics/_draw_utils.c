@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:30:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 01:55:19 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:59:25 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 void	draw_mininmap_line(t_img *frame, t_pixel_point start, t_pixel_point end,
 		int color)
 {
-	t_pixel_point		delta;
-	t_vectorf			next_point;
-	t_vectorf			inc;
-	int					steps;
-	int					i;
+	t_pixel_point	delta;
+	t_vectorf		next_point;
+	t_vectorf		inc;
+	int				steps;
+	int				i;
 
 	delta = vectori_sub(end, start);
 	next_point = vectorf(start.x, start.y);
@@ -36,9 +36,10 @@ void	draw_mininmap_line(t_img *frame, t_pixel_point start, t_pixel_point end,
 	while (i < steps)
 	{
 		delta = vectori(round(next_point.x), round(next_point.y));
-		put_pixel_on_img_bounds(frame, delta, get_transparent_color(10, color,
+		put_pixel_on_img_bounds(frame, delta,
+			get_transparent_color(MINIMAP_FOV_ALPHA, color,
 				get_pixel_of_img_bounds(*frame, delta, frame->dimensions)),
-				vectori(MINIMAP_SIZE, MINIMAP_SIZE));
+			vectori(MINIMAP_SIZE, MINIMAP_SIZE));
 		next_point.x += inc.x;
 		next_point.y += inc.y;
 		i++;
@@ -61,7 +62,7 @@ void	draw_transparent_tile(t_img *frame, t_pixel_point p, int color,
 		{
 			if (start.x >= 0 && start.y >= 0)
 				put_pixel_on_img_bounds(frame, start,
-					get_transparent_color(ALPHA_VALUE, color,
+					get_transparent_color(MINIMAP_ALPHA, color,
 						get_pixel_of_img(*frame, start)), bounds);
 			start.x++;
 		}
