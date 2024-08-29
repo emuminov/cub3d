@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:12 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 18:48:01 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:05:43 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 #include "../libft/libft.h"
 #include <stdio.h>
 
-int	validate_map_walls(char **map)
+int	validate_map_walls(char **map, t_game *g)
 {
-	int			*len_tab;
 	int			i;
 	t_vectori	start;
 
@@ -24,22 +23,22 @@ int	validate_map_walls(char **map)
 	if (start.y == -1 && start.x == -1)
 		return (printf("\033[0;31m""Error\nThe map needs to have one player!\n"
 				"\033[0m"), 1);
-	len_tab = malloc(sizeof(int) * ft_strslen(map));
-	if (len_tab == NULL)
+	g->len_tab = malloc(sizeof(int) * ft_strslen(map));
+	if (g->len_tab == NULL)
 		return (printf("\033[0;31m""Error\nMalloc error!\n"
 				"\033[0m"), 1);
 	i = -1;
 	while (map[++i])
-		len_tab[i] = (int)ft_strlen(map[i]);
-	i = check_holes(map, (int)ft_strslen(map), start, len_tab);
+		g->len_tab[i] = (int)ft_strlen(map[i]);
+	i = check_holes(map, (int)ft_strslen(map), start, g->len_tab);
 	if (i == 1)
 	{
 		printf("\033[0;31m""Error\nThe map is not closed!\n""\033[0m");
-		return (free(len_tab), 1);
+		return (free(g->len_tab), 1);
 	}
 	if (i == 2)
-		return (free(len_tab), 1);
-	return (free(len_tab), 0);
+		return (free(g->len_tab), 1);
+	return (0);
 }
 
 int	check_holes(char **tab, int len_strs, t_vectori cur, int *len_tab)

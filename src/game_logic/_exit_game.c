@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:51:03 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/29 22:18:53 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/30 00:08:01 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	exit_game(t_game *g)
 	mlx_destroy_window(g->mlx, g->win);
 	mlx_destroy_display(g->mlx);
 	free(g->mlx);
+	free(g->len_tab);
 	free_tab(g->map);
 	exit(0);
 }

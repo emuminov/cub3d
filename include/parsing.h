@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:34:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:04:02 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:05:54 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_stack_stats
 /*					// PARSE \\					*/
 int					parse_line(char *gnl, t_config_parsing *conf);
 void				parse(t_config_parsing *conf);
-int					validate_map_walls(char **map);
+int					validate_map_walls(char **map, t_game *g);
 
 /*					// INNIT \\					*/
 t_config_parsing	config_parsing_init(int fd);

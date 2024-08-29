@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:35:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/29 22:13:34 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:15:34 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	draw_tile_based_on_map(t_game *g, t_grid_coordsi c, t_pixel_point p,
 		t_pixel_point bounds)
 {
 	if (c.y < 0 || c.x < 0 || c.y > (g->conf.map_size.y - 1)
-		|| c.x > (g->conf.map_size.x - 1))
+		|| c.x > (g->len_tab[c.y]))
 		draw_transparent_tile(&g->frame, p, 0x252525, bounds);
 	else if (g->map[c.y][c.x] == wall)
 		draw_tile_bounds(&g->frame, p, 0x555555, bounds);

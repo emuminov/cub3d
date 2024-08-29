@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/29 23:19:43 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:14:27 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,13 @@ typedef struct s_game
 	t_img			walk_textures[8];
 	char			walk_tex_path[8][33];
 	t_player		player;
+	int				*len_tab;
 	t_dda_params	dp;
 	char			**map;
 	t_config		conf;
 	t_controls		controls;
 	t_pixel_point	window_size;
-	t_pixel_point	old_mouse_pos;
-	bool			mouse_enabled;
+	int				mouse_pos;
 	t_grid_coordsf	rays[WINDOW_WIDTH];
 }					t_game;
 
@@ -135,14 +135,11 @@ int					extract_params_from_cub_file(t_game *g, int argc,
 void				render_3d_graphics(t_game *g);
 
 // GAME_LOGIC
+int					_old_start_mlx(t_game *g, int x, int y);
 bool				check_cell_in_dir(t_game *g, t_vectorf dir,
 						double max_distance, char *checked_tiles);
 void				start_game_loop(t_game *g);
 int					create_window(t_game *g);
-void				init_textures(t_game *g);
-void				init_animations_path(t_game *g);
-void				init_animations(t_game *g, t_img *texture, int max
-, char (*path)[33]);
 
 // INIT
 int					_old_start_game(int argc, char **argv);
