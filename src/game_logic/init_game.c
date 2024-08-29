@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/29 23:11:52 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:19:06 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	init_textures(t_game *g)
 	}
 }
 
-static void	init_animations_path(t_game *g)
+void	init_animations_path(t_game *g)
 {
 	ft_strlcpy(g->idle_tex_path[0], "./textures/hand_anim/frame_0.xpm", 33);
 	ft_strlcpy(g->idle_tex_path[1], "./textures/hand_anim/frame_1.xpm", 33);
@@ -90,7 +90,7 @@ static void	init_animations_path(t_game *g)
 	ft_strlcpy(g->walk_tex_path[7], "./textures/walk_anim/frame_7.xpm", 33);
 }
 
-static void	init_animations(t_game *g, t_img *texture, int max
+void	init_animations(t_game *g, t_img *texture, int max
 , char (*path)[33])
 {
 	int	i;
@@ -110,27 +110,6 @@ static void	init_animations(t_game *g, t_img *texture, int max
 				&texture[i].endian);
 		i++;
 	}
-}
-
-/* Temprorary function that substitutes parsoing with hardcoded values */
-// TODO: delete later, temporary function
-int	_old_start_mlx(t_game *g, int x, int y)
-{
-	int	dummy_mouse_pos_y;
-
-	(void)dummy_mouse_pos_y;
-	g->window_size.x = x;
-	g->window_size.y = y;
-	g->mlx = mlx_init();
-	init_textures(g);
-	init_animations_path(g);
-	init_animations(g, g->idle_textures, 6, g->idle_tex_path);
-	init_animations(g, g->walk_textures, 8, g->walk_tex_path);
-	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
-	init_img_data(g->mlx, &g->frame, g->window_size);
-	mlx_mouse_get_pos(g->mlx, g->win, &g->mouse_pos, &y);
-	start_game_loop(g);
-	return (0);
 }
 
 static int	game_loop(t_game *g)

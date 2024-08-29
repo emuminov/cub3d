@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/29 23:11:41 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:19:43 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,9 @@ bool				check_cell_in_dir(t_game *g, t_vectorf dir,
 void				start_game_loop(t_game *g);
 int					create_window(t_game *g);
 void				init_textures(t_game *g);
+void				init_animations_path(t_game *g);
+void				init_animations(t_game *g, t_img *texture, int max
+, char (*path)[33]);
 
 // INIT
 int					_old_start_game(int argc, char **argv);

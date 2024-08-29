@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:11:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/29 22:07:57 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:24:54 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ int	start_game(int argc, char **argv)
 
 	extract_params_from_cub_file(&g, argc, argv);
 	g.mlx = mlx_init();
-	g.window_size = vectori(WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (g.mlx == NULL)
 		return (1); // TODO: cleanup the memory
+	g.window_size = vectori(WINDOW_WIDTH, WINDOW_HEIGHT);
 	init_textures(&g);
+	init_animations_path(&g);
+	init_animations(&g, g.idle_textures, 6, g.idle_tex_path);
+	init_animations(&g, g.walk_textures, 8, g.walk_tex_path);
 	if (create_window(&g) == 1)
 		return (1); // TODO: cleanup the memory
 	start_game_loop(&g);
