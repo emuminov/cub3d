@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:31:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 19:14:13 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/29 21:58:33 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_map_errors(char *line, t_config_parsing *conf_p)
 		return (0);
 	while (line[++i])
 	{
-		if (ft_strchr(" 01NESW\n", line[i]) == NULL)
+		if (ft_strchr(" 01NESWD\n", line[i]) == NULL)
 			return (printf("\033[0;31m"
 					"Error\nUnrecognized character in map!\n""\033[0m")
 				, get_next_line(-1), free_config_p(conf_p), free(line)

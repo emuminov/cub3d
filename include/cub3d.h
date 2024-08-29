@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/28 19:28:33 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/29 22:07:36 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ int					extract_params_from_cub_file(t_game *g, int argc,
 void				render_3d_graphics(t_game *g);
 
 // GAME_LOGIC
-int					_old_start_mlx(t_game *g, int x, int y);
 bool				check_cell_in_dir(t_game *g, t_vectorf dir,
 						double max_distance, char *checked_tiles);
 void				start_game_loop(t_game *g);

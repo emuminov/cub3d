@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:35:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 14:00:22 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/29 22:13:34 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ static t_pixel_point	calculate_pixel_offset(t_grid_coordsi start,
 
 static bool	is_floor(t_game *g, t_grid_coordsi c)
 {
-	return (g->map[c.y][c.x] == '0' || g->map[c.y][c.x] == 'E'
-		|| g->map[c.y][c.x] == 'W' || g->map[c.y][c.x] == 'N'
-		|| g->map[c.y][c.x] == 'S');
+	return (g->map[c.y][c.x] == empty || g->map[c.y][c.x] == player_east
+		|| g->map[c.y][c.x] == player_west || g->map[c.y][c.x] == player_north
+		|| g->map[c.y][c.x] == player_south);
 }
 
 static void	draw_tile_based_on_map(t_game *g, t_grid_coordsi c, t_pixel_point p,

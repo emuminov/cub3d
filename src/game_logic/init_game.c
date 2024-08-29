@@ -6,14 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 19:28:12 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/29 22:05:13 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/constants.h"
 #include "../../include/cub3d.h"
 #include "../../include/game_logic.h"
-#include "../../include/math_funcs.h"
 #include "../minilibx-linux/mlx.h"
 #include <X11/XKBlib.h>
 #include <stdio.h>
@@ -25,7 +24,6 @@ static int	game_loop(t_game *g);
 
 int	create_window(t_game *g)
 {
-	g->window_size = vectori(WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (init_img_data(g->mlx, &g->frame, g->window_size) == 1)
 		return (1);
 	g->win = mlx_new_window(g->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d");
@@ -71,20 +69,6 @@ void	init_textures(t_game *g)
 				&g->texture[i].bits_per_pixel, &g->texture[i].line_len,
 				&g->texture[i].endian);
 	}
-}
-
-/* Temprorary function that substitutes parsoing with hardcoded values */
-// TODO: delete later, temporary function
-int	_old_start_mlx(t_game *g, int x, int y)
-{
-	g->window_size.x = x;
-	g->window_size.y = y;
-	g->mlx = mlx_init();
-	init_textures(g);
-	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
-	init_img_data(g->mlx, &g->frame, g->window_size);
-	start_game_loop(g);
-	return (0);
 }
 
 static int	game_loop(t_game *g)
