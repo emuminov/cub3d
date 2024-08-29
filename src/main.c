@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:11:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/29 23:24:54 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:22:17 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include "../include/constants.h"
 #include "./minilibx-linux/mlx.h"
 #include <stddef.h>
+
+void	init_textures(t_game *g);
+void	init_animations_path(t_game *g);
+void	init_animations(t_game *g, t_img *texture, int max
+, char (*path)[33]);
 
 int	start_game(int argc, char **argv)
 {
