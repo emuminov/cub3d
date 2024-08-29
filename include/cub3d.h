@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/29 22:07:36 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:05:43 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,10 @@ typedef struct s_game
 	void			*win;
 	t_img			frame;
 	t_img			texture[4];
+	t_img			idle_textures[6];
+	char			idle_tex_path[6][34];
+	t_img			walk_textures[8];
+	char			walk_tex_path[8][34];
 	t_player		player;
 	t_dda_params	dp;
 	char			**map;

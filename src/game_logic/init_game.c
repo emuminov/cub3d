@@ -6,17 +6,18 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/29 23:04:35 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:11:14 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/constants.h"
-#include "../../include/cub3d.h"
 #include "../../include/game_logic.h"
+#include "../../include/constants.h"
 #include "../minilibx-linux/mlx.h"
+#include "../../include/cub3d.h"
+#include "../libft/libft.h"
 #include <X11/XKBlib.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /* Contains functions that contain functions for initialization of graphics */
 
@@ -69,6 +70,67 @@ void	init_textures(t_game *g)
 				&g->texture[i].bits_per_pixel, &g->texture[i].line_len,
 				&g->texture[i].endian);
 	}
+}
+
+static void	init_animations_path(t_game *g)
+{
+	ft_strlcpy(g->idle_tex_path[0], "./textures/hand_anim/frame_0.xpm", 33);
+	ft_strlcpy(g->idle_tex_path[1], "./textures/hand_anim/frame_1.xpm", 33);
+	ft_strlcpy(g->idle_tex_path[2], "./textures/hand_anim/frame_2.xpm", 33);
+	ft_strlcpy(g->idle_tex_path[3], "./textures/hand_anim/frame_3.xpm", 33);
+	ft_strlcpy(g->idle_tex_path[4], "./textures/hand_anim/frame_4.xpm", 33);
+	ft_strlcpy(g->idle_tex_path[5], "./textures/hand_anim/frame_5.xpm", 33);
+	ft_strlcpy(g->walk_tex_path[0], "./textures/walk_anim/frame_0.xpm", 33);
+	ft_strlcpy(g->walk_tex_path[1], "./textures/walk_anim/frame_1.xpm", 33);
+	ft_strlcpy(g->walk_tex_path[2], "./textures/walk_anim/frame_2.xpm", 33);
+	ft_strlcpy(g->walk_tex_path[3], "./textures/walk_anim/frame_3.xpm", 33);
+	ft_strlcpy(g->walk_tex_path[4], "./textures/walk_anim/frame_4.xpm", 33);
+	ft_strlcpy(g->walk_tex_path[5], "./textures/walk_anim/frame_5.xpm", 33);
+	ft_strlcpy(g->walk_tex_path[6], "./textures/walk_anim/frame_6.xpm", 33);
+	ft_strlcpy(g->walk_tex_path[7], "./textures/walk_anim/frame_7.xpm", 33);
+}
+
+static void	init_animations(t_game *g, t_img *texture, int max
+, char (*path)[34])
+{
+	int	i;
+
+	i = 0;
+	while (i < max)
+	{
+		texture[i].img = mlx_xpm_file_to_image(g->mlx,
+				path[i],
+				&texture[i].dimensions.x,
+				&texture[i].dimensions.y);
+		resize_image(g, &texture[i],
+			g->window_size.x, g->window_size.y);
+		texture[i].addr = mlx_get_data_addr(texture[i].img,
+				&texture[i].bits_per_pixel,
+				&texture[i].line_len,
+				&texture[i].endian);
+		i++;
+	}
+}
+
+/* Temprorary function that substitutes parsoing with hardcoded values */
+// TODO: delete later, temporary function
+int	_old_start_mlx(t_game *g, int x, int y)
+{
+	int	dummy_mouse_pos_y;
+
+	(void)dummy_mouse_pos_y;
+	g->window_size.x = x;
+	g->window_size.y = y;
+	g->mlx = mlx_init();
+	init_textures(g);
+	init_animations_path(g);
+	init_animations(g, g->idle_textures, 6, g->idle_tex_path);
+	init_animations(g, g->walk_textures, 8, g->walk_tex_path);
+	g->win = mlx_new_window(g->mlx, x, y, "Cub3d");
+	init_img_data(g->mlx, &g->frame, g->window_size);
+	mlx_mouse_get_pos(g->mlx, g->win, &g->mouse_pos, &y);
+	start_game_loop(g);
+	return (0);
 }
 
 static int	game_loop(t_game *g)

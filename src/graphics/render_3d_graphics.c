@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/28 15:21:22 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/29 18:48:49 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_graphics
 	double			wall_x_point;
 	t_pixel_point	tex_point;
 }	t_graphics;
+
+void	render_hands(t_game *g);
 
 void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
 {
@@ -119,5 +121,6 @@ void	render_3d_graphics(t_game *g)
 		x++;
 	}
 	draw_minimap(g);
+	render_hands(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 }
