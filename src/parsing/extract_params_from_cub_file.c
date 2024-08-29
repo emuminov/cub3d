@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 20:05:26 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:01:43 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	set_initial_player_params(t_game *g)
 		g->player.dir = vectorf(-1, 0);
 		g->player.plane = vectorf(0, -0.66);
 	}
-	g->player.pos = vectorf(start.x + 0.5, start.y + 0.5);
+	g->player.pos = vectorf(start.x + 0.5f, start.y + 0.5f);
 }
 
 int	extract_params_from_cub_file(t_game *g, int argc, char **argv)
@@ -115,8 +115,8 @@ int	extract_params_from_cub_file(t_game *g, int argc, char **argv)
 	conf_p = config_parsing_init(fd);
 	parse(&conf_p);
 	validate_keys(&conf_p);
-	map_dup = ft_split(conf_p.map_1d, '\n');
 	g->map = ft_split(conf_p.map_1d, '\n');
+	map_dup = ft_split(conf_p.map_1d, '\n');
 	if (g->map == NULL || map_dup == NULL
 		|| validate_map_walls(map_dup) == 1)
 	{

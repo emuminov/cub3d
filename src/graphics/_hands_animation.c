@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:38:51 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/29 21:55:51 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/29 22:00:41 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ void	render_hands(t_game *g)
 		if (!(frame % 5))
 			walk_frame++;
 		if (walk_frame == LAST_WALK_FRAME)
-		{
 			walk_frame = 0;
-		}
 	}
 	else
 	{

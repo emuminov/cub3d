@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/29 23:11:14 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:11:52 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	init_animations_path(t_game *g)
 }
 
 static void	init_animations(t_game *g, t_img *texture, int max
-, char (*path)[34])
+, char (*path)[33])
 {
 	int	i;
 
