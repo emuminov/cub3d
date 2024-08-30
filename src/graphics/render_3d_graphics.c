@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/30 18:10:28 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:35:36 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,44 @@
 #include <X11/XKBlib.h>
 #include <X11/Xutil.h>
 #include <math.h>
-#include <stdio.h>
 
-typedef struct s_graphics
+static void	draw_fog(t_game *g, t_graphics *graph, int x);
+static void	get_texture_direction(t_game *g, t_graphics *graph,
+		t_vectorf *ray_dir);
+static void	calcul_drawing_values(t_game *g, t_graphics *graph,
+		t_vectorf *ray_dir);
+static void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir);
+
+void	render_3d_graphics(t_game *g)
 {
-	int				draw_end;
-	int				draw_start;
-	int				texture_direction;
-	int				line_height;
-	double			wall_x_point;
-	double			fog_percentage;
-	t_pixel_point	tex_point;
-}	t_graphics;
+	t_graphics		graph;
+	int				x;
+	double			cam_x;
+	t_vectorf		ray_dir;
 
-void	render_hands(t_game *g);
+	draw_ceiling_and_floor(&g->frame, g->conf.ceil_c, g->conf.floor_c);
+	x = 0;
+	while (x < g->window_size.x)
+	{
+		cam_x = 2 * x / (double)g->window_size.x - 1;
+		ray_dir = vectorf_add(g->player.dir, vectorf_scale(g->player.plane,
+					cam_x));
+		check_cell_in_dir(g, ray_dir, MAX_WALL_DISTANCE, "1D");
+		g->rays[x] = g->dp.last_cell;
+		calcul_drawing_values(g, &graph, &ray_dir);
+		get_texture_direction(g, &graph, &ray_dir);
+		if (g->dp.is_cell_found)
+			draw_walls(g, &graph, x, &ray_dir);
+		else
+			draw_fog(g, &graph, x);
+		x++;
+	}
+	draw_minimap(g);
+	render_hands(g);
+	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
+}
 
-void	draw_fog(t_game *g, t_graphics *graph, int x)
+static void	draw_fog(t_game *g, t_graphics *graph, int x)
 {
 	int				y;
 
@@ -44,7 +66,7 @@ void	draw_fog(t_game *g, t_graphics *graph, int x)
 	}
 }
 
-void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
+static void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
 {
 	int				y;
 	double			texture_pos;
@@ -75,7 +97,8 @@ void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
 //			texY});//COLOR CHANGE
 // if(g->dp.side == 1) color = (color >> 1) & 8355711;//COLOR CHANGE
 
-void	get_texture_direction(t_game *g, t_graphics *graph, t_vectorf *ray_dir)
+static void	get_texture_direction(t_game *g, t_graphics *graph,
+		t_vectorf *ray_dir)
 {
 	if (g->dp.side == 0)
 	{
@@ -93,7 +116,8 @@ void	get_texture_direction(t_game *g, t_graphics *graph, t_vectorf *ray_dir)
 	}
 }
 
-void	calcul_drawing_values(t_game *g, t_graphics *graph, t_vectorf *ray_dir)
+static void	calcul_drawing_values(t_game *g, t_graphics *graph,
+		t_vectorf *ray_dir)
 {
 	graph->line_height = (int)(g->window_size.y / g->dp.distance);
 	graph->draw_start = -graph->line_height / 2 + g->window_size.y / 2;
@@ -108,35 +132,4 @@ void	calcul_drawing_values(t_game *g, t_graphics *graph, t_vectorf *ray_dir)
 		graph->wall_x_point = g->player.pos.x + g->dp.distance * ray_dir->x;
 	graph->wall_x_point -= floor(graph->wall_x_point);
 	graph->fog_percentage = g->dp.distance / MAX_WALL_DISTANCE;
-}
-
-void	render_3d_graphics(t_game *g)
-{
-	t_graphics		graph;
-	int				x;
-	double			cam_x;
-	t_vectorf		ray_dir;
-
-	draw_ceiling_and_floor(&g->frame, g->conf.ceil_c, g->conf.floor_c);
-	x = 0;
-	while (x < g->window_size.x)
-	{
-		cam_x = 2 * x / (double)g->window_size.x - 1;
-		ray_dir = vectorf_add(g->player.dir, vectorf_scale(g->player.plane,
-					cam_x));
-		check_cell_in_dir(g, ray_dir, MAX_WALL_DISTANCE, "1D");
-		g->rays[x] = g->dp.last_cell;
-		calcul_drawing_values(g, &graph, &ray_dir);
-		if (g->dp.is_cell_found)
-		{
-			get_texture_direction(g, &graph, &ray_dir);
-			draw_walls(g, &graph, x, &ray_dir);
-		}
-		else
-			draw_fog(g, &graph, x);
-		x++;
-	}
-	draw_minimap(g);
-	render_hands(g);
-	mlx_put_image_to_window(g->mlx, g->win, g->frame.img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 23:15:32 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/29 23:08:55 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:17:48 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 /*////////////////////GRAPHICS\\\\\\\\\\\\\\\\\\\*/
 /* Helful frocedures for displaying things on the screen, contains the main
  * rendering logic. */
+typedef struct s_graphics
+{
+	int				draw_end;
+	int				draw_start;
+	int				texture_direction;
+	int				line_height;
+	double			wall_x_point;
+	double			fog_percentage;
+	t_pixel_point	tex_point;
+}	t_graphics;
 
 /*					// MINIMAP \\							*/
 void			draw_minimap(t_game *g);
@@ -40,4 +50,8 @@ void			draw_transparent_tile(t_img *frame, t_pixel_point p, int color,
 					t_pixel_point bounds);
 void			draw_ceiling_and_floor(t_img *frame, int ceiling_color,
 					int floor_color);
+
+/*					// HANDS ANIMATION \\					*/
+void	render_hands(t_game *g);
+
 #endif

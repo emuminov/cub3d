@@ -1,35 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   rgb_transormations.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:00:26 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/30 17:47:06 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:31:28 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-int	get_r(int rgb)
-{
-	return ((rgb >> 16) & 0xFF);
-}
-
-int	get_g(int rgb)
-{
-	return ((rgb >> 8) & 0xFF);
-}
-
-int	get_b(int rgb)
-{
-	return (rgb & 0xFF);
-}
-
-int	rgb_to_int(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b);
-}
+#include "../../include/math_funcs.h"
 
 /* Mixes two colors, percentage denotes the percentage of the first color in the
  * result. For example, percentage == 80 means that there is 80% of rgb1 and
