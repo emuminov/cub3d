@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:37:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/29 23:08:42 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/30 17:47:36 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define MOVEMENT_SPEED 0.08
 # define ROTATION_SPEED 4.0
 # define MOUSE_ROTATION_SPEED 1.0
+# define MAX_WALL_DISTANCE 50
 # define PLAYER_SIZE 0.1
 # define MINIMAP_ALPHA 200
 # define MINIMAP_FOV_ALPHA 5

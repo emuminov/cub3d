@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:25:47 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 00:31:52 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/30 17:32:32 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int				rgb_to_int(int r, int g, int b);
 int				get_r(int rgb);
 int				get_g(int rgb);
 int				get_b(int rgb);
+int				mix_rgb(int rgb1, int rgb2, double percentage);
 int				get_transparent_color(int transparency, int color,
 					int background);
 #endif

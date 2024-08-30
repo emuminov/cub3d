@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/29 18:48:49 by eandre           ###   ########.fr       */
+/*   Updated: 2024/08/30 18:10:28 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <X11/XKBlib.h>
 #include <X11/Xutil.h>
 #include <math.h>
+#include <stdio.h>
 
 typedef struct s_graphics
 {
@@ -25,10 +26,23 @@ typedef struct s_graphics
 	int				texture_direction;
 	int				line_height;
 	double			wall_x_point;
+	double			fog_percentage;
 	t_pixel_point	tex_point;
 }	t_graphics;
 
 void	render_hands(t_game *g);
+
+void	draw_fog(t_game *g, t_graphics *graph, int x)
+{
+	int				y;
+
+	y = graph->draw_start;
+	while (y < graph->draw_end)
+	{
+		put_pixel_on_img(&g->frame, vectori(x, y), g->conf.ceil_c);
+		y++;
+	}
+}
 
 void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
 {
@@ -51,9 +65,8 @@ void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
 	{
 		graph->tex_point.y = (int)texture_pos;
 		texture_pos += step;
-		put_pixel_on_img(&g->frame, (t_pixel_point){x, y},
-			get_pixel_of_img(g->texture[graph->texture_direction],
-				graph->tex_point));
+		put_pixel_on_img(&g->frame, vectori(x, y),
+			mix_rgb(g->conf.ceil_c, get_pixel_of_img(g->texture[graph->texture_direction], graph->tex_point), graph->fog_percentage));
 		y++;
 	}
 }
@@ -94,6 +107,7 @@ void	calcul_drawing_values(t_game *g, t_graphics *graph, t_vectorf *ray_dir)
 	else
 		graph->wall_x_point = g->player.pos.x + g->dp.distance * ray_dir->x;
 	graph->wall_x_point -= floor(graph->wall_x_point);
+	graph->fog_percentage = g->dp.distance / MAX_WALL_DISTANCE;
 }
 
 void	render_3d_graphics(t_game *g)
@@ -110,14 +124,16 @@ void	render_3d_graphics(t_game *g)
 		cam_x = 2 * x / (double)g->window_size.x - 1;
 		ray_dir = vectorf_add(g->player.dir, vectorf_scale(g->player.plane,
 					cam_x));
-		check_cell_in_dir(g, ray_dir, 100, "1D");
+		check_cell_in_dir(g, ray_dir, MAX_WALL_DISTANCE, "1D");
 		g->rays[x] = g->dp.last_cell;
+		calcul_drawing_values(g, &graph, &ray_dir);
 		if (g->dp.is_cell_found)
 		{
 			get_texture_direction(g, &graph, &ray_dir);
-			calcul_drawing_values(g, &graph, &ray_dir);
 			draw_walls(g, &graph, x, &ray_dir);
 		}
+		else
+			draw_fog(g, &graph, x);
 		x++;
 	}
 	draw_minimap(g);
