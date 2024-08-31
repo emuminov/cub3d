@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/30 18:35:36 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/31 22:02:27 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,8 @@ static void	calcul_drawing_values(t_game *g, t_graphics *graph,
 	else
 		graph->wall_x_point = g->player.pos.x + g->dp.distance * ray_dir->x;
 	graph->wall_x_point -= floor(graph->wall_x_point);
-	graph->fog_percentage = g->dp.distance / MAX_WALL_DISTANCE;
+	if (g->dp.distance > MAX_WALL_DISTANCE)
+		graph->fog_percentage = 1.0;
+	else
+		graph->fog_percentage = g->dp.distance / MAX_WALL_DISTANCE;
 }
