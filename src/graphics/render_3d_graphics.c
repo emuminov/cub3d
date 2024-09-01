@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/31 22:02:27 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/08/31 22:17:35 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ static void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
 		graph->tex_point.y = (int)texture_pos;
 		texture_pos += step;
 		put_pixel_on_img(&g->frame, vectori(x, y),
-			mix_rgb(g->conf.ceil_c, get_pixel_of_img(g->texture[graph->texture_direction], graph->tex_point), graph->fog_percentage));
+			mix_rgb(g->conf.ceil_c, get_pixel_of_img(g->texture
+					[graph->texture_direction], graph->tex_point),
+				graph->fog_percentage));
 		y++;
 	}
 }
