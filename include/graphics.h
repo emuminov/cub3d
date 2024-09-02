@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 23:15:32 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 18:39:29 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:19:44 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ typedef struct s_graphics
 {
 	int				draw_end;
 	int				draw_start;
-	int				texture_direction;
 	int				line_height;
 	double			wall_x_point;
 	double			fog_percentage;
 	t_pixel_point	tex_point;
+	t_img			*texture;
 }	t_graphics;
 
 /*					// MINIMAP \\							*/

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 18:39:04 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:27:16 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct s_game
 	t_img			walk_flower_textures[WALK_FLOWER_FRAMES];
 	t_img			flower_out_textures[FLOWER_OUT_FRAMES];
 	t_img			flower_in_textures[FLOWER_IN_FRAMES];
+	t_img			door_texture;
 	t_player		player;
 	int				*len_tab;
 	t_dda_params	dp;

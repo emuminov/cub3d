@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:04:36 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 18:56:44 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:27:35 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	init_animation_textures(t_game *g)
 	if (init_idle_textures(g) == 1
 		|| init_walk_textures(g) == 1
 		|| init_flower_out_textures(g) == 1
-		|| init_flower_in_textures(g) == 1)
+		|| init_flower_in_textures(g) == 1
+		|| init_texture(g, &g->door_texture, DOOR))
 		return (1);
 	return (0);
 }

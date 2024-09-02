@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 18:40:26 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:32:06 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 #include <math.h>
 
 static void	draw_fog(t_game *g, t_graphics *graph, int x);
-static void	get_texture_direction(t_game *g, t_graphics *graph,
-		t_vectorf *ray_dir);
+static void	get_texture(t_game *g, t_graphics *graph,
+				t_vectorf *ray_dir);
 static void	calcul_drawing_values(t_game *g, t_graphics *graph,
-		t_vectorf *ray_dir);
+				t_vectorf *ray_dir);
 static void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir);
 
 void	render_3d_graphics(t_game *g)
@@ -42,7 +42,7 @@ void	render_3d_graphics(t_game *g)
 		check_cell_in_dir(g, ray_dir, MAX_WALL_DISTANCE, "1D");
 		g->rays[x] = g->dp.last_cell;
 		calcul_drawing_values(g, &graph, &ray_dir);
-		get_texture_direction(g, &graph, &ray_dir);
+		get_texture(g, &graph, &ray_dir);
 		if (g->dp.is_cell_found)
 			draw_walls(g, &graph, x, &ray_dir);
 		else
@@ -74,12 +74,12 @@ static void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
 
 	y = graph->draw_start;
 	graph->tex_point.x = (int)(graph->wall_x_point
-			* (double)g->wall_textures[graph->texture_direction].dimensions.x);
+			* (double)graph->texture->dimensions.x);
 	if ((g->dp.side == 0 && ray_dir->x > 0) || (g->dp.side == 1
 			&& ray_dir->y < 0))
-		graph->tex_point.x = g->wall_textures[graph->texture_direction]
-			.dimensions.x - graph->tex_point.x - 1;
-	step = 1.0 * g->wall_textures[graph->texture_direction].dimensions.y
+		graph->tex_point.x = graph->texture
+			->dimensions.x - graph->tex_point.x - 1;
+	step = 1.0 * graph->texture->dimensions.y
 		/ graph->line_height;
 	texture_pos = (graph->draw_start - (double)g->window_size.y / 2
 			+ (double)graph->line_height / 2) * step;
@@ -88,34 +88,35 @@ static void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
 		graph->tex_point.y = (int)texture_pos;
 		texture_pos += step;
 		put_pixel_on_img(&g->frame, vectori(x, y),
-			mix_rgb(g->conf.ceil_c, get_pixel_of_img(g->wall_textures
-					[graph->texture_direction], graph->tex_point),
+			mix_rgb(g->conf.ceil_c, get_pixel_of_img(*graph->texture,
+					graph->tex_point),
 				graph->fog_percentage));
 		y++;
 	}
 }
-//& (g->texture[graph->texture_direction].dimensions.y - 1);//EYEBROWS DIMENSION
-// int	color = get_pixel_of_img(g->frame, (t_pixel_point){texX,//COLOR CHANGE
-//			texY});//COLOR CHANGE
-// if(g->dp.side == 1) color = (color >> 1) & 8355711;//COLOR CHANGE
 
-static void	get_texture_direction(t_game *g, t_graphics *graph,
+static void	get_texture(t_game *g, t_graphics *graph,
 		t_vectorf *ray_dir)
 {
-	if (g->dp.side == 0)
+	if (g->dp.type_of_found_cell == wall)
 	{
-		if (ray_dir->x < 0)
-			graph->texture_direction = west_tex;
+		if (g->dp.side == 0)
+		{
+			if (ray_dir->x < 0)
+				graph->texture = &g->wall_textures[west_tex];
+			else
+				graph->texture = &g->wall_textures[east_tex];
+		}
 		else
-			graph->texture_direction = east_tex;
+		{
+			if (ray_dir->y > 0)
+				graph->texture = &g->wall_textures[south_tex];
+			else
+				graph->texture = &g->wall_textures[north_tex];
+		}
 	}
-	else
-	{
-		if (ray_dir->y > 0)
-			graph->texture_direction = south_tex;
-		else
-			graph->texture_direction = north_tex;
-	}
+	else if (g->dp.type_of_found_cell == door_closed)
+		graph->texture = &g->door_texture;
 }
 
 static void	calcul_drawing_values(t_game *g, t_graphics *graph,
