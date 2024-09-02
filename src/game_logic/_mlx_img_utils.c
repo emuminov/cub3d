@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   _mlx_img_utils.c                                   :+:      :+:    :+:   */
@@ -6,11 +6,12 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:44:21 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/28 19:06:10 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:19:57 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../include/game_logic.h"
 #include "../libft/libft.h"
 #include "../minilibx-linux/mlx.h"
 #include <stdlib.h>
@@ -28,6 +29,39 @@ int	init_img_data(void *mlx, t_img *img, t_pixel_point p)
 			&img->line_len, &img->endian);
 	return (0);
 }
+
+int	init_texture(t_game *g, t_img *texture, char *path)
+{
+	texture->img = mlx_xpm_file_to_image(g->mlx,
+			path,
+			&texture->dimensions.x,
+			&texture->dimensions.y);
+	if (texture->img == NULL)
+		return (1);
+	if (resize_image(g, texture, g->window_size.x, g->window_size.y) == 1)
+		return (1);
+	texture->addr = mlx_get_data_addr(texture->img,
+			&texture->bits_per_pixel,
+			&texture->line_len,
+			&texture->endian);
+	return (0);
+}
+
+
+bool textures_are_valid(t_img *textures, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (!textures[i].img)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 
 int	resize_image(t_game *g, t_img *old, int new_width, int new_height)
 {

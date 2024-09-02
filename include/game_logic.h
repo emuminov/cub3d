@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:20:22 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 15:57:19 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:10:58 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 int				init_img_data(void *mlx, t_img *img, t_pixel_point p);
 int				resize_image(t_game *g, t_img *old, int new_width,
 					int new_height);
+int				init_texture(t_game *g, t_img *texture, char *path);
+bool			textures_are_valid(t_img *textures, int size);
 
 /*					// CONTROLS HANDLING \\ 				*/
 bool			is_move_key_pressed(t_game *g);

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:07:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/30 23:19:12 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:36:17 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,20 @@ void	free_game(t_game *g)
 		return ;
 	mlx_destroy_image(g->mlx, g->frame.img);
 	while (++i < 4)
-		mlx_destroy_image(g->mlx, g->texture[i].img);
+		mlx_destroy_image(g->mlx, g->wall_textures[i].img);
 	if (g->win)
 		mlx_destroy_window(g->mlx, g->win);
 	mlx_destroy_display(g->mlx);
 	free(g->mlx);
+}
+
+void	destroy_textures_array(t_game *g, t_img *textures, int size)
+{
+	int	i;
+	i = 0;
+	while (i < size && textures[i].img)
+	{
+		mlx_destroy_image(g->mlx, textures[i].img);
+		i++;
+	}
 }
