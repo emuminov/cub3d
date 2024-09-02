@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 15:05:48 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:33:00 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,16 +149,16 @@ void	init_animation_textures(t_game *g)
 	init_texture(g, &g->flower_out_textures[11], FLOWER_OUT_11);
 
 	init_texture(g, &g->flower_in_textures[0], FLOWER_IN_00);
-	init_texture(g, &g->flower_in_textures[1], FLOWER_IN_00);
-	init_texture(g, &g->flower_in_textures[2], FLOWER_IN_00);
-	init_texture(g, &g->flower_in_textures[3], FLOWER_IN_00);
-	init_texture(g, &g->flower_in_textures[4], FLOWER_IN_00);
-	init_texture(g, &g->flower_in_textures[5], FLOWER_IN_00);
-	init_texture(g, &g->flower_in_textures[6], FLOWER_IN_00);
-	init_texture(g, &g->flower_in_textures[7], FLOWER_IN_00);
-	init_texture(g, &g->flower_in_textures[8], FLOWER_IN_00);
-	init_texture(g, &g->flower_in_textures[9], FLOWER_IN_00);
-	init_texture(g, &g->flower_in_textures[10], FLOWER_IN_00);
+	init_texture(g, &g->flower_in_textures[1], FLOWER_IN_01);
+	init_texture(g, &g->flower_in_textures[2], FLOWER_IN_02);
+	init_texture(g, &g->flower_in_textures[3], FLOWER_IN_03);
+	init_texture(g, &g->flower_in_textures[4], FLOWER_IN_04);
+	init_texture(g, &g->flower_in_textures[5], FLOWER_IN_05);
+	init_texture(g, &g->flower_in_textures[6], FLOWER_IN_06);
+	init_texture(g, &g->flower_in_textures[7], FLOWER_IN_07);
+	init_texture(g, &g->flower_in_textures[8], FLOWER_IN_08);
+	init_texture(g, &g->flower_in_textures[9], FLOWER_IN_09);
+	init_texture(g, &g->flower_in_textures[10], FLOWER_IN_10);
 	// if (!all_images_are_valid(g->flower_in_textures, 11))
 	// 	destroy_animation_textures(g);
 }
