@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/30 00:15:13 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/02 13:28:09 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	init_animations_path(t_game *g)
 	ft_strlcpy(g->idle_tex_path[3], "./textures/hand_anim/frame_3.xpm", 33);
 	ft_strlcpy(g->idle_tex_path[4], "./textures/hand_anim/frame_4.xpm", 33);
 	ft_strlcpy(g->idle_tex_path[5], "./textures/hand_anim/frame_5.xpm", 33);
+
 	ft_strlcpy(g->walk_tex_path[0], "./textures/walk_anim/frame_0.xpm", 33);
 	ft_strlcpy(g->walk_tex_path[1], "./textures/walk_anim/frame_1.xpm", 33);
 	ft_strlcpy(g->walk_tex_path[2], "./textures/walk_anim/frame_2.xpm", 33);
@@ -89,6 +90,13 @@ void	init_animations_path(t_game *g)
 	ft_strlcpy(g->walk_tex_path[5], "./textures/walk_anim/frame_5.xpm", 33);
 	ft_strlcpy(g->walk_tex_path[6], "./textures/walk_anim/frame_6.xpm", 33);
 	ft_strlcpy(g->walk_tex_path[7], "./textures/walk_anim/frame_7.xpm", 33);
+
+	ft_strlcpy(g->walk_tex_path[0], "./textures/hand_flower_anim/frame_0", 33);
+	ft_strlcpy(g->walk_tex_path[1], "./textures/hand_flower_anim/frame_1", 33);
+	ft_strlcpy(g->walk_tex_path[2], "./textures/hand_flower_anim/frame_2", 33);
+	ft_strlcpy(g->walk_tex_path[3], "./textures/hand_flower_anim/frame_3", 33);
+	ft_strlcpy(g->walk_tex_path[4], "./textures/hand_flower_anim/frame_4", 33);
+	ft_strlcpy(g->walk_tex_path[5], "./textures/hand_flower_anim/frame_5", 33);
 }
 
 void	init_animations(t_game *g, t_img *texture, int max
