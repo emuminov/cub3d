@@ -6,14 +6,13 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:51:03 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 16:28:37 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/02 16:42:01 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../minilibx-linux/mlx.h"
 #include <stdlib.h>
-void	destroy_textures_array(t_game *g, t_img *textures, int size);
 
 int	exit_game(t_game *g)
 {

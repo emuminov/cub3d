@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:37:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 18:31:50 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:39:11 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define MINIMAP_FOV_ALPHA 5
 # ifdef HIDE_MOUSE
 #  define SHOULD_HIDE_MOUSE 1
-# else 
+# else
 #  define SHOULD_HIDE_MOUSE 0
 # endif
 #endif

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 18:35:28 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:39:35 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,20 @@ void	start_game_loop(t_game *g)
 	mlx_loop(g->mlx);
 }
 
-void	init_wall_textures(t_game *g)
+int	init_wall_textures(t_game *g)
 {
 	int	i;
 
 	i = -1;
 	while (++i < 4)
 	{
-		g->wall_textures[i].img = mlx_xpm_file_to_image(g->mlx, g->conf.paths[i],
-				&g->wall_textures[i].dimensions.x, &g->wall_textures[i].dimensions.y);
-		if (g->wall_textures[i].img == NULL)
+		if (init_texture(g, &g->wall_textures[i], g->conf.paths[i]) == 1)
 		{
-			while (--i >= 0)
-				mlx_destroy_image(g->mlx, g->wall_textures[i].img);
-			mlx_destroy_display(g->mlx);
-			free(g->mlx);
-			free_tab(g->map);
-			free(g->len_tab);
-			printf("\033[0;31m""Error\nA xpm file is not valid!\n""\033[0m");
-			exit(1);
+			destroy_textures_array(g, g->wall_textures, 4);
+			return (1);
 		}
-		if (g->wall_textures[i].dimensions.x > g->window_size.x
-			|| g->wall_textures[i].dimensions.y > g->window_size.y)
-			resize_image(g, &g->wall_textures[i], g->window_size.x, g->window_size.y);
-		g->wall_textures[i].addr = mlx_get_data_addr(g->wall_textures[i].img,
-				&g->wall_textures[i].bits_per_pixel, &g->wall_textures[i].line_len,
-				&g->wall_textures[i].endian);
 	}
+	return (0);
 }
 
 static int	game_loop(t_game *g)

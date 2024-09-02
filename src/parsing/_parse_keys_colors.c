@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:12:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 19:05:12 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:26:29 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../libft/libft.h"
 #include <stdio.h>
 
-//TODO: NEED TO FIX PRE KEY SPACES
 int	parse_ceiling_key(char *line, t_config_parsing *conf)
 {
 	int	i;

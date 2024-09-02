@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 18:37:09 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:40:26 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ static void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
 			* (double)g->wall_textures[graph->texture_direction].dimensions.x);
 	if ((g->dp.side == 0 && ray_dir->x > 0) || (g->dp.side == 1
 			&& ray_dir->y < 0))
-		graph->tex_point.x = g->wall_textures[graph->texture_direction].dimensions.x
-			- graph->tex_point.x - 1;
+		graph->tex_point.x = g->wall_textures[graph->texture_direction]
+			.dimensions.x - graph->tex_point.x - 1;
 	step = 1.0 * g->wall_textures[graph->texture_direction].dimensions.y
 		/ graph->line_height;
 	texture_pos = (graph->draw_start - (double)g->window_size.y / 2

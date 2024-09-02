@@ -1,4 +1,4 @@
-/* ************************************************************************* */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   _mlx_img_utils.c                                   :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:44:21 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 16:19:57 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:38:09 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ int	init_texture(t_game *g, t_img *texture, char *path)
 	return (0);
 }
 
-
-bool textures_are_valid(t_img *textures, int size)
+bool	textures_are_valid(t_img *textures, int size)
 {
 	int	i;
 
@@ -61,7 +60,6 @@ bool textures_are_valid(t_img *textures, int size)
 	}
 	return (true);
 }
-
 
 int	resize_image(t_game *g, t_img *old, int new_width, int new_height)
 {
