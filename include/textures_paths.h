@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:11:03 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 13:50:31 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:57:12 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@
 # define FLOWER_IN_09 "./textures/flower_in_anim/frame_09.xpm"
 # define FLOWER_IN_10 "./textures/flower_in_anim/frame_10.xpm"
 # define FLOWER_IN_FRAMES 11
-# define LAST_FLOWER_IN 10
+# define FLOWER_IN_LAST 10
 
 # define DOOR "./textures/door.xpm"
 #endif
