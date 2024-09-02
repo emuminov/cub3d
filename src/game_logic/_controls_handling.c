@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:12:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 16:02:59 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:58:42 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	handle_key_press(int keysym, t_game *g)
 		g->controls.move_right_pressed = true;
 	else if (keysym == XK_KP_Space)
 	{
-		if (g->player.should_punch == false)
-			g->player.should_punch = true;
+		if (g->player.takes_flower == false)
+			g->player.takes_flower = true;
 	}
 	else if (keysym == XK_e)
 		toggle_door(g);

@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 18:31:54 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:33:10 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,34 +73,87 @@ void	init_textures(t_game *g)
 	}
 }
 
+
+
 void	init_animations_path(t_game *g)
 {
-	ft_strlcpy(g->idle_tex_path[0], "./textures/hand_anim/frame_0.xpm", 33);
-	ft_strlcpy(g->idle_tex_path[1], "./textures/hand_anim/frame_1.xpm", 33);
-	ft_strlcpy(g->idle_tex_path[2], "./textures/hand_anim/frame_2.xpm", 33);
-	ft_strlcpy(g->idle_tex_path[3], "./textures/hand_anim/frame_3.xpm", 33);
-	ft_strlcpy(g->idle_tex_path[4], "./textures/hand_anim/frame_4.xpm", 33);
-	ft_strlcpy(g->idle_tex_path[5], "./textures/hand_anim/frame_5.xpm", 33);
+	ft_strlcpy(g->idle_tex_path[0], IDLE_0, sizeof(IDLE_0));
+	ft_strlcpy(g->idle_tex_path[1], IDLE_1, sizeof(IDLE_0));
+	ft_strlcpy(g->idle_tex_path[2], IDLE_2, sizeof(IDLE_0));
+	ft_strlcpy(g->idle_tex_path[3], IDLE_3, sizeof(IDLE_0));
+	ft_strlcpy(g->idle_tex_path[4], IDLE_4, sizeof(IDLE_0));
+	ft_strlcpy(g->idle_tex_path[5], IDLE_5, sizeof(IDLE_0));
 
-	ft_strlcpy(g->walk_tex_path[0], "./textures/walk_anim/frame_0.xpm", 33);
-	ft_strlcpy(g->walk_tex_path[1], "./textures/walk_anim/frame_1.xpm", 33);
-	ft_strlcpy(g->walk_tex_path[2], "./textures/walk_anim/frame_2.xpm", 33);
-	ft_strlcpy(g->walk_tex_path[3], "./textures/walk_anim/frame_3.xpm", 33);
-	ft_strlcpy(g->walk_tex_path[4], "./textures/walk_anim/frame_4.xpm", 33);
-	ft_strlcpy(g->walk_tex_path[5], "./textures/walk_anim/frame_5.xpm", 33);
-	ft_strlcpy(g->walk_tex_path[6], "./textures/walk_anim/frame_6.xpm", 33);
-	ft_strlcpy(g->walk_tex_path[7], "./textures/walk_anim/frame_7.xpm", 33);
+	ft_strlcpy(g->walk_tex_path[0], WALK_0, sizeof(WALK_0));
+	ft_strlcpy(g->walk_tex_path[1], WALK_1, sizeof(WALK_0));
+	ft_strlcpy(g->walk_tex_path[2], WALK_2, sizeof(WALK_0));
+	ft_strlcpy(g->walk_tex_path[3], WALK_3, sizeof(WALK_0));
+	ft_strlcpy(g->walk_tex_path[4], WALK_4, sizeof(WALK_0));
+	ft_strlcpy(g->walk_tex_path[5], WALK_5, sizeof(WALK_0));
+	ft_strlcpy(g->walk_tex_path[6], WALK_6, sizeof(WALK_0));
+	ft_strlcpy(g->walk_tex_path[7], WALK_7, sizeof(WALK_0));
 
-	ft_strlcpy(g->walk_tex_path[0], "./textures/hand_flower_anim/frame_0", 33);
-	ft_strlcpy(g->walk_tex_path[1], "./textures/hand_flower_anim/frame_1", 33);
-	ft_strlcpy(g->walk_tex_path[2], "./textures/hand_flower_anim/frame_2", 33);
-	ft_strlcpy(g->walk_tex_path[3], "./textures/hand_flower_anim/frame_3", 33);
-	ft_strlcpy(g->walk_tex_path[4], "./textures/hand_flower_anim/frame_4", 33);
-	ft_strlcpy(g->walk_tex_path[5], "./textures/hand_flower_anim/frame_5", 33);
+	ft_strlcpy(g->idle_flower_tex_path[0], IDLE_FLOWER_0, sizeof(IDLE_FLOWER_0));
+	ft_strlcpy(g->idle_flower_tex_path[1], IDLE_FLOWER_1, sizeof(IDLE_FLOWER_0));
+	ft_strlcpy(g->idle_flower_tex_path[2], IDLE_FLOWER_2, sizeof(IDLE_FLOWER_0));
+	ft_strlcpy(g->idle_flower_tex_path[3], IDLE_FLOWER_3, sizeof(IDLE_FLOWER_0));
+	ft_strlcpy(g->idle_flower_tex_path[4], IDLE_FLOWER_4, sizeof(IDLE_FLOWER_0));
+	ft_strlcpy(g->idle_flower_tex_path[5], IDLE_FLOWER_5, sizeof(IDLE_FLOWER_0));
+
+	ft_strlcpy(g->walk_flower_tex_path[0], WALK_FLOWER_0, sizeof(WALK_FLOWER_0));
+	ft_strlcpy(g->walk_flower_tex_path[1], WALK_FLOWER_1, sizeof(WALK_FLOWER_0));
+	ft_strlcpy(g->walk_flower_tex_path[2], WALK_FLOWER_2, sizeof(WALK_FLOWER_0));
+	ft_strlcpy(g->walk_flower_tex_path[3], WALK_FLOWER_3, sizeof(WALK_FLOWER_0));
+	ft_strlcpy(g->walk_flower_tex_path[4], WALK_FLOWER_4, sizeof(WALK_FLOWER_0));
+	ft_strlcpy(g->walk_flower_tex_path[5], WALK_FLOWER_5, sizeof(WALK_FLOWER_0));
+	ft_strlcpy(g->walk_flower_tex_path[6], WALK_FLOWER_6, sizeof(WALK_FLOWER_0));
+	ft_strlcpy(g->walk_flower_tex_path[7], WALK_FLOWER_7, sizeof(WALK_FLOWER_0));
+
+	ft_strlcpy(g->flower_out_tex_path[0], FLOWER_OUT_00, sizeof(FLOWER_OUT_00));
+	ft_strlcpy(g->flower_out_tex_path[1], FLOWER_OUT_01, sizeof(FLOWER_OUT_00));
+	ft_strlcpy(g->flower_out_tex_path[2], FLOWER_OUT_02, sizeof(FLOWER_OUT_00));
+	ft_strlcpy(g->flower_out_tex_path[3], FLOWER_OUT_03, sizeof(FLOWER_OUT_00));
+	ft_strlcpy(g->flower_out_tex_path[4], FLOWER_OUT_04, sizeof(FLOWER_OUT_00));
+	ft_strlcpy(g->flower_out_tex_path[5], FLOWER_OUT_05, sizeof(FLOWER_OUT_00));
+	ft_strlcpy(g->flower_out_tex_path[6], FLOWER_OUT_06, sizeof(FLOWER_OUT_00));
+	ft_strlcpy(g->flower_out_tex_path[7], FLOWER_OUT_07, sizeof(FLOWER_OUT_00));
+	ft_strlcpy(g->flower_out_tex_path[8], FLOWER_OUT_08, sizeof(FLOWER_OUT_00));
+	ft_strlcpy(g->flower_out_tex_path[9], FLOWER_OUT_09, sizeof(FLOWER_OUT_00));
+	ft_strlcpy(g->flower_out_tex_path[10], FLOWER_OUT_10, sizeof(FLOWER_OUT_00));
+	ft_strlcpy(g->flower_out_tex_path[11], FLOWER_OUT_11, sizeof(FLOWER_OUT_00));
+
+	// g->flower_in_textures[0] =  mlx_xpm_file_to_image(g->mlx, FLOWER_IN_00, &g->flower_in_textures[0].dimensions.x, &g->flower_in_textures[0].dimensions.y);
+	// g->flower_in_textures[1] =  FLOWER_IN_01, sizeof(FLOWER_IN_00));
+	// g->flower_in_textures[2] =  FLOWER_IN_02, sizeof(FLOWER_IN_00));
+	// g->flower_in_textures[3] =  FLOWER_IN_03, sizeof(FLOWER_IN_00));
+	// g->flower_in_textures[4] =  FLOWER_IN_04, sizeof(FLOWER_IN_00));
+	// g->flower_in_textures[5] =  FLOWER_IN_05, sizeof(FLOWER_IN_00));
+	// g->flower_in_textures[6] =  FLOWER_IN_06, sizeof(FLOWER_IN_00));
+	// g->flower_in_textures[7] =  FLOWER_IN_07, sizeof(FLOWER_IN_00));
+	// g->flower_in_textures[8] =  FLOWER_IN_08, sizeof(FLOWER_IN_00));
+	// g->flower_in_textures[9] =  FLOWER_IN_09, sizeof(FLOWER_IN_00));
+	// g->flower_in_textures[10] = FLOWER_IN_10, sizeof(FLOWER_IN_00));
+}
+
+int	init_texture(t_game *g, t_img *texture, char *path)
+{
+	texture->img = mlx_xpm_file_to_image(g->mlx,
+			path,
+			&texture->dimensions.x,
+			&texture->dimensions.y);
+	if (texture->img == NULL)
+		return (1);
+	if (resize_image(g, texture, g->window_size.x, g->window_size.y) == 1)
+		return (1);
+	texture->addr = mlx_get_data_addr(texture->img,
+			&texture->bits_per_pixel,
+			&texture->line_len,
+			&texture->endian);
+	return (0);
 }
 
 void	init_animations(t_game *g, t_img *texture, int max
-, char (*path)[33])
+, char **path)
 {
 	int	i;
 

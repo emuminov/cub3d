@@ -1,7 +1,7 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O2 #-fsanitize=memory
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=memory
 XFLAGS = -lXext -lX11
 
 OBJS_DIR = .obj/
