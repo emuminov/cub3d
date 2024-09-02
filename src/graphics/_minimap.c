@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:35:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/30 00:15:34 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/02 19:18:19 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static bool	is_floor(t_game *g, t_grid_coordsi c)
 {
 	return (g->map[c.y][c.x] == empty || g->map[c.y][c.x] == player_east
 		|| g->map[c.y][c.x] == player_west || g->map[c.y][c.x] == player_north
-		|| g->map[c.y][c.x] == player_south);
+		|| g->map[c.y][c.x] == player_south || g->map[c.y][c.x] == floor_tile);
 }
 
 static void	draw_tile_based_on_map(t_game *g, t_grid_coordsi c, t_pixel_point p,

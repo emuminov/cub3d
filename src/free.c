@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:07:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 18:55:37 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:36:15 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	destroy_textures_array(t_game *g, t_img *textures, int size)
 void	free_game(t_game *g)
 {
 	free_tab(g->map);
+	free(g->len_tab);
 	if (!g->mlx)
 		return ;
 	if (g->frame.img)

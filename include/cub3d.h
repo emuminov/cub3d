@@ -6,9 +6,10 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 19:27:16 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:46:10 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -20,7 +21,8 @@
 
 typedef enum e_etiles
 {
-	empty = '0',
+	empty = ' ',
+	floor_tile = '0',
 	wall = '1',
 	door_closed = 'D',
 	door_opened = 'O',

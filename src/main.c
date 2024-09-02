@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:11:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 18:50:12 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:42:51 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../include/constants.h"
 #include "./minilibx-linux/mlx.h"
 #include <stddef.h>
+#include <stdio.h>
 
 int	start_game(int argc, char **argv)
 {
@@ -23,14 +24,18 @@ int	start_game(int argc, char **argv)
 	extract_params_from_cub_file(&g, argc, argv);
 	g.mlx = mlx_init();
 	if (g.mlx == NULL)
-		return (free_game(&g), 1);
+		return (printf("\033[0;31m"
+		"Error\nFailed to initialize mlx!\n""\033[0m"), free_game(&g), 1);
 	g.window_size = vectori(WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (init_wall_textures(&g) == 1)
-		return (free_game(&g), 1);
+		return (printf("\033[0;31m"
+		"Error\nFailed to initialize walls!\n""\033[0m"), free_game(&g), 1);
 	if (init_animation_textures(&g) == 1)
-		return (free_game(&g), 1);
+		return (printf("\033[0;31m"
+		"Error\nFailed to initialize animation!\n""\033[0m"), free_game(&g), 1);
 	if (create_window(&g) == 1)
-		return (free_game(&g), 1);
+		return (printf("\033[0;31m"
+		"Error\nFailed to initialize window!\n""\033[0m"), free_game(&g), 1);
 	start_game_loop(&g);
 	return (0);
 }
