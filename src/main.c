@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:11:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 15:05:39 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:17:50 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 #include "../include/constants.h"
 #include "./minilibx-linux/mlx.h"
 #include <stddef.h>
-
-void	init_wall_textures(t_game *g);
-void	init_animation_textures(t_game *g);
 
 int	start_game(int argc, char **argv)
 {
@@ -29,7 +26,8 @@ int	start_game(int argc, char **argv)
 		return (1); // TODO: cleanup the memory
 	g.window_size = vectori(WINDOW_WIDTH, WINDOW_HEIGHT);
 	init_wall_textures(&g);
-	init_animation_textures(&g);
+	if (init_animation_textures(&g) == 1)
+		return (1);
 	if (create_window(&g) == 1)
 		return (1); // TODO: cleanup the memory
 	start_game_loop(&g);

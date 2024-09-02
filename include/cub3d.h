@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 13:58:43 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:13:59 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,24 +113,13 @@ typedef struct s_game
 	void			*mlx;
 	void			*win;
 	t_img			frame;
-	t_img			texture[4];
+	t_img			wall_textures[4];
 	t_img			idle_textures[IDLE_FRAMES];
-	char			idle_tex_path[IDLE_FRAMES][sizeof(IDLE_0)];
-
 	t_img			walk_textures[WALK_FRAMES];
-	char			walk_tex_path[WALK_FRAMES][sizeof(WALK_0)];
-
 	t_img			idle_flower_textures[IDLE_FLOWER_FRAMES];
-	char			idle_flower_tex_path[IDLE_FLOWER_FRAMES][sizeof(IDLE_FLOWER_0)];
-
 	t_img			walk_flower_textures[WALK_FLOWER_FRAMES];
-	char			walk_flower_tex_path[WALK_FLOWER_FRAMES][sizeof(WALK_FLOWER_0)];
-
 	t_img			flower_out_textures[FLOWER_OUT_FRAMES];
-	char			flower_out_tex_path[FLOWER_OUT_FRAMES][sizeof(FLOWER_OUT_00)];
-
 	t_img			flower_in_textures[FLOWER_IN_FRAMES];
-	char			flower_in_tex_path[FLOWER_IN_FRAMES][sizeof(FLOWER_IN_00)];
 	t_player		player;
 	int				*len_tab;
 	t_dda_params	dp;
@@ -157,6 +146,8 @@ bool				check_cell_in_dir(t_game *g, t_vectorf dir,
 						double max_distance, char *checked_tiles);
 void				start_game_loop(t_game *g);
 int					create_window(t_game *g);
+int					init_animation_textures(t_game *g);
+void				init_wall_textures(t_game *g);
 
 // INIT
 int					_old_start_game(int argc, char **argv);
@@ -164,5 +155,7 @@ int					start_game(int argc, char **argv);
 
 // FREE
 void				free_tab(char **tab);
+void				destroy_textures_array(t_game *g, t_img *textures,
+		int size);
 
 #endif

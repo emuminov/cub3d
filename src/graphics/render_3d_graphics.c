@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/29 18:48:49 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/02 16:14:06 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
 
 	y = graph->draw_start;
 	graph->tex_point.x = (int)(graph->wall_x_point
-			* (double)g->texture[graph->texture_direction].dimensions.x);
+			* (double)g->wall_textures[graph->texture_direction].dimensions.x);
 	if ((g->dp.side == 0 && ray_dir->x > 0) || (g->dp.side == 1
 			&& ray_dir->y < 0))
-		graph->tex_point.x = g->texture[graph->texture_direction].dimensions.x
+		graph->tex_point.x = g->wall_textures[graph->texture_direction].dimensions.x
 			- graph->tex_point.x - 1;
-	step = 1.0 * g->texture[graph->texture_direction].dimensions.y
+	step = 1.0 * g->wall_textures[graph->texture_direction].dimensions.y
 		/ graph->line_height;
 	texture_pos = (graph->draw_start - (double)g->window_size.y / 2
 			+ (double)graph->line_height / 2) * step;
@@ -52,7 +52,7 @@ void	draw_walls(t_game *g, t_graphics *graph, int x, t_vectorf *ray_dir)
 		graph->tex_point.y = (int)texture_pos;
 		texture_pos += step;
 		put_pixel_on_img(&g->frame, (t_pixel_point){x, y},
-			get_pixel_of_img(g->texture[graph->texture_direction],
+			get_pixel_of_img(g->wall_textures[graph->texture_direction],
 				graph->tex_point));
 		y++;
 	}
