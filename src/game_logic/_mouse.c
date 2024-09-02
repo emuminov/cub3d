@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 00:54:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/28 23:11:15 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:52:57 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	handle_mouse(int x, int y, t_game *g)
 {
 	const t_pixel_point	center = vectori((WINDOW_WIDTH / 2),
 			(WINDOW_HEIGHT / 2));
-	int									delta;
+	int					delta;
 
 	(void)y;
 	if (!g->mouse_enabled)

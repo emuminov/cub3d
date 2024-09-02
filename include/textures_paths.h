@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   textures_paths.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:11:03 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 14:57:12 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:51:14 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEXTURES_PATH_H
-# define TEXTURES_PATH_H
+#ifndef TEXTURES_PATHS_H
+# define TEXTURES_PATHS_H
 # define IDLE_0 "./textures/hand_anim/frame_0.xpm"
 # define IDLE_1 "./textures/hand_anim/frame_1.xpm"
 # define IDLE_2 "./textures/hand_anim/frame_2.xpm"

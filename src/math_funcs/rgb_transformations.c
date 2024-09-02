@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_transformations.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:00:26 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/30 18:31:28 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:38:39 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	get_transparent_color(int transparency, int color, int background)
 
 	alpha = (double)transparency / 255;
 	oneminusalpha = 1 - alpha;
-
 	return rgb_to_int(
 		(get_r(color) * alpha) + (oneminusalpha * get_r(background)),
 		(get_g(color) * alpha) + (oneminusalpha * get_g(background)),

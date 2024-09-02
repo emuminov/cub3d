@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:59:45 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/30 00:16:03 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/02 15:56:28 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 #include "../../include/math_funcs.h"
 #include "../libft/libft.h"
 #include <stdio.h>
-
-void	free_config_p(t_config_parsing *conf)
-{
-	if (conf->map_1d != NULL)
-		free(conf->map_1d);
-	if (conf->map_fd != -1)
-		close(conf->map_fd);
-}
 
 t_config_parsing	config_parsing_init(int fd)
 {

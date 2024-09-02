@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectori.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:12:03 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/25 18:00:38 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:55:35 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ t_vectori	vectorf_to_vectori(t_vectorf v)
 
 t_vectori	vectori(int x, int y)
 {
-	return (t_vectori){.x = x, .y = y};
+	return ((t_vectori){.x = x, .y = y});
 }

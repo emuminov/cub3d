@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 14:37:17 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/23 21:53:38 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:55:25 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int	normalize(int value, int min, int max)
 	int	normalized_value;
 
 	normalized_value = (value - min) / (max - min);
-	return normalized_value;
+	return (normalized_value);
 }

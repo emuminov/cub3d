@@ -6,28 +6,25 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:51:03 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 16:13:57 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:27:31 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../minilibx-linux/mlx.h"
 #include <stdlib.h>
+void	destroy_animation_textures(t_game *g, t_img *textures, int size);
 
 int	exit_game(t_game *g)
 {
-	int	i;
-
-	i = -1;
 	mlx_destroy_image(g->mlx, g->frame.img);
-	while (++i < 4)
-		mlx_destroy_image(g->mlx, g->wall_textures[i].img);
-	i = -1;
-	while (++i < 6)
-		mlx_destroy_image(g->mlx, g->idle_textures[i].img);
-	i = -1;
-	while (++i < 8)
-		mlx_destroy_image(g->mlx, g->walk_textures[i].img);
+	destroy_animation_textures(g, g->texture, 4);
+	destroy_animation_textures(g, g->idle_textures, IDLE_FRAMES);
+	destroy_animation_textures(g, g->idle_flower_textures, IDLE_FLOWER_FRAMES);
+	destroy_animation_textures(g, g->walk_textures, WALK_FRAMES);
+	destroy_animation_textures(g, g->walk_flower_textures, WALK_FLOWER_FRAMES);
+	destroy_animation_textures(g, g->flower_in_textures, FLOWER_IN_FRAMES);
+	destroy_animation_textures(g, g->flower_out_textures, FLOWER_OUT_FRAMES);
 	mlx_destroy_window(g->mlx, g->win);
 	mlx_destroy_display(g->mlx);
 	free(g->mlx);
