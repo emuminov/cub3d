@@ -16,9 +16,10 @@ HEADERS = ./src/libft/libft.h ./src/libft/ft_printf/ft_printf.h \
 
 SRCS_PARSING = $(addprefix parsing/, _arg_manager.c _keys_utils.c _parse_keys_colors.c _parse_keys_dir.c _parse_map.c _parse_map_utils.c _parsing.c _paths.c _utils.c extract_params_from_cub_file.c)
 SRCS_GAME_LOGIC = $(addprefix game_logic/, _controls_handling.c _doors.c _exit_game.c _mlx_img_utils.c _mouse.c _movement.c dda.c init_animation_textures.c init_game.c)
-SRCS_GRAPHICS = $(addprefix graphics/, _draw_utils.c _img_pixel_accessors.c _minimap.c render_3d_graphics.c _hands_animation.c)
+SRCS_GRAPHICS = $(addprefix graphics/, _draw_utils.c _img_pixel_accessors.c _minimap.c render_3d_graphics.c _hands_animation.c _animation_states_normal.c  _animation_states_flower.c)
 SRCS_MATH_FUNCS = $(addprefix math_funcs/, grid_bounds_checking.c grid_pixel_conversions.c rgb_int_conversions.c rgb_transformations.c utils.c vectorf1.c vectorf2.c vectori.c)
 SRCS =  main.c free.c $(SRCS_GAME_LOGIC) $(SRCS_GRAPHICS) $(SRCS_MATH_FUNCS) $(SRCS_PARSING)
+SRCS_NORM = $(addprefix $(SRC_DIR), $(SRCS)) 
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o)) 
 
 .SILENT:
@@ -42,8 +43,8 @@ libft :
 	@make --no-print-directory -C $(LIBFT_DIR)
 
 $(NAME) : $(OBJS)
-	@#echo "$(Red)Check de la norme :${NC}"
-	@#norminette $(SRC_DIR) $(HEADERS)
+	@echo "$(Red)Check de la norme :${NC}"
+	@norminette $(SRCS_NORM) $(HEADERS)
 	@echo -n "$(Red)Compilation de cub3d ..${NC}" && sleep 0.2
 	@echo -n "$(Red)\rCompilation de cub3d ...${NC}"
 	$(CC) $^ $(CFLAGS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -lm $(XFLAGS) $(ADDITIONAL_FLAGS) -o $(NAME) && sleep 0.1
