@@ -6,7 +6,7 @@
 /*   By: emuminov <emuminov@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:04:36 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 16:22:38 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:56:44 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,7 @@ int	init_animation_textures(t_game *g)
 		|| init_walk_textures(g) == 1
 		|| init_flower_out_textures(g) == 1
 		|| init_flower_in_textures(g) == 1)
-	{
-		destroy_textures_array(g, g->walk_flower_textures, IDLE_FRAMES);
-		destroy_textures_array(g, g->idle_flower_textures, IDLE_FLOWER_FRAMES);
-		destroy_textures_array(g, g->walk_textures, WALK_FRAMES);
-		destroy_textures_array(g, g->walk_flower_textures, WALK_FLOWER_FRAMES);
-		destroy_textures_array(g, g->flower_out_textures, FLOWER_OUT_FRAMES);
-		destroy_textures_array(g, g->flower_in_textures, FLOWER_IN_FRAMES);
 		return (1);
-	}
 	return (0);
 }
 

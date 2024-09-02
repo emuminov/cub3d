@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:11:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 18:40:33 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:50:12 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	start_game(int argc, char **argv)
 		return (free_game(&g), 1);
 	g.window_size = vectori(WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (init_wall_textures(&g) == 1)
-		return (1); // TODO: cleanup the memory
+		return (free_game(&g), 1);
 	if (init_animation_textures(&g) == 1)
-		return (1); // TODO: cleanup the memory
+		return (free_game(&g), 1);
 	if (create_window(&g) == 1)
 		return (free_game(&g), 1);
 	start_game_loop(&g);

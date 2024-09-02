@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:07:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 18:40:31 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:55:37 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,6 @@ void	free_config_p(t_config_parsing *conf)
 		close(conf->map_fd);
 }
 
-void	free_game(t_game *g)
-{
-	int	i;
-
-	i = -1;
-	free_tab(g->map);
-	if (!g->mlx)
-		return ;
-	mlx_destroy_image(g->mlx, g->frame.img);
-	while (++i < 4)
-		mlx_destroy_image(g->mlx, g->wall_textures[i].img);
-	if (g->win)
-		mlx_destroy_window(g->mlx, g->win);
-	mlx_destroy_display(g->mlx);
-	free(g->mlx);
-}
-
 void	destroy_textures_array(t_game *g, t_img *textures, int size)
 {
 	int	i;
@@ -61,6 +44,27 @@ void	destroy_textures_array(t_game *g, t_img *textures, int size)
 	while (i < size && textures[i].img)
 	{
 		mlx_destroy_image(g->mlx, textures[i].img);
+		textures[i].img = NULL;
 		i++;
 	}
+}
+
+void	free_game(t_game *g)
+{
+	free_tab(g->map);
+	if (!g->mlx)
+		return ;
+	if (g->frame.img)
+		mlx_destroy_image(g->mlx, g->frame.img);
+	destroy_textures_array(g, g->wall_textures, 4);
+	destroy_textures_array(g, g->idle_textures, IDLE_FRAMES);
+	destroy_textures_array(g, g->idle_flower_textures, IDLE_FLOWER_FRAMES);
+	destroy_textures_array(g, g->walk_textures, WALK_FRAMES);
+	destroy_textures_array(g, g->walk_flower_textures, WALK_FLOWER_FRAMES);
+	destroy_textures_array(g, g->flower_in_textures, FLOWER_IN_FRAMES);
+	destroy_textures_array(g, g->flower_out_textures, FLOWER_OUT_FRAMES);
+	if (g->win)
+		mlx_destroy_window(g->mlx, g->win);
+	mlx_destroy_display(g->mlx);
+	free(g->mlx);
 }

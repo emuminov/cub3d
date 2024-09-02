@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 18:39:35 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:01:27 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ int	init_wall_textures(t_game *g)
 	while (++i < 4)
 	{
 		if (init_texture(g, &g->wall_textures[i], g->conf.paths[i]) == 1)
-		{
-			destroy_textures_array(g, g->wall_textures, 4);
 			return (1);
-		}
 	}
 	return (0);
 }
