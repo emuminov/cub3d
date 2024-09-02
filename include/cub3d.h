@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/30 22:12:43 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:31:51 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include "constants.h"
+# include "textures_paths.h"
 # include <linux/limits.h>
 # include <stdbool.h>
 
@@ -113,7 +114,7 @@ typedef struct s_game
 	t_img			frame;
 	t_img			texture[4];
 	t_img			idle_textures[6];
-	char			idle_tex_path[6][33];
+	char			idle_tex_path[6][sizeof(IDLE_0)];
 	t_img			walk_textures[8];
 	char			walk_tex_path[8][33];
 	t_player		player;

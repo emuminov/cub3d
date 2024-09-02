@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:11:26 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/31 01:38:47 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:32:12 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	start_game(int argc, char **argv)
 	init_textures(&g);
 	init_animations_path(&g);
 	init_animations(&g, g.idle_textures, 6, g.idle_tex_path);
+	init_animations(&g, g.walk_textures, 8, g.walk_tex_path);
 	init_animations(&g, g.walk_textures, 8, g.walk_tex_path);
 	if (create_window(&g) == 1)
 		return (free_game(&g), 1);

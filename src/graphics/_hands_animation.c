@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:38:51 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/29 22:00:41 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/02 13:23:47 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ void	render_hands(t_game *g)
 	// static int	punch_frame;
 	static int	idle_frame;
 	static int	walk_frame;
+	static int	flower_idle_frame;
+	static int	flower_walk_frame;
+	static int	flower_in_frame;
+	static int	flower_out_frame;
 	static int	frame;
 
 	frame++;
@@ -55,7 +59,7 @@ void	render_hands(t_game *g)
 		render_idle_animation(g, walk_frame, g->walk_textures);
 		if (!(frame % 5))
 			walk_frame++;
-		if (walk_frame == LAST_WALK_FRAME)
+		if (walk_frame == WALK_FRAMES)
 			walk_frame = 0;
 	}
 	else
@@ -64,7 +68,7 @@ void	render_hands(t_game *g)
 		render_idle_animation(g, idle_frame, g->idle_textures);
 		if (!(frame % 10))
 			idle_frame++;
-		if (idle_frame == LAST_IDLE_FRAME)
+		if (idle_frame == IDLE_FRAMES)
 			idle_frame = 0;
 	}
 }

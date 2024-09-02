@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:37:31 by emuminov          #+#    #+#             */
-/*   Updated: 2024/08/31 22:18:48 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:31:50 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,4 @@
 # else 
 #  define SHOULD_HIDE_MOUSE 0
 # endif
-# define LAST_PUNCH_FRAME 10
-# define LAST_IDLE_FRAME 5
-# define LAST_WALK_FRAME 7
 #endif
