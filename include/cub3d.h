@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 13:30:40 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:58:43 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ typedef struct s_player
 	t_grid_coordsf	pos;
 	t_vectorf		dir;
 	t_vectorf		plane;
-	bool			should_punch;
+	bool			has_flower;
+	bool			takes_flower;
 }					t_player;
 
 typedef struct s_config
@@ -113,10 +114,23 @@ typedef struct s_game
 	void			*win;
 	t_img			frame;
 	t_img			texture[4];
-	t_img			idle_textures[6];
-	char			idle_tex_path[6][sizeof(IDLE_0)];
-	t_img			walk_textures[8];
-	char			walk_tex_path[8][33];
+	t_img			idle_textures[IDLE_FRAMES];
+	char			idle_tex_path[IDLE_FRAMES][sizeof(IDLE_0)];
+
+	t_img			walk_textures[WALK_FRAMES];
+	char			walk_tex_path[WALK_FRAMES][sizeof(WALK_0)];
+
+	t_img			idle_flower_textures[IDLE_FLOWER_FRAMES];
+	char			idle_flower_tex_path[IDLE_FLOWER_FRAMES][sizeof(IDLE_FLOWER_0)];
+
+	t_img			walk_flower_textures[WALK_FLOWER_FRAMES];
+	char			walk_flower_tex_path[WALK_FLOWER_FRAMES][sizeof(WALK_FLOWER_0)];
+
+	t_img			flower_out_textures[FLOWER_OUT_FRAMES];
+	char			flower_out_tex_path[FLOWER_OUT_FRAMES][sizeof(FLOWER_OUT_00)];
+
+	t_img			flower_in_textures[FLOWER_IN_FRAMES];
+	char			flower_in_tex_path[FLOWER_IN_FRAMES][sizeof(FLOWER_IN_00)];
 	t_player		player;
 	int				*len_tab;
 	t_dda_params	dp;
