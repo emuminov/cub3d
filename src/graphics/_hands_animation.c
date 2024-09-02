@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:38:51 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 14:06:04 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:18:59 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,41 +46,82 @@ void	render_hands(t_game *g)
 	// static int	punch_frame;
 	static int	idle_frame;
 	static int	walk_frame;
-	// static int	idle_flower_frame;
-	// static int	walk_flower_frame;
-	// static int	flower_in_frame;
-	// static int	flower_out_frame;
+	static int	idle_flower_frame;
+	static int	walk_flower_frame;
+	static int	flower_in_frame;
+	static int	flower_out_frame;
 	static int	frame;
 
 	frame++;
-	if (is_move_key_pressed(g))
+	if (g->player.takes_flower)
 	{
-		// if (g->player.has_flower)
-		// {
-		// 	idle_frame = 0;
-		// 	render_animation(g, walk_flower_frame, g->walk_flower_textures);
-		// 	if (!(frame % 5))
-		// 		walk_frame++;
-		// 	if (walk_frame == WALK_LAST)
-		// 		walk_frame = 0;
-		// }
-		// else
-		// {
+		if (g->player.has_flower)
+		{
+			g->player.has_flower = false;
+			idle_frame = 0;
+			render_animation(g, flower_in_frame, g->flower_in_textures);
+			if (!(frame % 5))
+				flower_in_frame++;
+			if (flower_in_frame == FLOWER_IN_LAST)
+			{
+				g->player.takes_flower = false;
+				flower_in_frame = 0;
+			}
+		}
+		else
+		{
+			g->player.has_flower = true;
+			idle_frame = 0;
+			render_animation(g, flower_out_frame, g->flower_out_textures);
+			if (!(frame % 5))
+				flower_out_frame++;
+			if (flower_out_frame == FLOWER_OUT_LAST)
+			{
+				g->player.takes_flower = false;
+				flower_out_frame = 0;
+			}
+		}
+	}
+	if (is_move_key_pressed(g) && !g->player.takes_flower)
+	{
+		if (g->player.has_flower)
+		{
+			idle_frame = 0;
+			render_animation(g, walk_flower_frame, g->walk_flower_textures);
+			if (!(frame % 5))
+				walk_flower_frame++;
+			if (walk_flower_frame == WALK_FLOWER_LAST)
+				walk_flower_frame = 0;
+		}
+		else
+		{
 			idle_frame = 0;
 			render_animation(g, walk_frame, g->walk_textures);
 			if (!(frame % 5))
 				walk_frame++;
 			if (walk_frame == WALK_LAST)
 				walk_frame = 0;
-		// }
+		}
 	}
 	else
 	{
-		walk_frame = 0;
-		render_animation(g, idle_frame, g->idle_textures);
-		if (!(frame % 10))
-			idle_frame++;
-		if (idle_frame == IDLE_LAST)
-			idle_frame = 0;
+		if (g->player.has_flower)
+		{
+			walk_frame = 0;
+			render_animation(g, idle_flower_frame, g->idle_flower_textures);
+			if (!(frame % 10))
+				idle_flower_frame++;
+			if (idle_flower_frame == IDLE_FLOWER_LAST)
+				idle_flower_frame = 0;
+		}
+		else
+		{
+			walk_frame = 0;
+			render_animation(g, idle_frame, g->idle_textures);
+			if (!(frame % 10))
+				idle_frame++;
+			if (idle_frame == IDLE_LAST)
+				idle_frame = 0;
+		}
 	}
 }
