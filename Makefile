@@ -1,7 +1,7 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -O2
 XFLAGS = -lXext -lX11
 
 OBJS_DIR = .obj/
