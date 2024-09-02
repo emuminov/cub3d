@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:38:51 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 15:18:59 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:30:38 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,32 +57,32 @@ void	render_hands(t_game *g)
 	{
 		if (g->player.has_flower)
 		{
-			g->player.has_flower = false;
 			idle_frame = 0;
 			render_animation(g, flower_in_frame, g->flower_in_textures);
 			if (!(frame % 5))
 				flower_in_frame++;
 			if (flower_in_frame == FLOWER_IN_LAST)
 			{
-				g->player.takes_flower = false;
 				flower_in_frame = 0;
+				g->player.takes_flower = false;
+				g->player.has_flower = false;
 			}
 		}
 		else
 		{
-			g->player.has_flower = true;
 			idle_frame = 0;
 			render_animation(g, flower_out_frame, g->flower_out_textures);
 			if (!(frame % 5))
 				flower_out_frame++;
 			if (flower_out_frame == FLOWER_OUT_LAST)
 			{
-				g->player.takes_flower = false;
 				flower_out_frame = 0;
+				g->player.takes_flower = false;
+				g->player.has_flower = true;
 			}
 		}
 	}
-	if (is_move_key_pressed(g) && !g->player.takes_flower)
+	else if (is_move_key_pressed(g))
 	{
 		if (g->player.has_flower)
 		{
