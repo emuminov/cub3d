@@ -1,0 +1,13 @@
+NO ./textures/wall.xpm
+WE ./textures/wall.xpm
+EA ./textures/wall.xpm
+SO ./textures/Stephane.xpm
+
+F 1,2,3
+C 40,2,3
+
+111
+1S1
+101
+1D1
+111
