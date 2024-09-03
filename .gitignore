@@ -1,6 +1,5 @@
 *.o
 *.a
-*.gen
 oui.cub
 .cache/
 .direnv/
