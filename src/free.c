@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:07:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 19:36:15 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/03 12:57:06 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ void	destroy_textures_array(t_game *g, t_img *textures, int size)
 	int	i;
 
 	i = 0;
-	while (i < size && textures[i].img)
+	while (i < size)
 	{
-		mlx_destroy_image(g->mlx, textures[i].img);
+		if (textures[i].img)
+			mlx_destroy_image(g->mlx, textures[i].img);
 		textures[i].img = NULL;
 		i++;
 	}
@@ -57,6 +58,8 @@ void	free_game(t_game *g)
 		return ;
 	if (g->frame.img)
 		mlx_destroy_image(g->mlx, g->frame.img);
+	if (g->door_texture.img)
+		mlx_destroy_image(g->mlx, g->door_texture.img);
 	destroy_textures_array(g, g->wall_textures, 4);
 	destroy_textures_array(g, g->idle_textures, IDLE_FRAMES);
 	destroy_textures_array(g, g->idle_flower_textures, IDLE_FLOWER_FRAMES);

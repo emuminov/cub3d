@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:10:17 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/27 19:14:51 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:45:11 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	parse_north_key(char *line, t_config_parsing *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(line), exit(1), 0);
+		return (free(line), free_config_p(conf), exit(1), 0);
 	}
 	i += 2;
 	while (line[i] == ' ')
@@ -51,7 +51,7 @@ int	parse_east_key(char *line, t_config_parsing *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(line), exit(1), 0);
+		return (free(line), free_config_p(conf), exit(1), 0);
 	}
 	i += 2;
 	while (line[i] == ' ')
@@ -74,7 +74,7 @@ int	parse_west_key(char *line, t_config_parsing *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(line), exit(1), 0);
+		return (free(line), free_config_p(conf), exit(1), 0);
 	}
 	i += 2;
 	while (line[i] == ' ')
@@ -97,7 +97,7 @@ int	parse_south_key(char *line, t_config_parsing *conf)
 	{
 		printf("\033[0;31m""Error\nDouble keys are not allowed!\n""\033[0m");
 		get_next_line(-1);
-		return (free(line), exit(1), 0);
+		return (free(line), free_config_p(conf), exit(1), 0);
 	}
 	i += 2;
 	while (line[i] == ' ')

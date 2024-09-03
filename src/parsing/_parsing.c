@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 16:31:55 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/29 23:12:03 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:52:57 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ void	parse(t_config_parsing *conf_p)
 	close(conf_p->map_fd);
 	if (conf_p->are_keys_validated == 0)
 		return (printf("\033[0;31m"
-				"Error\nThe map contains only keys!\n""\033[0m"), exit(1));
+				"Error\nThe map contains only keys!\n"
+				"\033[0m"), free_config_p(conf_p), exit(1));
 	if (conf_p->ceil_c[0] > 255 || conf_p->ceil_c[1] > 255
 		|| conf_p->ceil_c[2] > 255 || conf_p->floor_c[0] > 255
 		|| conf_p->floor_c[1] > 255 || conf_p->floor_c[2] > 255)
 		return (printf("\033[0;31m" \
 			"Error\nOne of the number is above the char limit!\n""\033[0m")
-			, exit(1));
+			, free_config_p(conf_p), exit(1));
 }
 
 int	check_map_errors(char *line, t_config_parsing *conf_p)

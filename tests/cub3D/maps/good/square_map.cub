@@ -1,13 +1,13 @@
-   WE                            ../tests/cub3D/wall/wolfenstein/eagle.xpm
-NO      ../tests/cub3D/wall/wolfenstein/grey_stone.xpm
+   WE                            ./tests/cub3D/wall/wolfenstein/eagle.xpm
+NO      ./tests/cub3D/wall/wolfenstein/grey_stone.xpm
 
 
 
-SO ../tests/cub3D/wall/wolfenstein/red_brick.xpm
+SO ./tests/cub3D/wall/wolfenstein/red_brick.xpm
 
 F   69, 222, 199
 
-EA ../tests/cub3D/wall/wolfenstein/mossy.xpm
+EA ./tests/cub3D/wall/wolfenstein/mossy.xpm
 
 
 
@@ -40,6 +40,3 @@ C 235, 198, 52
 100000000000000000000001
 100000000000000000000001
 111111111111111111111111
-
-
-

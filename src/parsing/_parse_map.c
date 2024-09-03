@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:12 by eandre            #+#    #+#             */
-/*   Updated: 2024/08/30 00:05:43 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/03 12:19:57 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	manage_inturn_fill(t_stack_stats *stack_s, t_vectori cur, int *inturn)
 	*inturn |= (cur.y == 0 || cur.y == stack_s->len_strs - 1 || cur.x == 0
 			|| cur.x == stack_s->len_tab[cur.y] - 1);
 	if ((cur.y + 1 < stack_s->len_strs && cur.x >= stack_s->len_tab[cur.y + 1])
-		|| (cur.y - 1 < stack_s->len_strs
+		|| (cur.y - 1 < stack_s->len_strs && cur.y - 1 >= 0
 			&& cur.x >= stack_s->len_tab[cur.y - 1]))
 		*inturn = 1;
 }

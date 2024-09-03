@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:51:03 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 16:42:01 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/03 11:14:45 by eandre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 int	exit_game(t_game *g)
 {
+	mlx_destroy_image(g->mlx, g->door_texture.img);
 	mlx_destroy_image(g->mlx, g->frame.img);
 	destroy_textures_array(g, g->wall_textures, 4);
 	destroy_textures_array(g, g->idle_textures, IDLE_FRAMES);
