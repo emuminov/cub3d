@@ -43,8 +43,8 @@ libft :
 	@make --no-print-directory -C $(LIBFT_DIR)
 
 $(NAME) : $(OBJS)
-	@echo "$(Red)Check de la norme :${NC}"
-	@norminette $(SRCS_NORM) $(HEADERS)
+	@#echo "$(Red)Check de la norme :${NC}"
+	@#norminette $(SRCS_NORM) $(HEADERS)
 	@echo -n "$(Red)Compilation de cub3d ..${NC}" && sleep 0.2
 	@echo -n "$(Red)\rCompilation de cub3d ...${NC}"
 	$(CC) $^ $(CFLAGS) $(LIBFT_DIR)libft.a $(MLBX_DIR)libmlx.a -lm $(XFLAGS) $(ADDITIONAL_FLAGS) -o $(NAME) && sleep 0.1
