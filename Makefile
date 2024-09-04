@@ -26,8 +26,8 @@ OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
 all : obj libft minilibx $(NAME)
 
-hide_mouse :
-	@$(MAKE) ADDITIONAL_FLAGS=-DHIDE_MOUSE
+show_mouse :
+	@$(MAKE) ADDITIONAL_FLAGS=-DSHOW_MOUSE
 
 obj :
 	@mkdir -p $(OBJS_DIR)
