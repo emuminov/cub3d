@@ -6,13 +6,23 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 00:54:48 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/02 15:52:57 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/04 22:16:48 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/math_funcs.h"
 #include "../minilibx-linux/mlx.h"
+
+int	center_mouse_in_window(int x, int y, t_game *g)
+{
+	const t_pixel_point	center = vectori((WINDOW_WIDTH / 2),
+			(WINDOW_HEIGHT / 2));
+
+	if (x != center.x && y != center.y)
+		mlx_mouse_move(g->mlx, g->win, center.x, center.y);
+	return (0);
+}
 
 void	toggle_mouse(t_game *g)
 {
@@ -55,7 +65,5 @@ int	handle_mouse(int x, int y, t_game *g)
 		g->player.plane = vectorf_rotate(g->player.plane,
 				-MOUSE_ROTATION_SPEED);
 	}
-	if (x != center.x && y != center.y)
-		mlx_mouse_move(g->mlx, g->win, center.x, center.y);
 	return (0);
 }

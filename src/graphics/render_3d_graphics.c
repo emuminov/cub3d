@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:42:10 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 19:32:06 by emuminov         ###   ########.fr       */
+/*   Updated: 2024/09/03 23:07:01 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ static void	get_texture(t_game *g, t_graphics *graph,
 	}
 	else if (g->dp.type_of_found_cell == door_closed)
 		graph->texture = &g->door_texture;
+	else
+		graph->texture = NULL;
 }
 
 static void	calcul_drawing_values(t_game *g, t_graphics *graph,

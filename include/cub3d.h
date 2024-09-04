@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:16:25 by eandre            #+#    #+#             */
-/*   Updated: 2024/09/02 19:46:10 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/04 22:06:20 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void				start_game_loop(t_game *g);
 int					create_window(t_game *g);
 int					init_animation_textures(t_game *g);
 int					init_wall_textures(t_game *g);
+int					center_mouse_in_window(int x, int y, t_game *g);
 
 // INIT
 int					start_game(int argc, char **argv);

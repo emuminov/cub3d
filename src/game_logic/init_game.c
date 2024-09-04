@@ -6,7 +6,7 @@
 /*   By: eandre <eandre@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:05:27 by emuminov          #+#    #+#             */
-/*   Updated: 2024/09/03 11:08:07 by eandre           ###   ########.fr       */
+/*   Updated: 2024/09/04 22:16:32 by emuminov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ int	init_wall_textures(t_game *g)
 
 static int	game_loop(t_game *g)
 {
+	int	x;
+	int	y;
+
+	mlx_mouse_get_pos(g->mlx, g->win, &x, &y);
+	center_mouse_in_window(x, y, g);
 	if (is_move_key_pressed(g))
 	{
 		resolve_rotation(g);
